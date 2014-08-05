@@ -1,0 +1,10 @@
+<template name="projectItem">
+    <tr>
+        <td>{{name}}</td>
+        <td>{{description}}</td>
+        <td>
+            <a class="btn btn-sm" href="{{pathFor 'projectEdit'}}">edit</a>
+            <a class="btn btn-sm" href="{{pathFor 'projectShow'}}">show</a>
+        </td>
+    </tr>
+</template>

@@ -1,0 +1,18 @@
+<template name="itemCategoryShow">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th> </th>
+            </tr>
+            <tr>
+                <td>{{_id}}</td>
+                <td>{{name}}</td>
+                <td>{{description}}</td>
+                <td><a href="{{pathFor 'itemCategoryEdit'}}">edit</a></td>
+            </tr>
+        </table>
+    </div>
+</template>

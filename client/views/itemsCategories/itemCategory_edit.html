@@ -1,0 +1,29 @@
+<template name="itemCategoryEdit">
+    <form class="main">
+        <div class="control-group">
+            <label class="control-label" for="name">Name</label>
+            <div class="controls">
+                <input name="itemCategoryName" type="text" value="{{name}}" placeholder="Name your ItemCategory" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <textarea name="itemCategoryDescription" type="text" value="{{description}}"></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" value="Submit" class="btn btn-primary submit" />
+            </div>
+        </div>
+        <hr />
+        <div class="control-group">
+            <div class="controls">
+                <a class="btn btn-danger delete" href="#">Delete ItemCategory</a>
+            </div>
+        </div>
+    </form>
+</template>

@@ -7,5 +7,17 @@ Meteor.publish('itemsCategories', function() {
 });
 
 Meteor.publish('projects', function() {
-    return Meteor.find({});
+    return Projects.find({});
+});
+
+Meteor.publish('singleProject', function(id) {
+    return id && Projects.find(id);
+});
+
+Meteor.publish('singleItemCategory', function(id) {
+    return id && ItemsCategories.find(id);
+});
+
+Meteor.publish('singleItem', function(id) {
+    return id && Items.find(id);
 });

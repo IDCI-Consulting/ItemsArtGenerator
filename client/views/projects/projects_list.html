@@ -1,0 +1,17 @@
+<template name="projectsList">
+    <h3>Projects list</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+                {{#each projects}}
+                    {{> projectItem}}
+                {{/each}}
+        </table>
+    </div>
+
+    <a href="{{pathFor 'projectCreate'}}">Create new</a>
+</template>

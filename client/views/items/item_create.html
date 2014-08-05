@@ -1,0 +1,32 @@
+<template name="itemCreate">
+    <form class="main">
+        <div class="control-group">
+            <label class="control-label" for="name">Name</label>
+            <div class="controls">
+                <input name="name" type="text" value="" placeholder="Name your item"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <textarea name="description" type="text" value=""></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Choose ItemsCategories</label>
+            <div class="controls">
+                {{#each categories}}
+                    <input type="checkbox" id="itemsCategories_{{_id}}" name="itemsCategories[]" value="{{_id}}">{{name}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+</template>

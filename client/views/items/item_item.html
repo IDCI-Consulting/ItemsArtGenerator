@@ -1,0 +1,13 @@
+<template name="itemItem">
+    <li>
+        <h5>{{name}}</h5>
+        <ul class="actions">
+            <a class="btn btn-xs btn-warning" href="{{pathFor 'itemEdit'}}">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a type="button" class="btn btn-xs btn-danger delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </ul>
+    </li>
+</template>

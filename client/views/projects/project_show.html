@@ -1,0 +1,15 @@
+<template name="projectShow">
+
+    <p>{{description}}</p>
+    <div class="categories">
+        {{#each itemsCategories}}
+            {{> itemCategoryItem}}
+        {{/each}}
+    </div>
+    <a class="btn btn-sm" href="{{pathFor 'itemCategoryCreate'}}">
+        <span class="icon-plus"></span>new itemCategory
+    </a>
+    <a class="btn btn-sm" href="{{pathFor 'itemCreate'}}">
+        <span class="icon-plus"></span>new item
+    </a>
+</template>

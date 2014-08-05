@@ -1,0 +1,10 @@
+<template name="itemCategoryItem">
+    <section>
+        <h4>{{name}}</h4>
+        <ul>
+            {{#each items}}
+                {{> itemItem}}
+            {{/each}}
+        </ul>
+    </section>
+</template>

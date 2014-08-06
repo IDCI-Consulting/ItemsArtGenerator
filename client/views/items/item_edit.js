@@ -1,3 +1,14 @@
+Template.itemEdit.helpers({
+    allCategories: function() {
+        return ItemsCategories.find();
+    },
+
+    itemHasCategory: function(itemCategories, categoryId) {
+        return _.contains(itemCategories, categoryId);
+    }
+});
+
+
 Template.itemEdit.events({
     'submit form': function(e, template) {
         e.preventDefault();

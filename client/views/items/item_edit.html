@@ -15,6 +15,20 @@
         </div>
 
         <div class="control-group">
+            <label class="control-label">Choose ItemsCategories</label>
+            <div class="controls">
+                {{#each allCategories}}
+                    {{#if itemHasCategory ../itemsCategories _id}}
+                        <input type="checkbox" id="itemsCategories_{{_id}}" name="itemsCategories[]" value="{{_id}}" checked="true">
+                    {{else}}
+                        <input type="checkbox" id="itemsCategories_{{_id}}" name="itemsCategories[]" value="{{_id}}">
+                    {{/if}}
+                    {{name}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="control-group">
             <div class="controls">
                 <input type="submit" value="Submit" class="btn btn-primary submit" />
             </div>

@@ -10,14 +10,14 @@ if (Projects.find().count() === 0) {
     });
 
 
-    ItemsCategories.insert({
+    ItemCategories.insert({
         name: 'Fiesta',
         description: 'Parties in my life',
         createdAt: new Date().getTime(),
         projectId: projectId
     });
 
-    ItemsCategories.insert({
+    ItemCategories.insert({
         name: 'Life',
         description: 'My life',
         createdAt: new Date().getTime(),

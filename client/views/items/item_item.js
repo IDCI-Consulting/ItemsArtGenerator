@@ -4,7 +4,7 @@ Template.itemItem.events({
 
         var currentProjectId = template.data.projectId;
 
-        if(confirm("Delete this itemCategory ?")) {
+        if(confirm("Delete this item ?")) {
             var currentItemId = this._id;
             Items.remove(currentItemId);
             Router.go('projectShow', {_id: currentProjectId});

@@ -2,15 +2,18 @@ Template.projectEdit.events({
     'submit form': function(e) {
         e.preventDefault();
 
-        var currentProjectId = this._id;
+        var currentProjectId = this._id,
+            formData = $(e.target).serializeArray(),
+            projectProperties = {};
 
-        var projectProperties = {
-            name: $(e.target).find('[name=name]').val(),
-            description: $(e.target).find('[name=description]').val()
-        }
-
-        Projects.update(currentProjectId, {$set: projectProperties}, function() {
-            Router.go('projectShow', {_id: currentProjectId});
+        Meteor.call('bindFormData', projectProperties, formData, function(error, result) {
+            if (error) {
+                throwError(error.reason);
+            } else {
+                Projects.update(currentProjectId, {$set: result}, function() {
+                    Router.go('projectShow', {_id: currentProjectId});
+                });
+            }
         });
     },
 

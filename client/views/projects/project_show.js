@@ -1,5 +1,5 @@
 Template.projectShow.helpers({
-    itemsCategories: function() {
-        return ItemsCategories.find({projectId: this._id});
+    itemCategories: function() {
+        return ItemCategories.find({projectId: this._id});
     }
 });

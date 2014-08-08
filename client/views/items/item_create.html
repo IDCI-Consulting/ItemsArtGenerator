@@ -15,10 +15,10 @@
         </div>
 
         <div class="control-group">
-            <label class="control-label">Choose ItemsCategories</label>
+            <label class="control-label">Choose Categories</label>
             <div class="controls">
                 {{#each categories}}
-                    <input type="checkbox" id="itemsCategories_{{_id}}" name="itemsCategories[]" value="{{_id}}">{{name}}
+                    <input type="checkbox" id="itemsCategories_{{_id}}" name="categories[]" value="{{_id}}" />{{name}}
                 {{/each}}
             </div>
         </div>

@@ -2,19 +2,25 @@ Template.itemCategoryCreate.events({
     'submit form': function(e, template) {
         e.preventDefault();
 
+        formData = $(e.target).serializeArray();
+
         var itemCategory = {
-            name: $(e.target).find('[name=name]').val(),
-            description: $(e.target).find('[name=description]').val(),
-            projectId: template.data,
-            createdAt: new Date().getTime()
+            projectId: template.data
         };
 
-        Meteor.call('itemCategory', itemCategory, function(error) {
+        Meteor.call('bindFormData', itemCategory, formData, function(error, result) {
             if (error) {
                 throwError(error.reason);
             } else {
-                Router.go('projectShow', {_id: template.data});
+                Meteor.call('itemCategory', result, function(error) {
+                    if (error) {
+                        throwError(error.reason);
+                    } else {
+                        Router.go('projectShow', {_id: template.data});
+                    }
+                });
             }
         });
-    }
+    },
+
 });

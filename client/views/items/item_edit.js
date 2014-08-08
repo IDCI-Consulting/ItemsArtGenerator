@@ -1,6 +1,6 @@
 Template.itemEdit.helpers({
     allCategories: function() {
-        return ItemsCategories.find();
+        return ItemCategories.find();
     },
 
     itemHasCategory: function(itemCategories, categoryId) {
@@ -13,17 +13,18 @@ Template.itemEdit.events({
     'submit form': function(e, template) {
         e.preventDefault();
 
-        var currentItemId = template.data._id;
-        var currentProjectId = template.data.projectId;
+        var currentItemId = template.data._id,
+            currentProjectId = template.data.projectId,
+            formData = $(e.target).serializeArray(),
+            itemProperties = {};
 
-        var itemProperties = {
-            name: $(e.target).find('[name=itemName]').val(),
-            description: $(e.target).find('[name=itemDescription]').val()
+        for(var i = 0, length = formData.length; i < length; i++) {
+            itemProperties[formData[i].name] = formData[i].value;
         }
-
-        Items.update(currentItemId, {$set: itemProperties}, function(error) {
+        console.log(itemProperties);
+        /*Items.update(currentItemId, {$set: itemProperties}, function(error) {
             Router.go('projectShow', {_id: currentProjectId});
-        });
+        });*/
     },
 
     'click .delete': function(e, template) {

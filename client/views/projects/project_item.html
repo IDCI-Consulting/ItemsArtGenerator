@@ -3,8 +3,15 @@
         <td>{{name}}</td>
         <td>{{description}}</td>
         <td>
-            <a class="btn btn-sm" href="{{pathFor 'projectEdit'}}">edit</a>
-            <a class="btn btn-sm" href="{{pathFor 'projectShow'}}">show</a>
+            <a class="btn btn-sm btn-warning" href="{{pathFor 'projectEdit'}}">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a type="button" class="btn btn-sm btn-danger delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            <a class="btn btn-sm" href="{{pathFor 'projectShow'}}">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
         </td>
     </tr>
 </template>

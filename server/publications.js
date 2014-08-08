@@ -2,8 +2,8 @@ Meteor.publish('items', function() {
     return Items.find({});
 });
 
-Meteor.publish('itemsCategories', function() {
-    return ItemsCategories.find({});
+Meteor.publish('itemCategories', function() {
+    return ItemCategories.find({});
 });
 
 Meteor.publish('projects', function() {
@@ -15,7 +15,7 @@ Meteor.publish('singleProject', function(id) {
 });
 
 Meteor.publish('singleItemCategory', function(id) {
-    return id && ItemsCategories.find(id);
+    return id && ItemCategories.find(id);
 });
 
 Meteor.publish('singleItem', function(id) {

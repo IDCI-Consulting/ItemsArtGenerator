@@ -1,4 +1,4 @@
-ItemsCategories = new Meteor.Collection('itemsCategories');
+ItemCategories = new Meteor.Collection('itemCategories');
 
 Meteor.methods({
     itemCategory: function(itemCategoryAttributes) {
@@ -6,6 +6,6 @@ Meteor.methods({
             createdAt: new Date().getTime()
         });
 
-        ItemsCategories.insert(itemCategory);
+        ItemCategories.insert(itemCategory);
     }
 });

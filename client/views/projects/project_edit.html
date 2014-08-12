@@ -26,5 +26,7 @@
             </div>
         </div>
     </form>
-    <a href="{{pathFor 'projects'}}">back to projects list</a>
+    <a class="btn btn-sm" href="{{pathFor 'projectShow' _id=this._id}}">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
 </template>

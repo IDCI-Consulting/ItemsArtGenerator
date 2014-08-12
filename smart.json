@@ -1,8 +1,8 @@
 {
   "packages": {
     "iron-router": {},
-    "iron-router-progress": {},
     "spin": {},
-    "bootstrap-3": {}
+    "zurb-foundation": {},
+    "foundation-icons-general": {}
   }
 }

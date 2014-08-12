@@ -10,7 +10,8 @@ Template.itemCreate.events({
 
         var formData = $(e.target).serializeArray(),
             item = {
-                categories: []
+                categories: [],
+                projectId: template.data
             };
 
         Meteor.call('bindFormData', item, formData, function(error, result) {

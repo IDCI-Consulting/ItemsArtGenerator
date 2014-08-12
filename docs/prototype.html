@@ -1,0 +1,58 @@
+<!-- page projectShow -->
+
+<html>
+    <head>
+        <!-- Information du head -->
+    </head>
+    <body>
+        <div class="itemArtGenerator">
+            <template name="header">
+                <div class="header">
+                    <header> <!-- Information du header--></header>
+                </div>
+            </template>
+
+            <template name="projectShow">
+                <div class="output">
+                    <template name="output">
+                        <div class="project-nav">
+                            <nav>
+                                <!--  afficher le titre du project -->
+                            </nav>
+                        </div>
+                        <div class="categories">
+                            {{#each itemCategories}}
+                                <template name="itemCategoryItem">
+                                    <!-- Information d'un itemCategory -->
+                                    <div class="items">
+                                        {{#each items}}
+                                            <template name="itemItem">
+                                                <!-- Information d'un item -->
+                                            </template>
+                                        {{/each}}
+                                    </div>
+                                </template>
+                            {{/each}}
+                        </div>
+
+                        <div class="editor">
+                            <template name="editor">
+                                <!-- Description du projet -->
+                                <div class="itemCategoriesList">
+                                    <template name="itemCategoriesList">
+                                        <!-- Liste des itemCategories -->
+                                    </template>
+                                </div>
+                                <div class="itemsList">
+                                    <template name="itemsList">
+                                        <!-- Liste des items -->
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </body>
+</html>

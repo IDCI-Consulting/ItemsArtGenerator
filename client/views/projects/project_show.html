@@ -1,15 +1,7 @@
 <template name="projectShow">
-    <h1>{{name}}</h1>
-    <p>{{description}}</p>
-    <div class="categories">
-        {{#each itemCategories}}
-            {{> itemCategoryItem}}
-        {{/each}}
+    <div class="output">
+        <div class="off-canvas-wrap" data-offcanvas>
+            {{> output}}
+        </div>
     </div>
-    <a class="btn btn-sm" href="{{pathFor 'itemCategoryCreate'}}">
-        <span class="icon-plus"></span>new itemCategory
-    </a>
-    <a class="btn btn-sm" href="{{pathFor 'itemCreate'}}">
-        <span class="icon-plus"></span>new item
-    </a>
 </template>

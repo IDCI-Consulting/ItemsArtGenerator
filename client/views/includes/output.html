@@ -1,0 +1,43 @@
+<template name="output">
+    <div class="inner-wrap">
+
+        <nav class="tab-bar">
+            <section class="tiny tab-bar-section">
+                <h1 class="title">{{name}}</h1>
+            </section>
+
+            <section class="right-small">
+                <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+            </section>
+        </nav>
+
+        <h3>Categories</h3>
+
+        <div class="categories">
+            {{#each itemCategories}}
+                {{> itemCategoryItem}}
+            {{/each}}
+        </div>
+
+        <div class="editor">
+            <aside class="right-off-canvas-menu">
+                {{> editor}}
+            </aside>
+        </div>
+
+        <div class="button-bar">
+            <ul class="button-group round">
+                <li>
+                    <a class="small button secondary" href="{{pathFor 'itemCategoryCreate'}}">new itemCategory</a>
+                </li>
+                <li>
+                    <a class="small button secondary" href="{{pathFor 'itemCreate'}}">new item</a>
+                </li>
+            </ul>
+        </div>
+                <hr />
+                <a class="btn btn-sm" href="{{pathFor 'projects'}}">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+    </div>
+</template>

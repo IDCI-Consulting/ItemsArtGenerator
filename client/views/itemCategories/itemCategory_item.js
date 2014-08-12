@@ -1,10 +1,6 @@
 Template.itemCategoryItem.helpers({
     items: function() {
-        return Items.find({projectId: this.projectId, itemCategories: { 
-            $in: [
-                this._id
-            ]
-        }});
+        return Items.find({projectId: this.projectId, categories: {$in: [this._id]}});
     }
 });
 

@@ -3,9 +3,13 @@
         <td>{{name}}</td>
         <td>{{description}}</td>
         <td>
-            <a class="btn btn-sm btn-warning" href="{{pathFor 'projectEdit'}}">edit</a>
-            <a type="button" class="btn btn-sm btn-danger delete">remove</a>
-            <a class="btn btn-sm" href="{{pathFor 'projectShow'}}">show</a>
+            <div class="button-bar">
+                <ul class="button-group round">
+                    <li><a class="tiny button secondary" href="{{pathFor 'projectEdit'}}">edit</a></li>
+                    <li><a class="tiny button alert delete">remove</a></li>
+                    <li><a class="tiny button" href="{{pathFor 'projectShow'}}">show</a></li>
+                </ul>
+            </div>
         </td>
     </tr>
 </template>

@@ -1,22 +1,29 @@
 <template name="itemEdit">
     <form class="main">
-        <div class="control-group">
-            <label class="control-label" for="name">Name</label>
-            <div class="controls">
-                <input name="itemName" type="text" value="{{name}}" placeholder="Name your Item" />
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="name">Name</label>
+                <input type="text" name="name" value="{{name}}" placeholder="Name your Item" />
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="description">Description</label>
-            <div class="controls">
-                <textarea name="itemDescription" type="text" value="{{description}}"></textarea>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="description">Description</label>
+                <textarea type="text" name="description" value="{{description}}"></textarea>
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label">Choose Categories</label>
-            <div class="controls">
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="options">Options</label>
+                <input type="text" name="options" value="{{options}}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Choose Categories</label>
                 {{#each allCategories}}
                     {{#if itemHasCategory ../itemsCategories _id}}
                         <input type="checkbox" id="itemsCategories_{{_id}}" name="categories[]" value="{{_id}}" checked="true">
@@ -28,15 +35,15 @@
             </div>
         </div>
 
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" value="Submit" class="btn btn-primary submit" />
+        <div class="row">
+            <div class="large-12 columns">
+                <input type="submit" value="Submit" class="button tiny round" />
             </div>
         </div>
         <hr />
-        <div class="control-group">
-            <div class="controls">
-                <a class="btn btn-danger delete" href="#">Delete Item</a>
+        <div class="row">
+            <div class="large-12 columns">
+                <a class="button tiny round alert" href="#">Delete Item</a>
             </div>
         </div>
     </form>

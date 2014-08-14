@@ -1,28 +1,35 @@
 <template name="itemCategoryEdit">
     <form class="main">
-        <div class="control-group">
-            <label class="control-label" for="name">Name</label>
-            <div class="controls">
-                <input name="name" type="text" value="{{name}}" />
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="name">Name</label>
+                <input type="text" name="name" value="{{name}}" placeholder="Name your Item" />
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="description">Description</label>
-            <div class="controls">
-                <textarea name="description" type="text" value="{{description}}"></textarea>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="description">Description</label>
+                <textarea type="text" name="description" value="{{description}}"></textarea>
             </div>
         </div>
 
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" value="Submit" class="btn btn-primary submit" />
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="options">Options</label>
+                <input type="text" name="options" value="{{options}}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <input type="submit" value="Submit" class="button tiny radius" />
             </div>
         </div>
         <hr />
-        <div class="control-group">
-            <div class="controls">
-                <a class="btn btn-danger delete" href="#">Delete ItemCategory</a>
+        <div class="row">
+            <div class="large-12 columns">
+                <a class="button tiny radius alert" href="#">Delete Item</a>
             </div>
         </div>
     </form>

@@ -1,0 +1,40 @@
+/*
+ItemsArtGenerator
+Author: Brahim BOUKOUFALLAH
+*/
+
+html, body {
+    height:100%;
+    width:100%;
+}
+
+body {
+    color: #666666;
+    background: url('images/quadrillage.jpg');
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+hr {
+    margin: 20px 50px;
+    background: #eee;
+    color: #666666;
+}
+
+.off-canvas-wrap {
+    height: 100%;
+}
+
+.inner-wrap {
+    height: 100%;
+}
+
+.actions>ul>li {
+    display: inline-block;
+}

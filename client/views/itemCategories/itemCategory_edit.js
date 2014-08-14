@@ -5,9 +5,9 @@ Template.itemCategoryEdit.events({
         var currentItemCategoryId = this._id,
             currentProjectId = this.projectId,
             formData = $(e.target).serializeArray(),
-            itemCategoryProperties = {};
+            itemCategory = {};
 
-        Meteor.call('bindFormData', itemCategoryProperties, formData, function(error, result) {
+        Meteor.call('bindFormData', itemCategory, formData, function(error, result) {
             if (error) {
                 throwError(error.reason);
             } else {

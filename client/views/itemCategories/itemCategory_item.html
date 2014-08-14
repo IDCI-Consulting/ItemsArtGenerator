@@ -1,26 +1,8 @@
 <template name="itemCategoryItem">
-    <section>
-        <h4>{{name}}</h4>
-            <div class="button-bar">
-                <ul class="actions">
-                    <li>
-                        <a class="tiny button alert success secondary" href="{{pathFor 'itemCategoryEdit'}}">
-                            edit
-                        </a>
-                    </li>
-                    <li>
-                        <a type="button" class="tiny button alert success secondary">
-                            delete
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        <ul>
-            <div class="items">
-                {{#each items}}
-                    {{> itemItem}}
-                {{/each}}
-            </div>
-        </ul>
-    </section>
+    <h4>{{name}}</h4>
+    <div class="items">
+        {{#each items}}
+            {{> itemItem}}
+        {{/each}}
+    </div>
 </template>

@@ -12,9 +12,7 @@ Template.projectCreate.events({
                 Meteor.call('project', result, function(error, id) {
                     if (error) {
                         throwError(error.reason);
-                    } else {
-                        Router.go('projectShow', {_id: id});
-                    }
+                    } else {}
                 });
             }
         });

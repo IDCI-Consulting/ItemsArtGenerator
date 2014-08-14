@@ -16,15 +16,20 @@ Template.itemEdit.events({
         var currentItemId = template.data._id,
             currentProjectId = template.data.projectId,
             formData = $(e.target).serializeArray(),
-            itemProperties = {};
+            item = {
+                categories: [],
+                projectId: currentProjectId
+            };
 
-        for(var i = 0, length = formData.length; i < length; i++) {
-            itemProperties[formData[i].name] = formData[i].value;
-        }
-        console.log(itemProperties);
-        /*Items.update(currentItemId, {$set: itemProperties}, function(error) {
-            Router.go('projectShow', {_id: currentProjectId});
-        });*/
+        Meteor.call('bindFormData', item, formData, function(error, result) {
+            if (error) {
+                throwError(error.reason);
+            } else {
+                Items.update(currentItemId, {$set: result}, function(error) {
+                    Router.go('projectShow', {_id: currentProjectId});
+                });
+            }
+        });
     },
 
     'click .delete': function(e, template) {

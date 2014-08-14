@@ -1,7 +1,43 @@
 <template name="editor">
     <ul class="off-canvas-list">
         <li><label>Editor</label></li>
-        <li><a href="#">Hari Seldon</a></li>
-        <li><a href="#">...</a></li>
+        <li>{{description}}</li>
     </ul>
+    <hr />
+    <ul class="off-canvas-list">
+        <li>
+            <div class="row">
+                <div class="small-2 columns">
+                    Categories
+                </div>
+                <div class="small-2 small-centered columns">
+                    <a class="tiny button radius success" data-reveal-id="itemCategoryCreate"></a>
+                </div>
+            </div>
+        </li>
+        <li>{{> itemCategoriesList}}</li>
+    </ul>
+    <hr />
+    <ul class="off-canvas-list">
+        <li>
+            <div class="row">
+                <div class="small-2 columns">
+                    Items
+                </div>
+                <div class="small-2  small-centered columns">
+                    <a class="tiny button radius success" data-reveal-id="itemCreate"></a>
+                </div>
+            </div>
+        </li>
+        <li>{{> itemsList}}</li>
+    </ul>
+
+    <div id="itemCategoryCreate" class="reveal-modal" data-reveal>
+        {{> itemCategoryCreate}}
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="itemCreate" class="reveal-modal" data-reveal>
+        {{> itemCreate}}
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
 </template>

@@ -1,17 +1,11 @@
 <template name="itemsList">
     {{#each items}}
-        <div class="row">
-            <div class="ten columns">
-                {{name}}
-            </div>
-            <div class="two columns">
-                <div class="actions">
-                    <ul>
-                        <li><a class="tiny button secondary" href="{{pathFor 'itemEdit'}}">Edit</a></li>
-                        <li><a href="#" class="tiny button alert delete">Remove</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <li>
+            {{name}}
+            <ul class="actions">
+                <li><a class="tiny button secondary" href="{{pathFor 'itemEdit'}}">Edit</a></li>
+                <li><a href="#" class="tiny button alert delete">Remove</a></li>
+            </ul>
+        </li>
     {{/each}}
 </template>

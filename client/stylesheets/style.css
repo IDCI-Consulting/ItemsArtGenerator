@@ -3,15 +3,9 @@ ItemsArtGenerator
 Author: Brahim BOUKOUFALLAH
 */
 
-html, body {
-    height:100%;
-    width:100%;
-}
-
-body {
-    color: #666666;
-    background: url('images/quadrillage.jpg');
-
+html{
+    height: 100%;
+    width: 100%;
 }
 
 body {
@@ -28,6 +22,7 @@ hr {
 }
 
 .off-canvas-wrap {
+    background-image: url('/images/grid.png');
     height: 100%;
 }
 
@@ -35,6 +30,16 @@ hr {
     height: 100%;
 }
 
-.actions>ul>li {
+#projectDescription {
+    height: 100px;
+    overflow: auto;
+}
+
+li {
+    color: #FFFFFF
+}
+
+.actions>li {
     display: inline-block;
 }
+

@@ -1,7 +1,7 @@
 <template name="editor">
     <ul class="off-canvas-list">
         <li><label>Editor</label></li>
-        <li>{{description}}</li>
+        <li id="projectDescription">{{description}}</li>
     </ul>
     <hr />
     <ul class="off-canvas-list">
@@ -11,11 +11,11 @@
                     Categories
                 </div>
                 <div class="small-2 small-centered columns">
-                    <a class="tiny button radius success" data-reveal-id="itemCategoryCreate"></a>
+                    <a class="tiny button radius success" data-reveal-id="itemCategoryCreate"><i class="fi-settings"></i></a>
                 </div>
             </div>
         </li>
-        <li>{{> itemCategoriesList}}</li>
+        {{> itemCategoriesList}}
     </ul>
     <hr />
     <ul class="off-canvas-list">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </li>
-        <li>{{> itemsList}}</li>
+        {{> itemsList}}
     </ul>
 
     <div id="itemCategoryCreate" class="reveal-modal" data-reveal>

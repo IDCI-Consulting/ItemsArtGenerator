@@ -5,7 +5,7 @@
       "iron-router": {},
       "spin": {},
       "zurb-foundation": {},
-      "foundation-icons-general": {}
+      "foundation-icons-gen-enclosed": {}
     },
     "packages": {
       "iron-router": {
@@ -20,13 +20,13 @@
       },
       "zurb-foundation": {
         "git": "https://github.com/MixinLabs/meteor-foundation.git",
-        "tag": "v5.3.0-0.1.0",
-        "commit": "dbab2c02a7c7e376c0fdddc1e699f2728d8e7b01"
+        "tag": "v5.3.3-0.1.0",
+        "commit": "f754d7758ae0a79e0573ddbf927382042f1a875c"
       },
-      "foundation-icons-general": {
-        "git": "https://github.com/IainShigeoka/meteor-foundation-icons-general.git",
+      "foundation-icons-gen-enclosed": {
+        "git": "https://github.com/IainShigeoka/meteor-foundation-icons-gen-enclosed.git",
         "tag": "v1.0.1",
-        "commit": "0d16dc77ffb76180d63dcbc58716bd1dbf7d66d5"
+        "commit": "05e89eea5c377ead581c28a13ac528db92c7fac0"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

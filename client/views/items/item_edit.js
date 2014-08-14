@@ -3,8 +3,10 @@ Template.itemEdit.helpers({
         return ItemCategories.find();
     },
 
-    itemHasCategory: function(itemCategories, categoryId) {
-        return _.contains(itemCategories, categoryId);
+    itemHasCategory: function(categories, categoryId) {
+        console.log(categories);
+        console.log(categoryId);
+        return _.contains(categories, categoryId);
     }
 });
 

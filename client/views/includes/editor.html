@@ -1,17 +1,22 @@
 <template name="editor">
     <ul class="off-canvas-list">
         <li><label>Editor</label></li>
+            <div class="row">
+                <div class="small-10 columns">
+                    <li>Description :</li>
+                </div>
+            </div>
         <li id="projectDescription">{{description}}</li>
     </ul>
     <hr />
     <ul class="off-canvas-list">
         <li>
             <div class="row">
-                <div class="small-2 columns">
+                <div class="small-4 columns">
                     Categories
                 </div>
-                <div class="small-2 small-centered columns">
-                    <a class="tiny button radius success" data-reveal-id="itemCategoryCreate"><i class="fi-settings"></i></a>
+                <div class="small-8 columns">
+                    <a class="tiny button radius success createItemCategory" href="{{pathFor 'itemCategoryCreate'}}"></a>
                 </div>
             </div>
         </li>
@@ -21,23 +26,19 @@
     <ul class="off-canvas-list">
         <li>
             <div class="row">
-                <div class="small-2 columns">
+                <div class="small-4 columns">
                     Items
                 </div>
-                <div class="small-2  small-centered columns">
-                    <a class="tiny button radius success" data-reveal-id="itemCreate"></a>
+                <div class="small-8 columns">
+                    <a class="tiny button radius success createItem" href="{{pathFor 'itemCreate'}}"></a>
                 </div>
             </div>
         </li>
         {{> itemsList}}
     </ul>
 
-    <div id="itemCategoryCreate" class="reveal-modal" data-reveal>
-        {{> itemCategoryCreate}}
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
-    <div id="itemCreate" class="reveal-modal" data-reveal>
-        {{> itemCreate}}
+    <div id="modalEditor" class="reveal-modal" data-reveal>
+        <div class="content"></div>
         <a class="close-reveal-modal">&#215;</a>
     </div>
 </template>

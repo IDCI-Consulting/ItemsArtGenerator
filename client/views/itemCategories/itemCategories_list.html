@@ -1,10 +1,12 @@
 <template name="itemCategoriesList">
     {{#each itemCategories}}
         <li>
-            {{name}}
+            <div class="name">
+                {{name}}
+            </div>
             <ul class="actions">
-                <li><a class="tiny button secondary" href="{{pathFor 'itemCategoryEdit'}}">Edit</a></li>
-                <li><a href="#" class="tiny button alert delete">Remove</a></li>
+                <li><a href="#" class="tiny button alert delete"></a></li>
+                <li><a class="tiny button secondary editItemCategory" href="{{pathFor 'itemCategoryEdit'}}"></a></li>
             </ul>
         </li>
     {{/each}}

@@ -2,20 +2,11 @@ Template.itemCategoryEdit.events({
     'submit form': function(e) {
         e.preventDefault();
 
-        var currentItemCategoryId = this._id,
-            currentProjectId = this.projectId,
-            formData = $(e.target).serializeArray(),
+        var formData = $(e.target).serializeArray(),
             itemCategory = {};
 
-        Meteor.call('bindFormData', itemCategory, formData, function(error, result) {
-            if (error) {
-                throwError(error.reason);
-            } else {
-                ItemCategories.update(currentItemCategoryId, {$set: result}, function(error) {
-                    Router.go('projectShow', {_id: currentProjectId});
-                });
-            }
-        });
+        var result = Meteor.bindFormData(itemCategory, formData);
+        ItemCategories.update(this._id, {$set: result});
     },
 
     'click .delete': function(e) {

@@ -1,10 +1,8 @@
 Items = new Meteor.Collection('items');
 
 Meteor.methods({
-    item: function(itemAttributes) {
-        var item = _.extend(_.pick(itemAttributes, 'name', 'description','options', 'projectId', 'categories'), {
-            createdAt: new Date().getTime()
-        });
+    insertItem: function(itemAttributes) {
+        var item = _.extend(_.pick(itemAttributes, 'name', 'description','options', 'categories', 'projectId'));
 
         Items.insert(item);
     }

@@ -9,5 +9,12 @@ Template.projectItem.events({
             Projects.remove(currentItemId);
             Router.go('projects');
         }
+    },
+
+    "click .editProject": function(e) {
+        e.preventDefault();
+
+        var instance = UI.renderWithData(Template.projectEdit, Projects.findOne(this._id));
+        Meteor.loadModal(instance);
     }
 })

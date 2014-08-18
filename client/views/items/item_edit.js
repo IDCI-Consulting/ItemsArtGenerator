@@ -4,8 +4,6 @@ Template.itemEdit.helpers({
     },
 
     itemHasCategory: function(categories, categoryId) {
-        console.log(categories);
-        console.log(categoryId);
         return _.contains(categories, categoryId);
     }
 });
@@ -15,23 +13,13 @@ Template.itemEdit.events({
     'submit form': function(e, template) {
         e.preventDefault();
 
-        var currentItemId = template.data._id,
-            currentProjectId = template.data.projectId,
-            formData = $(e.target).serializeArray(),
+        var formData = $(e.target).serializeArray(),
             item = {
                 categories: [],
-                projectId: currentProjectId
             };
 
-        Meteor.call('bindFormData', item, formData, function(error, result) {
-            if (error) {
-                throwError(error.reason);
-            } else {
-                Items.update(currentItemId, {$set: result}, function(error) {
-                    Router.go('projectShow', {_id: currentProjectId});
-                });
-            }
-        });
+        var result = Meteor.bindFormData(item, formData);
+        Items.update(this._id, {$set: result});
     },
 
     'click .delete': function(e, template) {

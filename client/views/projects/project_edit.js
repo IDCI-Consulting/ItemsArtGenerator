@@ -4,16 +4,11 @@ Template.projectEdit.events({
 
         var currentProjectId = this._id,
             formData = $(e.target).serializeArray(),
-            projectProperties = {};
+            project = {};
 
-        Meteor.call('bindFormData', projectProperties, formData, function(error, result) {
-            if (error) {
-                throwError(error.reason);
-            } else {
-                Projects.update(currentProjectId, {$set: result}, function() {
-                    Router.go('projectShow', {_id: currentProjectId});
-                });
-            }
+        var result = Meteor.bindFormData(project, formData);
+        Projects.update(currentProjectId, {$set: result}, function() {
+            Router.go('projectShow', {_id: currentProjectId});
         });
     },
 

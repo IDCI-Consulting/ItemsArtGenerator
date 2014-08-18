@@ -12,5 +12,12 @@ Template.itemCategoriesList.events({
             var currentItemCategoryId = this._id;
             ItemCategories.remove(currentItemCategoryId);
         }
+    },
+
+    "click .editItemCategory": function(e) {
+        e.preventDefault();
+
+        var instance = UI.renderWithData(Template.itemCategoryEdit, ItemCategories.findOne(this._id));
+        Meteor.loadModal(instance);
     }
 })

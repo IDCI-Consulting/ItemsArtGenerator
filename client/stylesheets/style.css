@@ -3,14 +3,7 @@ ItemsArtGenerator
 Author: Brahim BOUKOUFALLAH
 */
 
-html{
-    height: 100%;
-    width: 100%;
-}
-
-body {
-    margin: 0;
-    padding: 0;
+html, body{
     height: 100%;
     width: 100%;
 }
@@ -22,16 +15,25 @@ hr {
 }
 
 .off-canvas-wrap {
-    background-image: url('/images/grid.png');
     height: 100%;
+}
+
+.off-canvas-list>li {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .inner-wrap {
     height: 100%;
 }
 
+.output {
+    background-image: url('/images/grid.png');
+    height: 100%;
+}
+
 #projectDescription {
-    height: 100px;
+    height: 80px;
     overflow: auto;
 }
 
@@ -39,7 +41,28 @@ li {
     color: #FFFFFF
 }
 
-.actions>li {
-    display: inline-block;
+.name {
+    display: block;
+    width: 100px;
 }
 
+.actions, .actions>li {
+    float: right;
+    list-style-type:none;
+    margin-right: 10px;
+}
+
+.actions {
+    margin-right: 50px;
+    margin-top: -22px;
+}
+.actions>li {
+    height: 10px;
+    margin-bottom: 15px;
+}
+
+button.tiny, .button.tiny {
+    width: 15px;
+    height: 5px;
+    padding: 25px 25px 0px 0px;
+}

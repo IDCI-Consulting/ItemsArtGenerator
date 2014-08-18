@@ -5,16 +5,10 @@ Template.projectCreate.events({
         var project = {},
             formData = $(e.target).serializeArray();
 
-        Meteor.call('bindFormData', project, formData, function(error, result) {
-            if (error) {
+        var result = Meteor.bindFormData(project, formData);
+        Meteor.call('project', result, function(error, id) {
+            if (error)
                 throwError(error.reason);
-            } else {
-                Meteor.call('project', result, function(error, id) {
-                    if (error) {
-                        throwError(error.reason);
-                    } else {}
-                });
-            }
         });
     }
 });

@@ -12,11 +12,11 @@
                         {{> projectItem}}
                     {{/each}}
             </table>
-            <a class="tiny button radius success" href="#" data-reveal-id="projectCreate">create</a>
+            <a class="small button radius success createProject" href="#" data-reveal-id="projectCreate">create</a>
         </div>
     </div>
-    <div id="projectCreate" class="reveal-modal" data-reveal>
-        {{> projectCreate}}
+    <div id="modalEditor" class="reveal-modal" data-reveal>
+        <div class="content"></div>
         <a class="close-reveal-modal">&#215;</a>
     </div>
 </template>

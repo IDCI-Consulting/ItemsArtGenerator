@@ -12,5 +12,12 @@ Template.itemsList.events({
             var currentItemId = this._id;
             Items.remove(currentItemId);
         }
+    },
+
+    "click .editItem": function(e) {
+        e.preventDefault();
+
+        var instance = UI.renderWithData(Template.itemEdit, Items.findOne(this._id));
+        Meteor.loadModal(instance);
     }
 })

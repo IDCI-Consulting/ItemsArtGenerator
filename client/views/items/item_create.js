@@ -11,20 +11,14 @@ Template.itemCreate.events({
         var formData = $(e.target).serializeArray(),
             item = {
                 categories: [],
-                projectId: template.data._id
             };
 
-        Meteor.call('bindFormData', item, formData, function(error, result) {
+        var result = Meteor.bindFormData(item, formData);
+        Meteor.call('insertItem', result, function(error) {
             if (error) {
                 throwError(error.reason);
             } else {
-                Meteor.call('item', result, function(error) {
-                    if (error) {
-                        throwError(error.reason);
-                    } else {
-                        Router.go('projectShow', {_id: template.data._id});
-                    }
-                });
+                Router.go('projectShow', {_id: result.projectId});
             }
         });
     }

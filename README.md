@@ -18,4 +18,4 @@ It was built with [Meteor](http://meteor.com) as a companion app to [The Meteor 
 
     3/ Run the project
         $ cd /path/to/repository
-        $ meteor
+        $ mrt

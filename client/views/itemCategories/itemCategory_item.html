@@ -1,8 +1,7 @@
 <template name="itemCategoryItem">
-    <h4>{{name}}</h4>
-    <div class="items">
+    <ul data-color="#00ff00" data-label="{{name}}" data-shiftCoords="0,-1">
         {{#each items}}
             {{> itemItem}}
         {{/each}}
-    </div>
+    </ul>
 </template>

@@ -1,6 +1,6 @@
 Template.itemsList.helpers({
     items: function() {
-        return Items.find();
+        return Items.find({projectId: this._id});
     }
 });
 

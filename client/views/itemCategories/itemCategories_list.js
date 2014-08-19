@@ -1,6 +1,6 @@
 Template.itemCategoriesList.helpers({
     itemCategories: function() {
-        return ItemCategories.find();
+        return ItemCategories.find({projectId: this._id});
     }
 });
 

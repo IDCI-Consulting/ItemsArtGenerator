@@ -2,7 +2,10 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {},
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.8.2"
+      },
       "spin": {},
       "zurb-foundation": {},
       "foundation-icons-gen-enclosed": {}

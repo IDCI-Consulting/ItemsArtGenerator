@@ -2,15 +2,8 @@
     <div class="off-canvas-wrap" data-offcanvas>
         <div class="inner-wrap">
             <div class="output">
-                <h3>Categories</h3>
-
-                <div class="categories">
-                    {{#each itemCategories}}
-                        {{> itemCategoryItem}}
-                    {{/each}}
-                </div>
+                {{> outputSubway}}
             </div>
-
             <aside class="right-off-canvas-menu">
                 {{> editor}}
             </aside>

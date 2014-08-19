@@ -1,6 +1,6 @@
 <template name="subwayLineStations">
     {{#each stations}}
-         <li data-coords="1,{{index}}" data-marker="@station">
+         <li data-coords="{{index}},{{index}}">
             <h4>{{raw.name}}</h4>
         </li>
     {{/each}}

@@ -1,3 +1,6 @@
+/**
+ * SubwayLine
+ */
 SubwayLine = function(document) {
     this.document = document;
     this.stations = [];
@@ -8,10 +11,16 @@ SubwayLine = function(document) {
 
 SubwayLine.prototype = {
     /**
+     * Constructor
      */
     constructor: SubwayLine,
 
     /**
+     * Get option
+     *
+     * @param string key
+     * @param mixed _default
+     * @return mixed
      */
     getOption: function(key, _default) {
         _default = typeof _default !== 'undefined' ? _default : 'undefined';
@@ -30,6 +39,9 @@ SubwayLine.prototype = {
     },
 
     /**
+     * Add station
+     * @param station
+     * 
      */
     addStation: function(station) {
         this.stations.push(station);

@@ -1,3 +1,6 @@
+/**
+ * SubwayStation
+ */
 SubwayStation = function(document) {
     this.document = document;
     this.name = document.name;
@@ -10,10 +13,16 @@ SubwayStation = function(document) {
 
 SubwayStation.prototype = {
     /**
+     * Constructor
      */
     constructor: SubwayStation,
 
     /**
+     * Get option
+     *
+     * @param key
+     * @param _default
+     * @return mixed
      */
     getOption: function(key, _default) {
         _default = typeof _default !== 'undefined' ? _default : 'undefined';

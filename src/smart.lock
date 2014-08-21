@@ -8,7 +8,9 @@
       },
       "spin": {},
       "zurb-foundation": {},
-      "foundation-icons-gen-enclosed": {}
+      "mys-subway": {
+        "path": "../packages"
+      }
     },
     "packages": {
       "iron-router": {
@@ -26,10 +28,8 @@
         "tag": "v5.3.3-0.1.0",
         "commit": "f754d7758ae0a79e0573ddbf927382042f1a875c"
       },
-      "foundation-icons-gen-enclosed": {
-        "git": "https://github.com/IainShigeoka/meteor-foundation-icons-gen-enclosed.git",
-        "tag": "v1.0.1",
-        "commit": "05e89eea5c377ead581c28a13ac528db92c7fac0"
+      "mys-subway": {
+        "path": "../packages"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

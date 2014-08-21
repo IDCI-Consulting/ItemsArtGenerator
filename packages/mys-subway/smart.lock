@@ -1,0 +1,15 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "mys-subway": {
+        "path": "."
+      }
+    },
+    "packages": {
+      "mys-subway": {
+        "path": "."
+      }
+    }
+  }
+}

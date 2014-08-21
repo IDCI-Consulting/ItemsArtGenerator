@@ -3,12 +3,12 @@
 
     <div class="subway-map" data-columns="10" data-rows="10" data-cellSize="60" data-legendId="legend" data-textClass="text" data-gridNumbers="true" data-grid="true" data-lineWidth="16">
         {{#each lines}}
-            <ul data-color="#ff4db2" data-label="{{name}}"> 
-                {{> subwayLineStations}}
-            </ul>
+            {{> subwayLine}}
         {{/each}}
     </div>
 
-    <div id="legend"></div>
+    <div id="legend">
+        {{description}}
+    </div>
 
 </template>

@@ -18,8 +18,8 @@ SubwayLine.prototype = {
     /**
      * Get option
      *
-     * @param string key
-     * @param mixed _default
+     * @param key
+     * @param _default
      * @return mixed
      */
     getOption: function(key, _default) {

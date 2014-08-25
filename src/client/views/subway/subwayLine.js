@@ -4,7 +4,7 @@ Template.subwayLine.helpers({
 
         var items = Items.find({categories: {$in: [this._id]}}).fetch();
         _.each(items, function(item, index) {
-            var station = new SubwayStation(item);
+            var station = new SubwayStation(item.subway);
             subwayLine.addStation(station);
         });
 

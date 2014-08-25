@@ -31,7 +31,7 @@ SubwayStation.prototype = {
             return _default;
         }
 
-        var value = this.document.options[key];
+        var value = this.document.options.subway[key];
 
         if (!value) {
             return _default;

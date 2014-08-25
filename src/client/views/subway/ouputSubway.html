@@ -1,14 +1,12 @@
 <template name="outputSubway">
-    <h3>Categories</h3>
-
-    <div class="subway-map" data-columns="10" data-rows="10" data-cellSize="60" data-legendId="legend" data-textClass="text" data-gridNumbers="true" data-grid="true" data-lineWidth="16">
-        {{#each lines}}
-            {{> subwayLine}}
-        {{/each}}
-    </div>
-
-    <div id="legend">
-        {{description}}
-    </div>
-
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1600"
+            height="1000"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="xMinYMin meet"
+        ></svg>
+        <div id="subway-legend">
+            <ul></ul>
+        </div>
 </template>

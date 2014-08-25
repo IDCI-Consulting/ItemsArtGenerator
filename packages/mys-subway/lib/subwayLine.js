@@ -6,7 +6,7 @@ SubwayLine = function(document) {
     this.stations = [];
     this.name = document.name;
     this.description = document.description;
-    this.color = this.getOption('color', '#C8C8C8');
+    this.color = this.getOption('color', '#00FF00');
 }
 
 SubwayLine.prototype = {
@@ -29,7 +29,7 @@ SubwayLine.prototype = {
             return _default;
         }
 
-        var value = this.document.options[key];
+        var value = this.document.options.subway[key];
 
         if (!value) {
             return _default;

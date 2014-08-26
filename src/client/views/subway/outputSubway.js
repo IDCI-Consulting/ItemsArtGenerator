@@ -67,6 +67,26 @@ Template.outputSubway.rendered = function() {
                .enter()
                .append("line")
                 .attr("fill", "none")
+                .attr("x1", function(station, index) {
+                    return station.options.subway.cx;
+                })
+                .attr("y1", function(station, index) {
+                    return station.options.subway.cy;
+                })
+                .attr("x2", function(station, index) {
+                    if(stations[index+1] !== undefined) {
+                        return stations[index+1].options.subway.cx;
+                    } else {
+                        return station.options.subway.cx;
+                    }
+                })
+                .attr("y2", function(station, index) {
+                    if(stations[index+1] !== undefined) {
+                        return stations[index+1].options.subway.cy;
+                    } else {
+                        return station.options.subway.cy;
+                    }
+                })
                 .style("stroke", "rgb(6,120,155)")
             ;
 

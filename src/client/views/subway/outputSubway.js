@@ -1,9 +1,8 @@
 Template.outputSubway.helpers({
-    lines: function() {
-        return ItemCategories.find({projectId: this._id});
-    }
+lines: function() {
+return ItemCategories.find({projectId: this._id});
+}
 });
-
 Template.outputSubway.rendered = function() {
     var self = this;
     self.subwayLegend = self.find("#subway-legend > ul");
@@ -12,40 +11,67 @@ Template.outputSubway.rendered = function() {
     if(! self.handle) {
         self.handle = Deps.autorun(function() {
             var stations = Items.find({projectId: self.data._id}).fetch();
+            var outputSubway = d3.select("#output > svg");
+            var subwayLegend = d3.select("#subway-legend > ul");
 
             var moveStation = function(station) {
-                d3.select(this)
-                  .attr("cy", d3.event.y)
-                  .attr("cx", d3.event.x)
+                var moved = d3.select(d3.event.sourceEvent.originalTarget);
+                moved
+                    .select('circle#' + station._id)
+                    .attr('cx', d3.event.x)
+                    .attr('cy', d3.event.y)
                 ;
-                link
-                    .attr("x1", function(station, index) {
+            }
+
+            var drawStation = function(station) {
+                var dragStation = d3.behavior.drag()
+                    .on("drag", moveStation)
+                ;
+
+                station.call(dragStation);
+
+                station
+                    .attr('class', 'subway-station')
+                    .append("svg:circle")
+                    .attr("id", function(station) {
+                        return station._id;
+                    })
+                    .attr("cx", function(station) {
                         return station.options.subway.cx;
                     })
-                    .attr("y1", function(station, index) {
+                    .attr("cy", function(station) {
                         return station.options.subway.cy;
                     })
-                    .attr("x2", function(station, index) {
-                        if(stations[index+1] !== undefined) {
-                            return stations[index+1].options.subway.cx;
-                        } else {
-                            return station.options.subway.cx;
-                        }
+                    .attr("r", function(station) {
+                        return station.options.subway.r;
                     })
-                    .attr("y2", function(station, index) {
-                        if(stations[index+1] !== undefined) {
-                            return stations[index+1].options.subway.cy;
+                ;
+
+                station.append("text")
+                    .text(function(station) {
+                        return station.name;
+                    })
+                    .attr("x", function(station) {
+                        return station.options.subway.cx + 5;
+                    })
+                    .attr("y", function(station) {
+                        return station.options.subway.cy;
+                    })
+                    .attr("fill", "black")
+                    .attr("font-size", function(station) {
+                        return  "1em";
+                    })
+                    .attr("text-anchor", function(station, index) {
+                        if (index > 0) {
+                            return  "beginning";
                         } else {
-                            return station.options.subway.cy;
+                            return "end";
                         }
                     })
                 ;
             }
 
-            var drag = d3.behavior.drag()
-                .on("drag", moveStation);
-
-            d3.select("#subway-legend > ul").selectAll('li').data(ItemCategories.find({projectId: self.data._id}).fetch()).enter()
+            subwayLegend.selectAll('li').data(ItemCategories.find({projectId: self.data._id}).fetch()).enter()
                 .append("li")
                     .attr("id", function(line) {
                         return line._id;
@@ -60,66 +86,12 @@ Template.outputSubway.rendered = function() {
                         })
             ;
 
-             var link = d3.select("#output > svg").selectAll(".line")
-               .data(stations, function(station, index) {
-                    return index;
-                })
-               .enter()
-               .append("line")
-                .attr("fill", "none")
-                .attr("x1", function(station, index) {
-                    return station.options.subway.cx;
-                })
-                .attr("y1", function(station, index) {
-                    return station.options.subway.cy;
-                })
-                .attr("x2", function(station, index) {
-                    if(stations[index+1] !== undefined) {
-                        return stations[index+1].options.subway.cx;
-                    } else {
-                        return station.options.subway.cx;
-                    }
-                })
-                .attr("y2", function(station, index) {
-                    if(stations[index+1] !== undefined) {
-                        return stations[index+1].options.subway.cy;
-                    } else {
-                        return station.options.subway.cy;
-                    }
-                })
-                .style("stroke", "rgb(6,120,155)")
+            var station = outputSubway.selectAll('g.subway-station')
+                .data(stations)
+                .enter()
+                .append('g')
+                .call(drawStation)
             ;
-
-            d3.select("#output > svg").selectAll('circle').data(stations).enter()
-                .append('circle')
-                    .attr('id', function(station) {
-                        return station._id;
-                    })
-                .on("mouseout", function(station){
-                    station.options.subway.cx = d3.select(this).attr("cx");
-                    station.options.subway.cy = d3.select(this).attr("cy");
-                    console.log(station.options.subway);
-                    ;
-                })
-                    .attr('data-name', function(station) {
-                        return station.name;
-                    })
-                    .attr("r", function(station) {
-                        return station.options.subway.r;
-                    })
-                    .attr("cx", function(station) {
-                        return station.options.subway.cx;
-                    })
-                    .attr("cy", function(station) {
-                        return station.options.subway.cy;
-                    })
-                    .attr("class", "subway-station")
-                    .text(function(station) {
-                        return station.name;
-                    })
-                    .call(drag)
-            ;
-
         });
     }
 };

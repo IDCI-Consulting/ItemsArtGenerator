@@ -67,14 +67,16 @@ button.tiny, .button.tiny {
     padding: 25px 25px 0px 0px;
 }
 
-.subway-station {
+.subway-station:hover {
+    cursor: pointer;
+}
+.subway-station > circle {
     fill: rgba(180, 180, 180, 0.5);
     stroke: #555;
     stroke-width: 3;
 }
-.subway-station:hover {
+.subway-station:hover > circle {
     fill: rgba(80, 80, 180, 0.8);
-    cursor: pointer;
 }
 
 #subway-legend {

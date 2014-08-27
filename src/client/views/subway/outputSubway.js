@@ -1,8 +1,9 @@
 Template.outputSubway.helpers({
-lines: function() {
-return ItemCategories.find({projectId: this._id});
-}
+    lines: function() {
+        return ItemCategories.find({projectId: this._id});
+    }
 });
+
 Template.outputSubway.rendered = function() {
     var self = this;
     self.subwayLegend = self.find("#subway-legend > ul");
@@ -15,32 +16,40 @@ Template.outputSubway.rendered = function() {
             var subwayLegend = d3.select("#subway-legend > ul");
 
             var moveStation = function(station) {
-                var moved = d3.select(d3.event.sourceEvent.originalTarget);
+                station.options.subway.cx += d3.event.x;
+                station.options.subway.cy += d3.event.y;
+
+                var moved = d3.select(this);
                 moved
-                    .select('circle#' + station._id)
-                    .attr('cx', d3.event.x)
-                    .attr('cy', d3.event.y)
+                    .attr("transform", function(station) {
+                        station.options.subway.cx = d3.event.x;
+                        station.options.subway.cy = d3.event.y;
+                        return "translate("+ [station.options.subway.cx,station.options.subway.cy] + ")";
+                    })
                 ;
+            }
+
+            var insertNewStationCoords = function(station) {
+                Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
             }
 
             var drawStation = function(station) {
                 var dragStation = d3.behavior.drag()
                     .on("drag", moveStation)
+                    .on("dragend", insertNewStationCoords)
                 ;
 
-                station.call(dragStation);
-
                 station
+                    .call(dragStation)
                     .attr('class', 'subway-station')
+                    .attr("transform", function(station) {
+                        return "translate(" + [station.options.subway.cx,station.options.subway.cy] + ")";
+                    })
+                ;
+                station
                     .append("svg:circle")
                     .attr("id", function(station) {
                         return station._id;
-                    })
-                    .attr("cx", function(station) {
-                        return station.options.subway.cx;
-                    })
-                    .attr("cy", function(station) {
-                        return station.options.subway.cy;
                     })
                     .attr("r", function(station) {
                         return station.options.subway.r;
@@ -48,14 +57,14 @@ Template.outputSubway.rendered = function() {
                 ;
 
                 station.append("text")
+                    .attr("id", function(station) {
+                        return station._id;
+                    })
                     .text(function(station) {
                         return station.name;
                     })
                     .attr("x", function(station) {
-                        return station.options.subway.cx + 5;
-                    })
-                    .attr("y", function(station) {
-                        return station.options.subway.cy;
+                        return 10;
                     })
                     .attr("fill", "black")
                     .attr("font-size", function(station) {
@@ -71,6 +80,7 @@ Template.outputSubway.rendered = function() {
                 ;
             }
 
+            // Draw Legend
             subwayLegend.selectAll('li').data(ItemCategories.find({projectId: self.data._id}).fetch()).enter()
                 .append("li")
                     .attr("id", function(line) {
@@ -86,8 +96,13 @@ Template.outputSubway.rendered = function() {
                         })
             ;
 
+            // Draw Stations
             var station = outputSubway.selectAll('g.subway-station')
-                .data(stations)
+                .data(stations, function(station) {
+                    return station._id;
+                })
+            ;
+            station
                 .enter()
                 .append('g')
                 .call(drawStation)

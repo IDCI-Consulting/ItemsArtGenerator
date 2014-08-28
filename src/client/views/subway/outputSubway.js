@@ -7,59 +7,53 @@ Template.outputSubway.helpers({
 Template.outputSubway.rendered = function() {
     var self = this;
     self.subwayLegend = self.find("#subway-legend > ul");
-    self.node = self.find("#output > svg");
+    self.node = self.find("svg");
 
     if(! self.handle) {
         self.handle = Deps.autorun(function() {
             var stations = Items.find({projectId: self.data._id}).fetch();
-            var outputSubway = d3.select("#output > svg");
-            var subwayLegend = d3.select("#subway-legend > ul");
+            var outputSubway = d3.select("svg");
+            var subwayLegend = d3.select(self.subwayLegend);
 
-            var moveStation = function(station) {
-                station.options.subway.cx += d3.event.x;
-                station.options.subway.cy += d3.event.y;
+            /*
+             * Drag Station
+             */
+            var dragStation = d3.behavior.drag()
+                .on("dragstart", function() {
+                    d3.event.sourceEvent.stopPropagation();
+                })
+                .on("drag", function(station) {
+                    var subwayStation = new SubwayStation(station);
+                    subwayStation.moveStation(this);
+                })
+                .on("dragend", function(station) {
+                    var subwayStation = new SubwayStation(station);
+                    subwayStation.insertNewStationCoords(station);
+                })
+            ;
 
-                var moved = d3.select(this);
-                moved
-                    .attr("transform", function(station) {
-                        station.options.subway.cx = d3.event.x;
-                        station.options.subway.cy = d3.event.y;
-                        return "translate("+ [station.options.subway.cx,station.options.subway.cy] + ")";
-                    })
-                ;
-            }
-
-            var insertNewStationCoords = function(station) {
-                Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
-            }
-
+            /*
+             * Draw group circle & text for each station(item)
+             */
             var drawStation = function(station) {
-                var dragStation = d3.behavior.drag()
-                    .on("drag", moveStation)
-                    .on("dragend", insertNewStationCoords)
-                ;
-
                 station
                     .call(dragStation)
+                    .attr("id", function(station) {
+                        return station._id;
+                    })
                     .attr('class', 'subway-station')
                     .attr("transform", function(station) {
                         return "translate(" + [station.options.subway.cx,station.options.subway.cy] + ")";
                     })
                 ;
-                station
+                var circles = station
                     .append("svg:circle")
-                    .attr("id", function(station) {
-                        return station._id;
-                    })
                     .attr("r", function(station) {
                         return station.options.subway.r;
                     })
                 ;
 
                 station.append("text")
-                    .attr("id", function(station) {
-                        return station._id;
-                    })
                     .text(function(station) {
                         return station.name;
                     })
@@ -78,9 +72,12 @@ Template.outputSubway.rendered = function() {
                         }
                     })
                 ;
+                return circles;
             }
 
-            // Draw Legend
+            /*
+             * Draw a li for each line(itemCategory)
+             */
             subwayLegend.selectAll('li').data(ItemCategories.find({projectId: self.data._id}).fetch()).enter()
                 .append("li")
                     .attr("id", function(line) {
@@ -97,16 +94,38 @@ Template.outputSubway.rendered = function() {
             ;
 
             // Draw Stations
+            var updateStations = function(station) {
+                station
+                    .call(drawStation)
+                ;
+            }
+
+            var updateStation = function(station) {
+                station
+                    .attr("id", function(station) {
+                        return station._id;
+                    })
+                    .attr('class', 'subway-station')
+                    .attr("transform", function(station) {
+                        return "translate(" + [station.options.subway.cx,station.options.subway.cy] + ")";
+                    })
+                ;
+            }
+
             var station = outputSubway.selectAll('g.subway-station')
                 .data(stations, function(station) {
                     return station._id;
                 })
             ;
-            station
-                .enter()
-                .append('g')
-                .call(drawStation)
-            ;
+
+            updateStations(station.enter().append('g'));
+            updateStation(station.transition().duration(250).ease("cubic-out"));
+            station.exit().transition().duration(250).attr("r", 0).remove()
         });
     }
+};
+
+Template.outputSubway.destroyed = function () {
+    console.log("toto");
+    this.handle && this.handle.stop();
 };

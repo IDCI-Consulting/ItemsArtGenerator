@@ -1,14 +1,10 @@
 /**
  * SubwayStation
  */
-SubwayStation = function(document) {
-    this.document = document;
-    this.name = document.name;
-    this.description = document.description;
-    this.coords = this.getOption('coords', {
-        x: 2,
-        y: 8
-    })
+SubwayStation = function(object) {
+    this.name = object.name;
+    this.description = object.description;
+    this.options = object.options;
 }
 
 SubwayStation.prototype = {
@@ -18,25 +14,25 @@ SubwayStation.prototype = {
     constructor: SubwayStation,
 
     /**
-     * Get option
-     *
-     * @param key
-     * @param _default
-     * @return mixed
-     */
-    getOption: function(key, _default) {
-        _default = typeof _default !== 'undefined' ? _default : 'undefined';
+     * Insert new station's coords
+     * @param SubwayStation
+    */
+    insertNewStationCoords: function(station) {
+        Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
+    },
 
-        if (!key) {
-            return _default;
-        }
-
-        var value = this.document.options.subway[key];
-
-        if (!value) {
-            return _default;
-        }
-
-        return value;
+    /**
+     * Move station
+     * @param DOM
+    */
+    moveStation: function(document) {
+        var moved = d3.select(document);
+        moved
+            .attr("transform", function(station) {
+                station.options.subway.cx = d3.event.x;
+                station.options.subway.cy = d3.event.y;
+                return "translate("+ [station.options.subway.cx,station.options.subway.cy] + ")";
+            })
+        ;
     }
 }

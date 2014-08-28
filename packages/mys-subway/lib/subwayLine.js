@@ -16,29 +16,6 @@ SubwayLine.prototype = {
     constructor: SubwayLine,
 
     /**
-     * Get option
-     *
-     * @param key
-     * @param _default
-     * @return mixed
-     */
-    getOption: function(key, _default) {
-        _default = typeof _default !== 'undefined' ? _default : 'undefined';
-
-        if (!key) {
-            return _default;
-        }
-
-        var value = this.document.options.subway[key];
-
-        if (!value) {
-            return _default;
-        }
-
-        return value;
-    },
-
-    /**
      * Add station
      * @param station
      * 

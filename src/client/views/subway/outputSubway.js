@@ -22,10 +22,6 @@ Template.outputSubway.events({
     }
 });
 
-Template.outputSubway.showCreateStationForm = function () {
-    return Session.get("showCreateDialog");
-};
-
 Template.outputSubway.rendered = function() {
     var self = this;
     self.subwayLegend = self.find('#subway-legend > ul');
@@ -43,7 +39,7 @@ Template.outputSubway.rendered = function() {
              */
             var dragStation = d3.behavior.drag()
                 .on('dragstart', function(station) {
-                    station.options.subway.dragged = true;
+                    //station.options.subway.dragged = true;
                     var subwayStation = new SubwayStation(station);
                     subwayStation.setCurrentSelected(station);
                 })
@@ -52,7 +48,7 @@ Template.outputSubway.rendered = function() {
                     subwayStation.moveStation(this);
                 })
                 .on('dragend', function(station) {
-                    station.options.subway.dragged = false;
+                    station.options.subway.dragged = true;
                     var subwayStation = new SubwayStation(station);
                     subwayStation.insertNewStationCoords(station);
                 })
@@ -125,6 +121,7 @@ Template.outputSubway.rendered = function() {
              */
 
             var updateStations = function(stations) {
+                console.log("toto");
                 stations
                     .attr('id', function(station) {
                         return station._id;
@@ -132,6 +129,11 @@ Template.outputSubway.rendered = function() {
                     .attr('class', 'subway-station')
                     .attr('transform', function(station) {
                         return 'translate(' + [station.options.subway.cx, station.options.subway.cy] + ')';
+                    })
+                station
+                    .attr("fill", function(station) {
+                        if(station.options.subway.dragged)
+                            return "rgba(80, 80, 180, 0.8)";
                     })
                 ;
             }
@@ -155,6 +157,7 @@ Template.outputSubway.rendered = function() {
                 .append('g')
                 .call(drawStation)
             ;
+            var circles = Meteor.getD3Selection(outputSubway, 'g.subway-station > circle', stations);
 
             updateStations(station.transition().duration(500));
             station.exit().transition().duration(250).attr('r', 0).remove();

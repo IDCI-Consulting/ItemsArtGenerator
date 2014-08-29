@@ -19,7 +19,6 @@ SubwayStation.prototype = {
     */
     insertNewStationCoords: function(station) {
         Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
-        console.log(station.options.subway.dragged);
     },
 
     /**
@@ -27,8 +26,7 @@ SubwayStation.prototype = {
      * @param SubwayStation
      */
     setCurrentSelected: function(station) {
-        console.log(station.options.subway.dragged);
-        //Items.update({_id: station._id}, {$set: {options: {"subway.dragged": station.options.subway.dragged}}});
+        //Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
     },
 
     /**

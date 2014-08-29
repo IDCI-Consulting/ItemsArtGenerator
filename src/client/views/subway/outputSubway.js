@@ -4,6 +4,28 @@ Template.outputSubway.helpers({
     }
 });
 
+// Retrieve the x,y coords of double click
+var coordsRelativeToStation = function (element, e) {
+    var offset = $(element).offset();
+    var x = e.pageX - offset.left;
+    var y = e.pageY - offset.top;
+    return { cx: x, cy: y };
+};
+
+Template.outputSubway.events({
+    'dblclick .outputSubway': function (e, template) {
+        e.preventDefault();
+
+        var coords = coordsRelativeToStation(e.currentTarget, e);
+        var instance = UI.renderWithData(Template.itemCreate, {'projectId': template.data._id});
+        Meteor.loadModal(instance);
+    }
+});
+
+Template.outputSubway.showCreateStationForm = function () {
+    return Session.get("showCreateDialog");
+};
+
 Template.outputSubway.rendered = function() {
     var self = this;
     self.subwayLegend = self.find('#subway-legend > ul');
@@ -21,7 +43,7 @@ Template.outputSubway.rendered = function() {
              */
             var dragStation = d3.behavior.drag()
                 .on('dragstart', function(station) {
-                    station.options.subway.selected = 'yes';
+                    station.options.subway.dragged = true;
                     var subwayStation = new SubwayStation(station);
                     subwayStation.setCurrentSelected(station);
                 })
@@ -30,7 +52,7 @@ Template.outputSubway.rendered = function() {
                     subwayStation.moveStation(this);
                 })
                 .on('dragend', function(station) {
-                    station.options.subway.selected = 'no';
+                    station.options.subway.dragged = false;
                     var subwayStation = new SubwayStation(station);
                     subwayStation.insertNewStationCoords(station);
                 })
@@ -102,8 +124,8 @@ Template.outputSubway.rendered = function() {
              * Update g values with new data coords
              */
 
-            var updateStations = function(station) {
-                station
+            var updateStations = function(stations) {
+                stations
                     .attr('id', function(station) {
                         return station._id;
                     })
@@ -132,13 +154,6 @@ Template.outputSubway.rendered = function() {
                 .enter()
                 .append('g')
                 .call(drawStation)
-            ;
-
-            // Lines
-            var line = Meteor.getD3Selection(outputSubway, 'line.links', stations);
-            lines
-                .enter()
-                .append('line')
             ;
 
             updateStations(station.transition().duration(500));

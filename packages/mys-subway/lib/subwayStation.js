@@ -2,6 +2,7 @@
  * SubwayStation
  */
 SubwayStation = function(object) {
+    this._id = object._id;
     this.name = object.name;
     this.description = object.description;
     this.options = object.options;
@@ -14,33 +15,29 @@ SubwayStation.prototype = {
     constructor: SubwayStation,
 
     /**
-     * Insert new station's coords
-     * @param SubwayStation
-    */
-    insertNewStationCoords: function(station) {
-        Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
-    },
-
-    /**
-     * Set current selected station
-     * @param SubwayStation
+     * Set being changed on
      */
-    setCurrentSelected: function(station) {
-        //Items.update({_id: station._id}, {$set: {options: {subway: station.options.subway}}});
+    setBeingChangedOn: function() {
+        this.options.subway.dragged = true;
+        Items.update({_id: this._id}, {$set: {options: {subway: this.options.subway}}});
     },
 
     /**
-     * Move station
-     * @param DOM
-    */
-    moveStation: function(document) {
-        var moved = d3.select(document);
-        moved
-            .attr("transform", function(station) {
-                station.options.subway.cx = d3.event.x;
-                station.options.subway.cy = d3.event.y;
-                return "translate("+ [station.options.subway.cx,station.options.subway.cy] + ")";
-            })
-        ;
+     * Set being changed off
+     */
+    setBeingChangedOff: function() {
+        this.options.subway.dragged = false;
+        Items.update({_id: this._id}, {$set: {options: {subway: this.options.subway}}});
+    },
+
+    /**
+     * Moved station
+     * @param integer x
+     * @param integer y
+     */
+    movedStation: function(x, y) {
+        this.options.subway.cx = x;
+        this.options.subway.cy = y;
+        Items.update({_id: this._id}, {$set: {options: {subway: this.options.subway}}});
     }
 }

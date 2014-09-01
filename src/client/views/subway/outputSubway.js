@@ -39,18 +39,23 @@ Template.outputSubway.rendered = function() {
              */
             var dragStation = d3.behavior.drag()
                 .on('dragstart', function(station) {
-                    //station.options.subway.dragged = true;
                     var subwayStation = new SubwayStation(station);
-                    subwayStation.setCurrentSelected(station);
+                    subwayStation.setBeingChangedOn();
                 })
                 .on('drag', function(station) {
-                    var subwayStation = new SubwayStation(station);
-                    subwayStation.moveStation(this);
+                    var movingStation = d3.select(this);
+                    movingStation
+                        .attr("transform", function(station) {
+                            station.options.subway.cx = d3.event.x;
+                            station.options.subway.cy = d3.event.y;
+                            return "translate("+ [station.options.subway.cx,station.options.subway.cy] + ")";
+                        })
+                    ;
                 })
                 .on('dragend', function(station) {
-                    station.options.subway.dragged = true;
                     var subwayStation = new SubwayStation(station);
-                    subwayStation.insertNewStationCoords(station);
+                    subwayStation.setBeingChangedOff();
+                    subwayStation.movedStation(d3.event.sourceEvent.clientX, d3.event.sourceEvent.clientY);
                 })
             ;
 
@@ -119,21 +124,23 @@ Template.outputSubway.rendered = function() {
             /*
              * Update g values with new data coords
              */
-
             var updateStations = function(stations) {
-                console.log("toto");
                 stations
                     .attr('id', function(station) {
                         return station._id;
                     })
-                    .attr('class', 'subway-station')
+                    .attr('class', function(station) {
+                        var c = 'subway-station';
+                        if(station.options.subway.dragged) {
+                            c += ' dragged';
+                        }
+                        return c;
+                    })
                     .attr('transform', function(station) {
                         return 'translate(' + [station.options.subway.cx, station.options.subway.cy] + ')';
                     })
                 station
                     .attr("fill", function(station) {
-                        if(station.options.subway.dragged)
-                            return "rgba(80, 80, 180, 0.8)";
                     })
                 ;
             }
@@ -141,7 +148,6 @@ Template.outputSubway.rendered = function() {
             /*
              * Draw the outputSubway elements
              */
-
             // Legend
             var legend = Meteor.getD3Selection(subwayLegend, 'li', lines);
             legend

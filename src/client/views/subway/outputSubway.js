@@ -29,15 +29,58 @@ Template.outputSubway.rendered = function() {
 
     if(! self.handle) {
         self.handle = Deps.autorun(function() {
-            var stations = Items.find({projectId: self.data._id}).fetch();
+            // Retrieve DATA
+            var project = self.data;
             var lines = ItemCategories.find({projectId: self.data._id}).fetch();
-            var outputSubway = d3.select('svg');
-            var subwayLegend = d3.select(self.subwayLegend);
 
-            /*
-             * Drag Station
-             */
-            var dragStation = d3.behavior.drag()
+            // Transform DATA (subway->getSubwayLines() / subwayLine->getStations())
+            var subway = new Subway(project);
+            _.each(lines, function(lineValue, lineKey) {
+                var subwayLine = new SubwayLine(lineValue);
+                var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
+                _.each(stations, function(stationValue, stationKey) {
+                    var subwayStation = new SubwayStation(stationValue);
+                    var lines = ItemCategories.find({items: {$in: [subwayStation._id]}}).fetch();
+                    _.each(lines, function(lineValue, lineKey) {
+                        subwayStation.addSubwayLine(lineValue);
+                    });
+                    subwayLine.addStation(subwayStation);
+                });
+                subway.addSubwayLine(subwayLine);
+            });
+
+            var outputSubway = d3.select('svg');
+
+            // Drawing functions
+            var drawStation = function(subwayStation) {
+                var group = outputSubway.append('g').datum(subwayStation);
+                    group
+                        .attr('id', subwayStation.getId())
+                        .attr('class', 'subway-station')
+                        .attr('transform', 'translate(' + [subwayStation.getX(),subwayStation.getY()] + ')')
+                        .append('circle')
+                        .attr('r', subwayStation.getNodeRadius())
+                    ;
+            };
+
+            var drawLine = function(subwayLine) {
+                _.each(subwayLine.getStations(), function(value, key) {
+                    drawStation(value);
+                });
+            };
+
+            var drawSubway = function(subway) {
+                var subwayLegend = d3.select(self.subwayLegend);
+
+                _.each(subway.getSubwayLines(), function(value, key) {
+                    drawLine(value);
+                });
+            };
+
+            // Draw
+            drawSubway(subway);
+
+/*            var dragStation = d3.behavior.drag()
                 .on('dragstart', function(station) {
                     var subwayStation = new SubwayStation(station);
                     subwayStation.setBeingChangedOn();
@@ -46,127 +89,38 @@ Template.outputSubway.rendered = function() {
                     var movingStation = d3.select(this);
                     movingStation
                         .attr("transform", function(station) {
-                            station.options.subway.cx = d3.event.x;
-                            station.options.subway.cy = d3.event.y;
-                            return "translate("+ [station.options.subway.cx,station.options.subway.cy] + ")";
+                            return "translate("+ [d3.event.x, d3.event.y] + ")";
                         })
                     ;
                 })
                 .on('dragend', function(station) {
                     var subwayStation = new SubwayStation(station);
                     subwayStation.setBeingChangedOff();
-                    subwayStation.movedStation(d3.event.sourceEvent.clientX, d3.event.sourceEvent.clientY);
+                    subwayStation.movedStation(d3.event.sourceEvent.layerX, d3.event.sourceEvent.layerY);
                 })
             ;
 
-            /*
-             * Draw group circle & text for each station(item)
-             */
-            var drawStation = function(station) {
-                station
-                    .call(dragStation)
-                    .attr('id', function(station) {
-                        return station._id;
-                    })
-                    .attr('class', 'subway-station')
-                    .attr('transform', function(station) {
-                        return 'translate(' + [station.options.subway.cx,station.options.subway.cy] + ')';
-                    })
-                ;
-
-                station
-                    .append('svg:circle')
-                    .attr('r', function(station) {
-                        return station.options.subway.r;
-                    })
-                ;
-
-                station.append('text')
-                    .text(function(station) {
-                        return station.name;
-                    })
-                    .attr('x', function(station) {
-                        return 10;
-                    })
-                    .attr('fill', 'black')
-                    .attr('font-size', function(station) {
-                        return  '1em';
-                    })
-                    .attr('text-anchor', function(station, index) {
-                        if (index > 0) {
-                            return  'beginning';
-                        } else {
-                            return 'end';
-                        }
-                    })
-                ;
-            };
-
-            /*
-             * Draw a li for each line(itemCategory)
-             */
-            var drawLegend = function(line) {
-                line
-                    .attr('id', function(line) {
-                        return line._id;
-                    })
-                    .append('span')
-                    .style('background', function(line) {
-                        return line.options.subway.color;
-                    })
-                    .append('p')
-                    .text(function(line) {
-                        return line.name;
-                    })
-                ;
-            };
-
-            /*
-             * Update g values with new data coords
-             */
-            var updateStations = function(stations) {
-                stations
-                    .attr('id', function(station) {
-                        return station._id;
-                    })
-                    .attr('class', function(station) {
-                        var c = 'subway-station';
-                        if(station.options.subway.dragged) {
-                            c += ' dragged';
-                        }
-                        return c;
-                    })
-                    .attr('transform', function(station) {
-                        return 'translate(' + [station.options.subway.cx, station.options.subway.cy] + ')';
-                    })
-                station
-                    .attr("fill", function(station) {
-                    })
-                ;
-            }
-
-            /*
-             * Draw the outputSubway elements
-             */
-            // Legend
-            var legend = Meteor.getD3Selection(subwayLegend, 'li', lines);
-            legend
-                .enter()
-                .append('li')
-                .call(drawLegend)
+            var line = d3.svg.line()
+                .x(function(station) {
+                    return station.options.subway.cx;
+                })
+                .y(function(station) {
+                    return station.options.subway.cy;
+                })
+                .interpolate("cardinal")
             ;
 
-            // Stations
-            var station = Meteor.getD3Selection(outputSubway, 'g.subway-station', stations);
-            station
-                .enter()
-                .append('g')
-                .call(drawStation)
-            ;
-            var circles = Meteor.getD3Selection(outputSubway, 'g.subway-station > circle', stations);
-
-            updateStations(station.transition().duration(500));
-            station.exit().transition().duration(250).attr('r', 0).remove();
+            var drawLine = function(subwayLine) {
+                for(var i = 0, l = subwayLine.getStations(); i < l; i++) {
+                    outputSubway
+                        .append('path')
+                        .attr('class', 'subway-line')
+                        .attr('d', line(subwayLine.getStations()))
+                        .attr('stroke', subwayLine.options.subway.color)
+                    ;
+                }
+            };
+*/
         });
     }
 };

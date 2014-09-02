@@ -78,8 +78,16 @@ button.tiny, .button.tiny {
 .subway-station.dragged > circle {
     fill: rgba(180, 0, 0, 0.5);
 }
+.subway-station > text {
+    fill: black;
+    font-size : 1em;
+}
 .subway-station:hover > circle {
     fill: rgba(80, 80, 180, 0.8);
+}
+.subway-line {
+    fill: none;
+    stroke-width: 5;
 }
 
 #subway-legend {

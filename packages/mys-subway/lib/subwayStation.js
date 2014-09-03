@@ -19,7 +19,7 @@ SubwayStation.prototype = {
      * Get id
      */
     getId: function() {
-        return this.id;
+        return this._id;
     },
 
     /**
@@ -98,6 +98,24 @@ SubwayStation.prototype = {
         this.options.cy = y;
     },
 
+    /**
+     * Get project
+     */
+    getProject: function() {
+        return this.project;
+    },
+
+    /**
+     * Set project
+     * @param project
+     */
+    setProject: function(project) {
+        this.project = project;
+    },
+
+    /**
+     * Get node radius
+     */
     getNodeRadius: function() {
         return 10 + (this.lines.length - 1) * 3;
     },
@@ -117,6 +135,14 @@ SubwayStation.prototype = {
     },
 
     /**
+     * Is being changed
+     * @return boolean
+     */
+    isBeingChanged: function() {
+        return this.options.dragged;
+    },
+
+    /**
      * Moved station
      * @param integer x
      * @param integer y
@@ -128,16 +154,35 @@ SubwayStation.prototype = {
 
     /**
      * Persist station
-     * @param SubwayStation station
      */
-    persist: function(station) {
-        if (station._id === undefined) {
-            Items.insert({
+    persist: function() {
+        var linesIds = []
+        _.each(this.getSubwayLines(), function(value,key) {
+            linesIds.push(value.getId());
+        });
+
+        var projectId = this.project.getId();
+
+        if (this._id === undefined) {
+            this._id = Items.insert({
                 "name": this.name,
                 "description": this.description,
+                "options": {
+                    "subway": this.options
+                },
+                "categories": linesIds,
+                "projectId": projectId
             });
         } else {
-            Items.update(station._id, {$set: station});
+            var subwayStationProperties = {
+                name: this.name,
+                description: this.description,
+                options: {
+                    subway: this.options
+                },
+                categories: linesIds
+            };
+            Items.update(this._id, {$set: subwayStationProperties});
         }
     }
 }

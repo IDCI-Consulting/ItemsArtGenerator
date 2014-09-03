@@ -32,6 +32,7 @@ Template.outputSubway.rendered = function() {
             // Retrieve DATA
             var project = self.data;
             var lines = ItemCategories.find({projectId: self.data._id}).fetch();
+            var outputSubway = d3.select('svg').attr('id', 'outputSubway');
 
             // Transform DATA (subway->getSubwayLines() / subwayLine->getStations())
             var subway = new Subway(project);
@@ -42,65 +43,108 @@ Template.outputSubway.rendered = function() {
                     var subwayStation = new SubwayStation(stationValue);
                     var lines = ItemCategories.find({items: {$in: [subwayStation._id]}}).fetch();
                     _.each(lines, function(lineValue, lineKey) {
-                        subwayStation.addSubwayLine(lineValue);
+                        var subwayLine = new SubwayLine(lineValue)
+                        subwayStation.addSubwayLine(subwayLine);
+                        subwayStation.setProject(subway);
                     });
                     subwayLine.addStation(subwayStation);
                 });
                 subway.addSubwayLine(subwayLine);
             });
 
-            var outputSubway = d3.select('svg');
-
             // Drawing functions
-            var drawStation = function(subwayStation) {
-                var group = outputSubway.append('g').datum(subwayStation);
-                    group
-                        .attr('id', subwayStation.getId())
-                        .attr('class', 'subway-station')
-                        .attr('transform', 'translate(' + [subwayStation.getX(),subwayStation.getY()] + ')')
-                        .append('circle')
-                        .attr('r', subwayStation.getNodeRadius())
-                    ;
+
+            var lineFunction = d3.svg.line()
+                .x(function(subwayStation) {
+                    return subwayStation.getX();
+                })
+                .y(function(subwayStation) {
+                    return subwayStation.getY();
+                })
+                .interpolate("cardinal");
+
+            var updateStations = function(stations) {
+                stations
+                    .transition()
+                    .duration(500)
+                    .attr('class', function(subwayStation) {
+                        var c = 'subway-station';
+                        if(subwayStation.isBeingChanged())
+                            c += ' dragged';
+                        return c;
+                    })
+                    .attr('transform', function(subwayStation) {
+                        return 'translate(' + [subwayStation.getX(), subwayStation.getY()] + ')';
+                    })
+                ;
+            }
+
+            var drawStation = function(station) {
+                station
+                    .attr('class', 'subway-station')
+                    .attr('transform', function(subwayStation) {
+                        return 'translate(' + [subwayStation.getX(),subwayStation.getY()] + ')';
+                    })
+                    .call(dragStation)
+                    .append('svg:circle')
+                    .attr('r', function(subwayStation) {
+                        return subwayStation.getNodeRadius()
+                    })
+                ;
+                station
+                    .append('text')
+                    .text(function(subwayStation) {
+                        return subwayStation.getName();
+                    })
+                    .attr('x', 10)
             };
 
             var drawLine = function(subwayLine) {
-                _.each(subwayLine.getStations(), function(value, key) {
-                    drawStation(value);
-                });
+                outputSubway
+                    .append("path")
+                    .attr('class', 'subway-line')
+                    .attr("d", lineFunction(subwayLine.getStations()))
+                    .attr("stroke", subwayLine.getColor())
+                ;
+                var stations = outputSubway.selectAll('g.subway-station')
+                    .data(subwayLine.getStations())
+                ;
+                stations
+                    .enter()
+                    .append('g')
+                    .call(drawStation)
+                ;
+
             };
 
             var drawSubway = function(subway) {
                 var subwayLegend = d3.select(self.subwayLegend);
-
                 _.each(subway.getSubwayLines(), function(value, key) {
                     drawLine(value);
                 });
             };
 
-            // Draw
-            drawSubway(subway);
+            // Define drag behavior
 
-/*            var dragStation = d3.behavior.drag()
-                .on('dragstart', function(station) {
-                    var subwayStation = new SubwayStation(station);
+            var dragStation = d3.behavior.drag()
+                .on('dragstart', function(subwayStation) {
                     subwayStation.setBeingChangedOn();
+                    subwayStation.persist();
                 })
-                .on('drag', function(station) {
-                    var movingStation = d3.select(this);
-                    movingStation
-                        .attr("transform", function(station) {
-                            return "translate("+ [d3.event.x, d3.event.y] + ")";
-                        })
-                    ;
+                .on('drag', function(subwayStation) {
+                    d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
                 })
-                .on('dragend', function(station) {
-                    var subwayStation = new SubwayStation(station);
+                .on('dragend', function(subwayStation) {
+                    subwayStation.setX(d3.event.sourceEvent.layerX);
+                    subwayStation.setY(d3.event.sourceEvent.layerY);
                     subwayStation.setBeingChangedOff();
-                    subwayStation.movedStation(d3.event.sourceEvent.layerX, d3.event.sourceEvent.layerY);
+                    subwayStation.persist();
                 })
             ;
 
-            var line = d3.svg.line()
+            // Draw
+            drawSubway(subway);
+/*            var line = d3.svg.line()
                 .x(function(station) {
                     return station.options.subway.cx;
                 })

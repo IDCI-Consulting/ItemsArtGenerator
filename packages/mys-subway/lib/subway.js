@@ -65,5 +65,6 @@ Subway.prototype = {
      */
     getSubwayLines: function() {
         return this.lines;
-    }
+    },
+
 }

@@ -117,7 +117,7 @@ SubwayStation.prototype = {
      * Get node radius
      */
     getNodeRadius: function() {
-        return 10 + (this.lines.length - 1) * 3;
+        return 10;
     },
 
     /**

@@ -85,6 +85,9 @@ button.tiny, .button.tiny {
 .subway-station:hover > circle {
     fill: rgba(80, 80, 180, 0.8);
 }
+.subway-station.dragged:hover > circle {
+    fill: rgba(180, 0, 0, 0.5);
+}
 .subway-line {
     fill: none;
     stroke-width: 5;

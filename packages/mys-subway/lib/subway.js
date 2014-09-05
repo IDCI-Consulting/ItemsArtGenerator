@@ -5,7 +5,8 @@ Subway = function(object) {
     this._id = object._id;
     this.name = object.name;
     this.description = object.description;
-    this.lines = [];
+    this.lines = {};
+    this.stations = {};
 }
 
 Subway.prototype = {
@@ -16,6 +17,8 @@ Subway.prototype = {
 
     /**
      * Get id
+     *
+     * @return string
      */
     getId: function() {
         return this.id;
@@ -23,6 +26,7 @@ Subway.prototype = {
 
     /**
      * Set name
+     *
      * @param string
      */
     setName: function(name) {
@@ -31,6 +35,8 @@ Subway.prototype = {
 
     /**
      * Get name
+     *
+     * @return string
      */
     getName: function() {
         return this.name;
@@ -38,6 +44,7 @@ Subway.prototype = {
 
     /**
      * Set description
+     *
      * @param string
      */
     setDescription: function(description) {
@@ -46,25 +53,57 @@ Subway.prototype = {
 
     /**
      * Get description
+     *
+     * @return string
      */
     getDescription: function() {
         return this.description;
     },
 
     /**
-     * Add subwayLine
+     * Add line
+     *
      * @param line
      * 
      */
-    addSubwayLine: function(line) {
-        this.lines.push(line);
+    addLine: function(line) {
+        this.lines[line.getId()] = line;
     },
 
     /**
-     * Get subwayLines
+     * Get lines
+     *
+     * @return object
      */
-    getSubwayLines: function() {
+    getLines: function() {
         return this.lines;
     },
 
+    /**
+     * Get line
+     *
+     * @param id The SubwayLine id
+     * @return SubwayLine
+     */
+    getLine: function(id) {
+        return this.lines[id];
+    },
+
+    /**
+     * Add station
+     *
+     * @param SubwayStation station
+     */
+    addStation: function(station) {
+        this.stations[station.getId()] = station;
+    },
+
+    /**
+     * Get stations
+     *
+     * @return object
+     */
+    getStations: function() {
+        return this.stations;
+    }
 }

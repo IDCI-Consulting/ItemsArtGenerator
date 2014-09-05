@@ -3,7 +3,7 @@
  */
 SubwayLine = function(object) {
     this._id = object._id;
-    this.stations = [];
+    this.stations = {};
     this.name = object.name;
     this.description = object.description;
     this.options = object.options.subway;
@@ -17,6 +17,8 @@ SubwayLine.prototype = {
 
     /**
      * Get id
+     *
+     * @return string
      */
     getId: function() {
         return this._id;
@@ -24,6 +26,8 @@ SubwayLine.prototype = {
 
     /**
      * Get name
+     *
+     * @return string
      */
     getName: function() {
         return this.name;
@@ -31,6 +35,7 @@ SubwayLine.prototype = {
 
     /**
      * Set name
+     *
      * @param string
      */
     setName: function(name) {
@@ -39,6 +44,8 @@ SubwayLine.prototype = {
 
     /**
      * Get description
+     *
+     * @return string
      */
     getDescription: function() {
         return this.description;
@@ -46,6 +53,7 @@ SubwayLine.prototype = {
 
     /**
      * Set description
+     *
      * @param string
      */
     setDescription: function(description) {
@@ -54,32 +62,73 @@ SubwayLine.prototype = {
 
     /**
      * Add station
+     *
      * @param station
-     * 
      */
     addStation: function(station) {
-        this.stations.push(station);
+        this.stations[station.getId()] = station;
     },
 
     /**
      * Get stations
+     *
+     * @return object
      */
     getStations: function() {
         return this.stations;
     },
 
+    /*
+     * Get station
+     *
+     * @param number id
+     * @return SubwayStation
+     */
+    getStation: function(id) {
+        return this.stations[id];
+    },
+
     /**
      * Get color
+     *
+     * @return string
      */
     getColor: function() {
         return this.options.color;
     },
 
     /**
-     * Persist station
-     * @param SubwayStation station
+     * Get subway
+     *
+     * @return Subway
      */
-    persist: function(line) {
+    getSubway: function() {
+        return this.subway;
+    },
+
+    /**
+     * Set subway
+     *
+     * @param Subway
+     */
+    setSubway: function(subway) {
+        this.subway = subway;
+    },
+
+    /**
+     * Has station
+     *
+     * @param number id
+     * @return boolean
+     */
+    hasStation: function(id) {
+        return this.getStation(id) !== undefined;
+    },
+
+    /**
+     * Persist station
+     */
+    persist: function() {
         if (line._id === undefined) {
             ItemCategories.insert(line);
         } else {

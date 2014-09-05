@@ -74,6 +74,7 @@ button.tiny, .button.tiny {
     fill: rgba(180, 180, 180, 0.5);
     stroke: #555;
     stroke-width: 3;
+    z-index: 9999;
 }
 .subway-station.dragged > circle {
     fill: rgba(180, 0, 0, 0.5);
@@ -91,6 +92,7 @@ button.tiny, .button.tiny {
 .subway-line {
     fill: none;
     stroke-width: 5;
+    z-index: 1;
 }
 
 #subway-legend {

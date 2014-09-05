@@ -5,7 +5,7 @@ SubwayStation = function(object) {
     this._id = object._id;
     this.name = object.name;
     this.description = object.description;
-    this.lines = [];
+    this.lines = {};
     this.options = object.options.subway;
 }
 
@@ -17,6 +17,8 @@ SubwayStation.prototype = {
 
     /**
      * Get id
+     *
+     * @return string
      */
     getId: function() {
         return this._id;
@@ -24,6 +26,8 @@ SubwayStation.prototype = {
 
     /**
      * Get name
+     *
+     * @return string
      */
     getName: function() {
         return this.name;
@@ -31,6 +35,7 @@ SubwayStation.prototype = {
 
     /**
      * Set name
+     *
      * @param string name
      */
     setName: function(name) {
@@ -39,6 +44,8 @@ SubwayStation.prototype = {
 
     /**
      * Get description
+     *
+     * @return string
      */
     getDescription: function() {
         return this.description;
@@ -46,6 +53,7 @@ SubwayStation.prototype = {
 
     /**
      * Set description
+     *
      * @param string description
      */
     setDescription: function(description) {
@@ -54,22 +62,39 @@ SubwayStation.prototype = {
 
     /**
      * Add line
+     *
      * @param SubwayLine line
-     * 
      */
-    addSubwayLine: function(line) {
-        this.lines.push(line);
+    addLine: function(line) {
+        if(!line.hasStation(this.getId())) {
+            line.addStation(this);
+        }
+        this.lines[line.getId()] = line;
     },
 
     /**
      * Get lines
+     *
+     * @return array
      */
-    getSubwayLines: function() {
+    getLines: function() {
         return this.lines;
+    },
+
+    /*
+     * Get line
+     *
+     * @param number id
+     * @return SubwayLine
+     */
+    getLine: function(id) {
+        return this.lines[id];
     },
 
     /**
      * Get x
+     *
+     * @return number
      */
     getX: function() {
         return this.options.cx;
@@ -77,7 +102,8 @@ SubwayStation.prototype = {
 
     /**
      * Set x
-     * @param integer x
+     *
+     * @param number x
      */
     setX: function(x) {
         this.options.cx = x;
@@ -85,6 +111,8 @@ SubwayStation.prototype = {
 
     /**
      * Get y
+     *
+     * @return number
      */
     getY: function() {
         return this.options.cy;
@@ -92,29 +120,35 @@ SubwayStation.prototype = {
 
     /**
      * Set y
-     * @param integer y
+     *
+     * @param number y
      */
     setY: function(y) {
         this.options.cy = y;
     },
 
     /**
-     * Get project
+     * Get subway
+     *
+     * @return Subway
      */
-    getProject: function() {
-        return this.project;
+    getSubway: function() {
+        return this.subway;
     },
 
     /**
-     * Set project
-     * @param project
+     * Set subway
+     *
+     * @param Subway subway
      */
-    setProject: function(project) {
-        this.project = project;
+    setSubway: function(subway) {
+        this.subway = subway;
     },
 
     /**
      * Get node radius
+     *
+     * @return number
      */
     getNodeRadius: function() {
         return 10;
@@ -136,6 +170,7 @@ SubwayStation.prototype = {
 
     /**
      * Is being changed
+     *
      * @return boolean
      */
     isBeingChanged: function() {
@@ -144,8 +179,9 @@ SubwayStation.prototype = {
 
     /**
      * Moved station
-     * @param integer x
-     * @param integer y
+     *
+     * @param number x
+     * @param number y
      */
     movedStation: function(x, y) {
         this.options.cx = x;
@@ -153,15 +189,25 @@ SubwayStation.prototype = {
     },
 
     /**
+     * Has line
+     *
+     * @param number id
+     * @return boolean
+     */
+    hasLine: function(id) {
+        return this.getLine(id) !== undefined;
+    },
+
+    /**
      * Persist station
      */
     persist: function() {
         var linesIds = []
-        _.each(this.getSubwayLines(), function(value,key) {
+        _.each(this.getLines(), function(value,key) {
             linesIds.push(value.getId());
         });
 
-        var projectId = this.project.getId();
+        var projectId = this.subway.getId();
 
         if (this._id === undefined) {
             this._id = Items.insert({
@@ -180,7 +226,8 @@ SubwayStation.prototype = {
                 options: {
                     subway: this.options
                 },
-                categories: linesIds
+                categories: linesIds,
+                projectId: projectId
             };
             Items.update(this._id, {$set: subwayStationProperties});
         }

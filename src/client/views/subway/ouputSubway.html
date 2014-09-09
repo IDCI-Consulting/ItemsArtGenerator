@@ -1,12 +1,17 @@
 <template name="outputSubway">
     <div class="outputSubway">
         <svg
+            id="subway-svg"
             xmlns="http://www.w3.org/2000/svg"
             width="1600"
             height="1000"
             viewBox="0 0 1000 1000"
             preserveAspectRatio="xMinYMin meet"
-        ></svg>
+        >
+            {{#each list subway.stations}}
+                {{> station}}
+            {{/each}}
+        </svg>
 
         <div id="subway-legend">
             <ul></ul>

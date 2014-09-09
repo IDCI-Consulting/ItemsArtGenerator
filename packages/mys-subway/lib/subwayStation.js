@@ -84,7 +84,7 @@ SubwayStation.prototype = {
     /*
      * Get line
      *
-     * @param number id
+     * @param string id
      * @return SubwayLine
      */
     getLine: function(id) {
@@ -191,7 +191,7 @@ SubwayStation.prototype = {
     /**
      * Has line
      *
-     * @param number id
+     * @param string id
      * @return boolean
      */
     hasLine: function(id) {
@@ -213,9 +213,9 @@ SubwayStation.prototype = {
             this._id = Items.insert({
                 "name": this.name,
                 "description": this.description,
-                "options": {
-                    "subway": this.options
-                },
+                "options.subway":
+                    this.options
+                ,
                 "categories": linesIds,
                 "projectId": projectId
             });

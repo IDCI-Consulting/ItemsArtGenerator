@@ -21,7 +21,7 @@ Subway.prototype = {
      * @return string
      */
     getId: function() {
-        return this.id;
+        return this._id;
     },
 
     /**
@@ -105,5 +105,15 @@ Subway.prototype = {
      */
     getStations: function() {
         return this.stations;
-    }
+    },
+
+    /**
+     * Get station
+     *
+     * @param id The SubwayStation id
+     * @return SubwayStation
+     */
+    getStation: function(id) {
+        return this.stations[id];
+    },
 }

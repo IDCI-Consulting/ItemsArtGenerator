@@ -9,6 +9,7 @@ It was built with [Meteor](http://meteor.com) as a companion app to [The Meteor 
     1/ Install Meteor
         $ curl https://install.meteor.com | sh 
         // This will install the meteor executable onto your system and have you ready to use Meteor.
+        // /!\ A version lower than 9.0.0 is required, because the iron-router package is incompatible. That's the reason meteorite needs to be installed
 
     2/ Install Meteorite
         $ npm install -g meteorite

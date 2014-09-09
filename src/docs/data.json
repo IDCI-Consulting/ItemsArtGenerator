@@ -1,0 +1,29 @@
+{
+
+    "projects": [
+    { "name" : "LYON", "description" : "Metro de Lyon", "_id" : "gEAwunCtTe7FMABhp" }
+],
+
+    "categories": [
+    { "_id" : "xbFQwCqHhd3By4qWS", "createdAt" : 1408954040155, "description" : "Ligne A du métro de Lyon", "items" : [ "QH4kevryRA9GumjNG", "aZRq4K3y6h9sWtNBD", "dSqCnSQpBE4TbkdpB", "PaTmfc6bnESCAL4Mr", "hK3826BtR8WqgoqnB", "icigWBA4TLaHZc6Bi", "iSwto3QQreCEM2euk", "n7ZHSWqXigdnxNWrQ", "Rzj2djtkM78tJTz7c", "cZhZNvJPDcpmpanPj", "WcHmWp8f5fbBwJSfT", "ZkGzkCYHJsiXmMdJz", "S9fQBaS8A84r5Hm9G", "TgiHJbnAQoutFzkGq" ], "name" : "Ligne A", "options" : { "subway" : { "color" : "#FF0000" }, "text_cloud" : {  } }, "projectId" : "gEAwunCtTe7FMABhp" }
+    { "_id" : "3ogpR4htWQq2pj6AP", "description" : "Ligne B du métro de Lyon", "items" : [  "TgiHJbnAQoutFzkGq" ], "name" : "Ligne B", "options" : { "subway" : { "color" : "#0000FF" }, "text_cloud" : {  } }, "projectId" : "gEAwunCtTe7FMABhp" }
+],
+
+    "items": [
+        { "_id" : "QH4kevryRA9GumjNG", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Perrache", "options" : { "subway" : { "r" : 10, "dragged" : false, "cx" : 79, "cy" : 267 } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "aZRq4K3y6h9sWtNBD", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Ampère", "options" : { "subway" : { "cx" : 84, "cy" : 185, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "dSqCnSQpBE4TbkdpB", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Bellecour", "options" : { "subway" : { "cx" : 93, "cy" : 136, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "PaTmfc6bnESCAL4Mr", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Cordeliers", "options" : { "subway" : { "cx" : 114, "cy" : 89, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "hK3826BtR8WqgoqnB", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Hotel de ville - Louis Pradel", "options" : { "subway" : { "cx" : 153, "cy" : 45, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "icigWBA4TLaHZc6Bi", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Foch", "options" : { "subway" : { "r" : 10, "dragged" : false, "cx" : 232, "cy" : 59 } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "iSwto3QQreCEM2euk", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Masséna", "options" : { "subway" : { "r" : 10, "dragged" : false, "cx" : 307, "cy" : 68 } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "TgiHJbnAQoutFzkGq", "categories" : [  "xbFQwCqHhd3By4qWS",  "3ogpR4htWQq2pj6AP" ], "description" : "Arrêt de la ligne A", "name" : "Charpennes", "options" : { "subway" : { "cx" : 111, "cy" : 256, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "n7ZHSWqXigdnxNWrQ", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "République - Villeurbanne", "options" : { "subway" : { "cx" : 368, "cy" : 88, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "Rzj2djtkM78tJTz7c", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Gratte-Ciel", "options" : { "subway" : { "cx" : 420, "cy" : 104, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "cZhZNvJPDcpmpanPj", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Flachet", "options" : { "subway" : { "cx" : 519, "cy" : 126, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "WcHmWp8f5fbBwJSfT", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Cusset", "options" : { "subway" : { "cx" : 550, "cy" : 154, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "ZkGzkCYHJsiXmMdJz", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "L.Bonnevay", "options" : { "subway" : { "cx" : 581, "cy" : 197, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "S9fQBaS8A84r5Hm9G", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Vaulx-en-Velin La Soie", "options" : { "subway" : { "cx" : 616, "cy" : 270, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" }
+    ]
+
+}

@@ -92,6 +92,24 @@ SubwayStation.prototype = {
     },
 
     /**
+     * Get options
+     *
+     * @return object
+     */
+    getOptions: function() {
+        return this.options;
+    },
+
+    /**
+     * Set options
+     *
+     * @param object options
+     */
+    setOptions: function(options) {
+        this.options = options;
+    },
+
+    /**
      * Get x
      *
      * @return number

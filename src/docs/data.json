@@ -23,7 +23,8 @@
         { "_id" : "cZhZNvJPDcpmpanPj", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Flachet", "options" : { "subway" : { "cx" : 519, "cy" : 126, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
         { "_id" : "WcHmWp8f5fbBwJSfT", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Cusset", "options" : { "subway" : { "cx" : 550, "cy" : 154, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
         { "_id" : "ZkGzkCYHJsiXmMdJz", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "L.Bonnevay", "options" : { "subway" : { "cx" : 581, "cy" : 197, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
-        { "_id" : "S9fQBaS8A84r5Hm9G", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Vaulx-en-Velin La Soie", "options" : { "subway" : { "cx" : 616, "cy" : 270, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" }
+        { "_id" : "S9fQBaS8A84r5Hm9G", "categories" : [  "xbFQwCqHhd3By4qWS" ], "description" : "Arrêt de la ligne A", "name" : "Vaulx-en-Velin La Soie", "options" : { "subway" : { "cx" : 616, "cy" : 270, "r" : 10, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" },
+        { "_id" : "aghJJPQ9PdfYoN8Jc", "categories" : [ "3ogpR4htWQq2pj6AP" ], "description" : "Arrêt de la ligne B", "name" : "Brotteaux", "options" : { "subway" : { "cx" : 111, "cy" : 560, "dragged" : false } }, "projectId" : "gEAwunCtTe7FMABhp" }
     ]
 
 }

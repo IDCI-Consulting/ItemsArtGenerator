@@ -8,12 +8,11 @@
             viewBox="0 0 1000 1000"
             preserveAspectRatio="xMinYMin meet"
         >
-            {{#each lines}}
-                {{> line}}
+            {{#each stations}}
+                {{> station}}
             {{/each}}
+
+            {{> legend}}
         </svg>
-        <div id="subway-legend">
-            <ul></ul>
-        </div>
     </div>
 </template>

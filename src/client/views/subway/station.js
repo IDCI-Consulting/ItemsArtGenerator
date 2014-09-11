@@ -1,5 +1,6 @@
-Template.station.rendered = function() {
+var ObserveStation;
 
+Template.station.rendered = function() {
     var subwayStation = this.data;
     var selectorId = '#' + subwayStation._id;
     var outputSubway = d3.select('#subway-svg');
@@ -19,16 +20,16 @@ Template.station.rendered = function() {
 
     var draw = function(subwayStation) {
         outputSubway
-            .selectAll('#' + subwayStation._id)
-            .transition()
-            .duration(500)
-            .attr('class', function(subwayStation) {
-                var c = 'subway-station';
-                if(subwayStation.options.subway.dragged) {
-                    c += ' dragged';
-                }
-                return c;
-            })
+        .selectAll('#' + subwayStation._id)
+        .transition()
+        .duration(500)
+        .attr('class', function(subwayStation) {
+            var c = 'subway-station';
+            if(subwayStation.options.subway.dragged) {
+                c += ' dragged';
+            }
+            return c;
+        })
             .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
         ;
     };
@@ -55,7 +56,6 @@ Template.station.rendered = function() {
         .text(subwayStation.name)
         .attr('x', 10)
     ;
-
     Items.find({}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway
@@ -72,4 +72,11 @@ Template.station.rendered = function() {
             draw(oldDocument);
         }
     });
+};
+
+// Stop observing station when the template is destroyed
+Template.station.destroyed = function(){
+    if(ObserveStation) {
+        ObserveStation.stop();
+    }
 };

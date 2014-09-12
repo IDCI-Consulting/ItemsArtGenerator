@@ -8,7 +8,7 @@ Template.line.helpers({
 
 Template.line.rendered = function() {
     var subwayLine = this.data;
-    var id = "line-a" + subwayLine._id;
+    var id = "line-" + subwayLine._id;
     var selectorId = '#' + id;
     var outputSubway = d3.select('#subway-svg');
 
@@ -27,7 +27,7 @@ Template.line.rendered = function() {
     var draw = function(subwayLine) {
         var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
         outputSubway
-            .selectAll('#line-a' + subwayLine._id)
+            .selectAll('#line-' + subwayLine._id)
             .transition()
             .duration(500)
             .attr('d', function(subwayLine) {
@@ -59,15 +59,11 @@ Template.line.rendered = function() {
     // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
         changed: function(newDocument, oldDocument) {
-            outputSubway
-                .select('#line-a' + newDocument._id)
-                .datum(newDocument)
-            ;
             draw(subwayLine);
         },
         removed: function(oldDocument) {
             outputSubway
-                .select('#line-a' + oldDocument._id)
+                .select('#line-' + oldDocument._id)
                 .remove()
             ;
             draw(subwayLine);
@@ -78,14 +74,14 @@ Template.line.rendered = function() {
     ObserveLine = ItemCategories.find({_id: subwayLine._id}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway
-                .select('#line-a' + newDocument._id)
+                .select('#line-' + newDocument._id)
                 .datum(newDocument)
             ;
             draw(subwayLine);
         },
         removed: function(oldDocument) {
             outputSubway
-                .select('#a' + oldDocument._id)
+                .select('#line-' + oldDocument._id)
                 .remove()
             ;
             draw(oldDocument);

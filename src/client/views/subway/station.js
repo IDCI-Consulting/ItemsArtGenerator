@@ -2,7 +2,7 @@ var ObserveStation;
 
 Template.station.rendered = function() {
     var subwayStation = this.data;
-    var id = "station-a" + subwayStation._id;
+    var id = "station-" + subwayStation._id;
     var selectorId = '#station-' + id;
     var outputSubway = d3.select('#subway-svg');
 
@@ -22,7 +22,7 @@ Template.station.rendered = function() {
     // Draw station
     var draw = function(subwayStation) {
         outputSubway
-        .selectAll('#station-a' + subwayStation._id)
+        .selectAll('#station-' + subwayStation._id)
         .transition()
         .duration(500)
         .attr('class', function(subwayStation) {
@@ -63,14 +63,14 @@ Template.station.rendered = function() {
     ObserveStation = Items.find({_id: subwayStation._id}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway
-                .select('#station-a' + newDocument._id)
+                .select('#station-' + newDocument._id)
                 .datum(newDocument)
             ;
             draw(newDocument);
         },
         removed: function(oldDocument) {
             outputSubway
-                .select('#station-a' + oldDocument._id)
+                .select('#station-' + oldDocument._id)
                 .remove()
             ;
             draw(oldDocument);

@@ -4,7 +4,9 @@ Template.projectEdit.events({
 
         var currentProjectId = this._id,
             formData = $(e.target).serializeArray(),
-            project = {};
+            project = {
+                updatedAt: new Date().getTime(),
+            };
 
         var result = Meteor.bindFormData(project, formData);
         Projects.update(currentProjectId, {$set: result}, function() {

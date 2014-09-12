@@ -2,7 +2,8 @@ var ObserveStation;
 
 Template.station.rendered = function() {
     var subwayStation = this.data;
-    var selectorId = '#' + subwayStation._id;
+    var id = "station-a" + subwayStation._id;
+    var selectorId = '#station-' + id;
     var outputSubway = d3.select('#subway-svg');
 
     // Drag Functions
@@ -20,7 +21,7 @@ Template.station.rendered = function() {
 
     var draw = function(subwayStation) {
         outputSubway
-        .selectAll('#' + subwayStation._id)
+        .selectAll('#station-a' + subwayStation._id)
         .transition()
         .duration(500)
         .attr('class', function(subwayStation) {
@@ -42,7 +43,7 @@ Template.station.rendered = function() {
     gContainer = stationData
         .enter()
         .append('g')
-        .attr('id', subwayStation._id)
+        .attr('id', id)
         .attr('class', 'subway-station')
         .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
         .call(dragStation)
@@ -56,17 +57,18 @@ Template.station.rendered = function() {
         .text(subwayStation.name)
         .attr('x', 10)
     ;
-    Items.find({}).observe({
+
+    ObserveStation = Items.find({_id: subwayStation._id}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway
-                .select('#' + newDocument._id)
+                .select('#station-a' + newDocument._id)
                 .datum(newDocument)
             ;
             draw(newDocument);
         },
         removed: function(oldDocument) {
             outputSubway
-                .select('#' + oldDocument._id)
+                .select('#station-a' + oldDocument._id)
                 .remove()
             ;
             draw(oldDocument);

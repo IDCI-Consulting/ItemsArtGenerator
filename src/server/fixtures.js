@@ -4,79 +4,252 @@ if (Projects.find().count() === 0) {
     // insert data in projects collection if there's no data
 
     var projectId = Projects.insert({
-        name: 'LYON',
-        description: 'Metro de Lyon'
+        name: "LYON",
+        description: "Metro de Lyon",
+        type: "subway",
+        tags: [
+            "Lyon",
+            "TCL",
+            "Métro"
+        ],
+        createdAt: new Date().getTime(),
+        authors: [
+            "Brahim"
+        ],
     });
 
-
-    var ligneAId = ItemCategories.insert({
-        name: 'Ligne A',
-        description: 'De Perrache à Vaulx-En-Velin La Soie',
-        projectId: projectId,
+    // Insert lines
+    var lineAId = ItemCategories.insert({
+        name: "Ligne A",
+        description: "De Perrache à Vaulx-en-Velin La Soie",
         options: {
-            color: "#FF0000"
-        }
+            subway: {
+                color : "#FF0000"
+            },
+        },
+        projectId : projectId,
     });
 
-    var ligneBId = ItemCategories.insert({
+    var lineBId = ItemCategories.insert({
         name: 'Ligne B',
         description: 'De Gare d\'Oullins à Charpennes',
-        projectId: projectId,
         options: {
-            color: "#0000FF"
-        }
+            subway: {
+                color : "#0000FF"
+            },
+        },
+        projectId : projectId,
     });
 
-
+    // Insert Stations of A line
     Items.insert({
         name: "Perrache",
-        description: '',
-        projectId: projectId,
-        categories: [ligneAId],
+        description: "Arrêt de la ligne A",
         options: {
-            coords: {
-                x: 2,
-                y: 2
+            subway: {
+                cx: 79,
+                cy: 267,
+                r: 10
             }
-        }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Ampère",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 84,
+                cy: 185,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Bellecour",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 93,
+                cy: 136,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Cordeliers",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 114,
+                cy: 89,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Hotel de Ville",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 153,
+                cy: 45,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Foch",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 232,
+                cy: 59,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Masséna",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 307,
+                cy: 68,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
     });
 
     Items.insert({
         name: "Charpennes",
-        description: '',
-        projectId: projectId,
-        categories: [ligneAId, ligneBId],
+        description: "Arrêt de la ligne A",
         options: {
-            coords: {
-                x: 5,
-                y: 5
+            subway: {
+                cx: 317,
+                cy: 136,
+                r: 10
             }
-        }
+        },
+        projectId: projectId,
+        categories: [lineAId, lineBId]
+    });
+
+    Items.insert({
+        name: "République",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 368,
+                cy: 88,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Gratte-Ciel",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 420,
+                cy: 104,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Flachet",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 519,
+                cy: 126,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "Cusset",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 550,
+                cy: 154,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
+    });
+
+    Items.insert({
+        name: "L.Bonnevay",
+        description: "Arrêt de la ligne A",
+        options: {
+            subway: {
+                cx: 581,
+                cy: 197,
+                r: 10
+            }
+        },
+        projectId: projectId,
+        categories: [lineAId]
     });
 
     Items.insert({
         name: "Vaulx-en-Velin La Soie",
-        description: '',
-        projectId: projectId,
-        categories: [ligneAId],
+        description: "Arrêt de la ligne A",
         options: {
-            coords: {
-                x: 8,
-                y: 9
+            subway: {
+                cx: 616,
+                cy: 270,
+                r: 10
             }
-        }
+        },
+        projectId: projectId,
+        categories: [lineAId]
     });
 
+    // Insert Stations of B line
     Items.insert({
-        name: "Part Dieu",
-        description: '',
-        projectId: projectId,
-        categories: [ligneBId],
+        name: "Brotteaux",
+        description: "Arrêt de la ligne B",
         options: {
-            coords: {
-                x: 7,
-                y: 4
+            subway: {
+                cx: 317,
+                cy: 236,
+                r: 10
             }
-        }
+        },
+        projectId: projectId,
+        categories: [lineBId]
     });
 }

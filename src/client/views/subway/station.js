@@ -19,6 +19,7 @@ Template.station.rendered = function() {
         })
     ;
 
+    // Draw station
     var draw = function(subwayStation) {
         outputSubway
         .selectAll('#station-a' + subwayStation._id)
@@ -58,6 +59,7 @@ Template.station.rendered = function() {
         .attr('x', 10)
     ;
 
+    // Items collection observer
     ObserveStation = Items.find({_id: subwayStation._id}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway

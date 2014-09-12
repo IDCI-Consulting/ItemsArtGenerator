@@ -23,8 +23,8 @@ Template.line.rendered = function() {
         .interpolate("linear")
     ;
 
-    // reDraw line with new station coords
-    var reDraw = function(subwayLine) {
+    // Draw line with new station coords
+    var draw = function(subwayLine) {
         var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
         outputSubway
             .selectAll('#line-a' + subwayLine._id)
@@ -56,44 +56,47 @@ Template.line.rendered = function() {
         .style('stroke', subwayLine.options.subway.color)
     ;
 
+    // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway
                 .select('#line-a' + newDocument._id)
                 .datum(newDocument)
             ;
-            reDraw(subwayLine);
+            draw(subwayLine);
         },
         removed: function(oldDocument) {
             outputSubway
                 .select('#line-a' + oldDocument._id)
                 .remove()
             ;
-            reDraw(subwayLine);
+            draw(subwayLine);
         }
     });
 
+    // ItemCategories collection observer
     ObserveLine = ItemCategories.find({_id: subwayLine._id}).observe({
         changed: function(newDocument, oldDocument) {
             outputSubway
                 .select('#line-a' + newDocument._id)
                 .datum(newDocument)
             ;
-            reDraw(subwayLine);
+            draw(subwayLine);
         },
         removed: function(oldDocument) {
             outputSubway
                 .select('#a' + oldDocument._id)
                 .remove()
             ;
-            reDraw(subwayLine);
+            draw(oldDocument);
         }
     });
 };
 
-// Stop the autorun when the template is destroyed
-Template.outputSubway.destroyed = function () {
-    if(this.handle) {
-        this.handle.stop();
+// Stop observing station and line when the template is destroyed
+Template.line.destroyed = function(){
+    if(ObserveStation && ObserveLine) {
+        ObserveLine.stop();
+        ObserveStation.stop();
     }
 };

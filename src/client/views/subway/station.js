@@ -2,8 +2,6 @@ var ObserveStation;
 
 Template.station.rendered = function() {
     var subwayStation = this.data;
-    var id = "station-" + subwayStation._id;
-    var selectorId = '#station-' + id;
     var outputSubway = d3.select('#subway-svg');
 
     // Drag Functions
@@ -36,38 +34,46 @@ Template.station.rendered = function() {
         ;
     };
 
-    // Select
-    station = outputSubway.selectAll(selectorId);
-    stationData = station.data([subwayStation]);
-
-    // Enter
-    gContainer = stationData
-        .enter()
-        .append('g')
-        .attr('id', id)
-        .attr('class', 'subway-station')
-        .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
-        .call(dragStation)
-    ;
-    gContainer
-        .append('circle')
-        .attr('r', 10)
-    ;
-    gContainer
-        .append('text')
-        .text(subwayStation.name)
-        .attr('x', 10)
-    ;
-
     // Items collection observer
     ObserveStation = Items.find({_id: subwayStation._id}).observe({
+        added: function(document) {
+            if(d3.select('#station-' + document._id).empty()) {
+                var gContainer = outputSubway
+                    .append('g')
+                    .datum(document)
+                    .attr('id', function(subwayStation) {
+                        return 'station-' + subwayStation._id;
+                    })
+                    .attr('class', 'subway-station')
+                    .attr('transform', function(subwayStation) {
+                        return 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')';
+                    })
+                    .call(dragStation)
+                ;
+                gContainer
+                    .append('circle')
+                    .attr('r', function(subwayStation) {
+                        return 10 + (subwayStation.categories.length - 1) * 4;
+                    })
+                ;
+                gContainer
+                    .append('text')
+                    .text(subwayStation.name)
+                    .attr('x', 10)
+                ;
+            }
+        },
+
         changed: function(newDocument, oldDocument) {
             outputSubway
                 .select('#station-' + newDocument._id)
                 .datum(newDocument)
             ;
+
+            console.log(d3.select('#station-' + newDocument._id).attr('id'));
             draw(newDocument);
         },
+
         removed: function(oldDocument) {
             outputSubway
                 .select('#station-' + oldDocument._id)

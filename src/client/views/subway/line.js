@@ -8,8 +8,6 @@ Template.line.helpers({
 
 Template.line.rendered = function() {
     var subwayLine = this.data;
-    var id = "line-" + subwayLine._id;
-    var selectorId = '#' + id;
     var outputSubway = d3.select('#subway-svg');
 
     // Get path coords
@@ -39,39 +37,31 @@ Template.line.rendered = function() {
             })
     }
 
-    // Select
-    line = outputSubway.selectAll(selectorId);
-    lineData = station.data([subwayLine]);
-
-    // Enter
-    pathContainer = lineData
-        .enter()
-        .append('path')
-        .attr('id', id)
-        .attr('class', 'subway-line')
-        .attr('d', function(subwayLine) {
-            var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
-            return lineFunction(stations);
-        })
-        .style('stroke', subwayLine.options.subway.color)
-    ;
-
     // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
         changed: function(newDocument, oldDocument) {
-            draw(subwayLine);
-        },
-        removed: function(oldDocument) {
-            outputSubway
-                .select('#line-' + oldDocument._id)
-                .remove()
-            ;
             draw(subwayLine);
         }
     });
 
     // ItemCategories collection observer
     ObserveLine = ItemCategories.find({_id: subwayLine._id}).observe({
+        added: function(document) {
+            outputSubway
+                .append('path')
+                .datum(document)
+                .attr('id', function(subwayLine) {
+                    return "line-" + subwayLine._id;
+                })
+                .attr('class', 'subway-line')
+                .attr('d', function(subwayLine) {
+                    var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
+                    return lineFunction(stations);
+                })
+                .style('stroke', subwayLine.options.subway.color)
+            ;
+        },
+
         changed: function(newDocument, oldDocument) {
             outputSubway
                 .select('#line-' + newDocument._id)
@@ -79,6 +69,7 @@ Template.line.rendered = function() {
             ;
             draw(subwayLine);
         },
+
         removed: function(oldDocument) {
             outputSubway
                 .select('#line-' + oldDocument._id)

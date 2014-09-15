@@ -44,11 +44,6 @@ Router.map(function() {
         },
         data: function() {
             return Projects.findOne(this.params._id);
-        },
-        action: function () {
-            if (this.ready()) {
-                this.render();
-            }
         }
     });
 

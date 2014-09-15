@@ -11,7 +11,6 @@ ProjectsListController = RouteController.extend({
 
 Router.map(function() {
 
-
     /*************************/
     /***ROUTES FOR PROJECTS***/
     /*************************/
@@ -55,7 +54,6 @@ Router.map(function() {
     this.route('projectCreate', {
         path: '/project/new'
     });
-
 
     /*******************************/
     /***ROUTES FOR ITEMCATEGORIES***/
@@ -111,4 +109,52 @@ Router.map(function() {
             return Items.find(this.params._id);
         }
     });
+
+    /*********************/
+    /****ROUTES FOR API***/
+    /*********************/
+
+    this.route('apiSingleJsonItem', {
+        where: 'server',
+        path: '/api/project.json/:_id',
+        action: function() {
+            // create project object from mongo data
+            var projectId = this.params._id;
+            var project = Projects.findOne(projectId);
+            project.categories = ItemCategories.find({'projectId':projectId}).fetch();
+            _.each(project.categories, function(categorie){
+                delete categorie.projectId;
+            });
+            project.items = Items.find({'projectId':projectId}).fetch();
+            _.each(project.items, function(item){
+                delete item.projectId;
+            });
+
+            // set response
+            var headers = {'Content-type': 'application/json'};
+            this.response.writeHead(200, headers);
+            this.response.end(JSON.stringify(project));
+        }
+    });
+
+    this.route('apiMultipleItems', {
+        where: 'server',
+        path: '/api/projects.json',
+        action: function() {
+            var projects = Projects.find().fetch();
+            _.each(projects, function(project){
+                project.previewLink = Meteor.absoluteUrl()+'api/project.png/'+project._id;
+            });
+
+            // set response
+            var headers = {'Content-type': 'application/json'};
+            this.response.writeHead(200, headers);
+            this.response.end(JSON.stringify(projects));
+        }
+    });
+
+    this.route('apiSingleItem', {
+        path: '/api/project.:format/:_id'
+    });
+
 });

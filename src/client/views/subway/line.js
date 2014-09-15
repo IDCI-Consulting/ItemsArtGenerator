@@ -9,6 +9,7 @@ Template.line.helpers({
 Template.line.rendered = function() {
     var subwayLine = this.data;
     var gLines = d3.select('#subway-lines');
+    var gLegend = d3.select('#subway-legend > ul');
 
     // Get path coords
     var lineFunction = d3.svg.line()
@@ -56,15 +57,22 @@ Template.line.rendered = function() {
             gLines
                 .append('path')
                 .datum(document)
-                .attr('id', function(subwayLine) {
-                    return "line-" + subwayLine._id;
-                })
+                .attr('id', "line-" + document._id)
                 .attr('class', 'subway-line')
                 .attr('d', function(subwayLine) {
                     var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
                     return lineFunction(stations);
                 })
-                .style('stroke', subwayLine.options.subway.color)
+                .style('stroke', document.options.subway.color)
+            ;
+
+            gLegend
+                .append('li')
+                .attr('id', 'legend-' + document._id)
+                .append('span')
+                .style('background', document.options.subway.color)
+                .append('p')
+                .text(document.name)
             ;
         },
 

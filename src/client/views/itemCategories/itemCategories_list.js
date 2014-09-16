@@ -14,7 +14,7 @@ Template.itemCategoriesList.events({
         }
     },
 
-    "click .editItemCategory": function(e) {
+    "click .edit-item-category": function(e) {
         e.preventDefault();
 
         var instance = UI.renderWithData(Template.itemCategoryEdit, ItemCategories.findOne(this._id));

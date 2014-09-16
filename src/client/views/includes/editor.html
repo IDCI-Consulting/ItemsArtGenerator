@@ -6,36 +6,29 @@
                     <li>Description :</li>
                 </div>
             </div>
-        <li id="projectDescription">{{description}}</li>
+        <li id="project-description">{{description}}</li>
     </ul>
     <hr />
-    <ul class="off-canvas-list">
-        <li>
-            <div class="row">
-                <div class="small-4 columns">
-                    Categories
-                </div>
-                <div class="small-8 columns">
-                    <a class="tiny button radius success createItemCategory" href="{{pathFor 'itemCategoryCreate'}}"></a>
-                </div>
+    <dl class="accordion" data-accordion="">
+        <dd>
+            <a href="#panel1">Categories</a>
+            <div id="panel1" class="content">
+                <a class="tiny button radius success create-item-category" href="{{pathFor 'itemCategoryCreate'}}"></a>
+                <ul class="off-canvas-list">
+                    {{> itemCategoriesList}}
+                </ul>
             </div>
-        </li>
-        {{> itemCategoriesList}}
-    </ul>
-    <hr />
-    <ul class="off-canvas-list">
-        <li>
-            <div class="row">
-                <div class="small-4 columns">
-                    Items
-                </div>
-                <div class="small-8 columns">
-                    <a class="tiny button radius success createItem" href="{{pathFor 'itemCreate'}}"></a>
-                </div>
+        </dd>
+        <dd>
+        <a href="#panel2">Items</a>
+            <div id="panel2" class="content">
+                <a class="tiny button radius success create-item" href="{{pathFor 'itemCreate'}}"></a>
+                <ul class="off-canvas-list">
+                    {{> itemsList}}
+                </ul>
             </div>
-        </li>
-        {{> itemsList}}
-    </ul>
+        </dd>
+    </dl>
 
     <div id="modalEditor" class="reveal-modal" data-reveal>
         <div class="content"></div>

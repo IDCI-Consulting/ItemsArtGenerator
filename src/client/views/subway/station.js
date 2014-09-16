@@ -2,8 +2,7 @@ var ObserveStation;
 
 Template.station.rendered = function() {
     var subwayStation = this.data;
-    var outputSubway = d3.select('#subway-svg');
-
+    var gStations = d3.select('#subway-stations');
     // Drag Functions
     var dragStation = d3.behavior.drag()
         .on('dragstart', function(subwayStation) {
@@ -19,17 +18,17 @@ Template.station.rendered = function() {
 
     // Draw station
     var draw = function(subwayStation) {
-        outputSubway
-        .selectAll('#station-' + subwayStation._id)
-        .transition()
-        .duration(500)
-        .attr('class', function(subwayStation) {
-            var c = 'subway-station';
-            if(subwayStation.options.subway.dragged) {
-                c += ' dragged';
-            }
-            return c;
-        })
+        gStations
+            .selectAll('#station-' + subwayStation._id)
+            .transition()
+            .duration(500)
+            .attr('class', function(subwayStation) {
+                var c = 'subway-station';
+                if(subwayStation.options.subway.dragged) {
+                    c += ' dragged';
+                }
+                return c;
+            })
             .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
         ;
     };
@@ -38,44 +37,36 @@ Template.station.rendered = function() {
     ObserveStation = Items.find({_id: subwayStation._id}).observe({
         added: function(document) {
             if(d3.select('#station-' + document._id).empty()) {
-                var gContainer = outputSubway
+                var gContainer = gStations
                     .append('g')
                     .datum(document)
-                    .attr('id', function(subwayStation) {
-                        return 'station-' + subwayStation._id;
-                    })
+                    .attr('id', 'station-' + subwayStation._id)
                     .attr('class', 'subway-station')
-                    .attr('transform', function(subwayStation) {
-                        return 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')';
-                    })
+                    .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
                     .call(dragStation)
                 ;
                 gContainer
                     .append('circle')
-                    .attr('r', function(subwayStation) {
-                        return 10 + (subwayStation.categories.length - 1) * 4;
-                    })
+                    .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
                 ;
                 gContainer
                     .append('text')
                     .text(subwayStation.name)
-                    .attr('x', 10)
+                    .attr('x', 8 + (subwayStation.categories.length - 1) * 4)
                 ;
             }
         },
 
         changed: function(newDocument, oldDocument) {
-            outputSubway
+            gStations
                 .select('#station-' + newDocument._id)
                 .datum(newDocument)
             ;
-
-            console.log(d3.select('#station-' + newDocument._id).attr('id'));
             draw(newDocument);
         },
 
         removed: function(oldDocument) {
-            outputSubway
+            gStations
                 .select('#station-' + oldDocument._id)
                 .remove()
             ;

@@ -8,7 +8,8 @@ Template.line.helpers({
 
 Template.line.rendered = function() {
     var subwayLine = this.data;
-    var outputSubway = d3.select('#subway-svg');
+    var gLines = d3.select('#subway-lines');
+    var gLegend = d3.select('#subway-legend > ul');
 
     // Get path coords
     var lineFunction = d3.svg.line()
@@ -24,7 +25,7 @@ Template.line.rendered = function() {
     // Draw line with new station coords
     var draw = function(subwayLine) {
         var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
-        outputSubway
+        gLines
             .selectAll('#line-' + subwayLine._id)
             .transition()
             .duration(500)
@@ -39,7 +40,13 @@ Template.line.rendered = function() {
 
     // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
+        added: function(docuement) {
+            draw(subwayLine);
+        },
         changed: function(newDocument, oldDocument) {
+            draw(subwayLine);
+        },
+        removed: function(oldDocument) {
             draw(subwayLine);
         }
     });
@@ -47,23 +54,30 @@ Template.line.rendered = function() {
     // ItemCategories collection observer
     ObserveLine = ItemCategories.find({_id: subwayLine._id}).observe({
         added: function(document) {
-            outputSubway
+            gLines
                 .append('path')
                 .datum(document)
-                .attr('id', function(subwayLine) {
-                    return "line-" + subwayLine._id;
-                })
+                .attr('id', "line-" + document._id)
                 .attr('class', 'subway-line')
                 .attr('d', function(subwayLine) {
                     var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
                     return lineFunction(stations);
                 })
-                .style('stroke', subwayLine.options.subway.color)
+                .style('stroke', document.options.subway.color)
+            ;
+
+            gLegend
+                .append('li')
+                .attr('id', 'legend-' + document._id)
+                .append('span')
+                .style('background', document.options.subway.color)
+                .append('p')
+                .text(document.name)
             ;
         },
 
         changed: function(newDocument, oldDocument) {
-            outputSubway
+            gLines
                 .select('#line-' + newDocument._id)
                 .datum(newDocument)
             ;
@@ -71,7 +85,7 @@ Template.line.rendered = function() {
         },
 
         removed: function(oldDocument) {
-            outputSubway
+            gLines
                 .select('#line-' + oldDocument._id)
                 .remove()
             ;

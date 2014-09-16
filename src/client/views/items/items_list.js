@@ -14,7 +14,7 @@ Template.itemsList.events({
         }
     },
 
-    "click .editItem": function(e) {
+    "click .edit-item": function(e) {
         e.preventDefault();
 
         var instance = UI.renderWithData(Template.itemEdit, Items.findOne(this._id));

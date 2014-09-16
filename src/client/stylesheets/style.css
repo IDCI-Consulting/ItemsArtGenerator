@@ -32,13 +32,26 @@ hr {
     height: 100%;
 }
 
-#projectDescription {
+#project-description {
     height: 80px;
     overflow: auto;
 }
 
 li {
     color: #FFFFFF
+}
+
+.accordion .accordion-navigation > .content.active, .accordion dd > .content.active {
+    background: none repeat scroll 0 0 #333;
+}
+
+.accordion .accordion-navigation > a, .accordion dd > a {
+    background: none repeat scroll 0 0 #333;
+    color: #fff;
+}
+
+.accordion .accordion-navigation.active > a, .accordion dd.active > a {
+    background: none repeat scroll 0 0 #5e5e5e;
 }
 
 .name {
@@ -53,8 +66,8 @@ li {
 }
 
 .actions {
-    margin-right: 50px;
-    margin-top: -22px;
+    margin-right: 20px;
+    margin-top: -25px;
 }
 .actions>li {
     height: 10px;
@@ -71,23 +84,22 @@ button.tiny, .button.tiny {
     cursor: pointer;
 }
 .subway-station > circle {
-    fill: rgba(180, 180, 180, 0.5);
+    fill: rgba(180, 180, 180, 1);
     stroke: #555;
     stroke-width: 3;
-    z-index: 9999;
 }
 .subway-station.dragged > circle {
-    fill: rgba(180, 0, 0, 0.5);
+    fill: rgba(180, 0, 0, 1);
 }
 .subway-station > text {
     fill: black;
     font-size : 1em;
 }
 .subway-station:hover > circle {
-    fill: rgba(80, 80, 180, 0.8);
+    fill: rgba(80, 80, 180, 1);
 }
 .subway-station.dragged:hover > circle {
-    fill: rgba(180, 0, 0, 0.5);
+    fill: rgba(180, 0, 0, 1);
 }
 .subway-line {
     fill: none;

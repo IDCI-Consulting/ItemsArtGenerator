@@ -44,10 +44,22 @@ Router.map(function() {
         data: function() {
             return Projects.findOne(this.params._id);
         },
-        action: function () {
-            if (this.ready()) {
-                this.render();
-            }
+    yieldTemplates: {
+      'header': {to: 'header'},
+    }
+    });
+
+    this.route('projectRaw', {
+        path: '/project/:_id/raw',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleProject', this.params._id),
+                Meteor.subscribe('itemCategories', this.params._id),
+                Meteor.subscribe('items', this.params._id)
+            ];
+        },
+        data: function() {
+            return Projects.findOne(this.params._id);
         }
     });
 

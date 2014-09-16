@@ -83,24 +83,28 @@ button.tiny, .button.tiny {
 .subway-station:hover {
     cursor: pointer;
 }
+
 .subway-station > circle {
     fill: rgba(180, 180, 180, 1);
-    stroke: #555;
-    stroke-width: 3;
 }
+
 .subway-station.dragged > circle {
     fill: rgba(180, 0, 0, 1);
 }
+
 .subway-station > text {
     fill: black;
     font-size : 1em;
 }
+
 .subway-station:hover > circle {
     fill: rgba(80, 80, 180, 1);
 }
+
 .subway-station.dragged:hover > circle {
     fill: rgba(180, 0, 0, 1);
 }
+
 .subway-line {
     fill: none;
     stroke-width: 5;

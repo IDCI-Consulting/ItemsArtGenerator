@@ -45,9 +45,9 @@ Router.map(function() {
         data: function() {
             return Projects.findOne(this.params._id);
         },
-    yieldTemplates: {
-      'header': {to: 'header'},
-    }
+        yieldTemplates: {
+          'header': {to: 'header'}
+        }
     });
 
     this.route('projectRaw', {

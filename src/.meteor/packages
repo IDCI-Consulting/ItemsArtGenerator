@@ -7,5 +7,7 @@ standard-app-packages
 iron-router
 zurb-foundation
 mys-subway
-insecure
 d3
+insecure
+reactive-dict
+

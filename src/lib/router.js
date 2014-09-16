@@ -11,7 +11,6 @@ ProjectsListController = RouteController.extend({
 
 Router.map(function() {
 
-
     /*************************/
     /***ROUTES FOR PROJECTS***/
     /*************************/
@@ -45,9 +44,15 @@ Router.map(function() {
         data: function() {
             return Projects.findOne(this.params._id);
         },
+<<<<<<< HEAD
         yieldTemplates: {
           'header': {to: 'header'}
         }
+=======
+    yieldTemplates: {
+      'header': {to: 'header'}
+    }
+>>>>>>> 69ce0dcde65c24a21891f381136bca9655c37dc4
     });
 
     this.route('projectRaw', {
@@ -67,7 +72,6 @@ Router.map(function() {
     this.route('projectCreate', {
         path: '/project/new'
     });
-
 
     /*******************************/
     /***ROUTES FOR ITEMCATEGORIES***/
@@ -121,6 +125,81 @@ Router.map(function() {
         },
         data: function() {
             return Items.find(this.params._id);
+        }
+    });
+
+    /*********************/
+    /****ROUTES FOR API***/
+    /*********************/
+
+    // TODO : check visibility and publicationState
+
+    this.route('apiSingleJsonItem', {
+        where: 'server',
+        path: '/api/project.json/:_id',
+        action: function() {
+            // create project object from mongo data
+            var projectId = this.params._id;
+            var project = Projects.findOne(projectId);
+            project.categories = ItemCategories.find({'projectId':projectId}).fetch();
+            _.each(project.categories, function(categorie){
+                delete categorie.projectId;
+            });
+            project.items = Items.find({'projectId':projectId}).fetch();
+            _.each(project.items, function(item){
+                delete item.projectId;
+            });
+
+            // set response
+            var headers = {'Content-type': 'application/json'};
+            this.response.writeHead(200, headers);
+            this.response.end(JSON.stringify(project));
+        }
+    });
+
+    this.route('apiMultipleItems', {
+        where: 'server',
+        path: '/api/projects.json',
+        action: function() {
+            var projects = Projects.find().fetch();
+            _.each(projects, function(project){
+                project.previewLink = Meteor.absoluteUrl()+'api/project.png/'+project._id;
+            });
+
+            // set response
+            var headers = {'Content-type': 'application/json'};
+            this.response.writeHead(200, headers);
+            this.response.end(JSON.stringify(projects));
+        }
+    });
+
+    this.route('apiSingleItem', {
+        where: 'server',
+        path: '/api/project.:format/:_id',
+        action: function() {
+            var url = Meteor.absoluteUrl()+'project/'+this.params._id+'/show';
+            var filePath = process.env.PWD+'/.uploads/'+this.params._id+'.'+this.params.format;
+            var exec = Npm.require('child_process').exec;
+            var action = this;
+            var cmd = '/usr/lib/phantomjs/phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath;
+            console.log(filePath);
+            console.log(cmd);
+            exec(cmd,
+                function (error, stdout, stderr) {
+                    console.log('stdout: ' + stdout);
+                    console.log('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                    var fs = Npm.require('fs');
+
+                    fs.readFile(filePath, function(err, data) {
+                        if (err) throw err; // Fail if the file can't be read.
+                        action.response.writeHead(200, {'Content-Type': 'image/jpeg'});
+                        action.response.end(data);
+                    });
+                }
+            );
         }
     });
 });

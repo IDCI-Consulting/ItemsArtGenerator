@@ -47,12 +47,12 @@ Template.station.rendered = function() {
                 ;
                 gContainer
                     .append('circle')
-                    .attr('r', 10 + (subwayStation.categories.length - 1) * 4)
+                    .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
                 ;
                 gContainer
                     .append('text')
                     .text(subwayStation.name)
-                    .attr('x', 10 + (subwayStation.categories.length - 1) * 4)
+                    .attr('x', 8 + (subwayStation.categories.length - 1) * 4)
                 ;
             }
         },

@@ -114,6 +114,8 @@ Router.map(function() {
     /****ROUTES FOR API***/
     /*********************/
 
+    // TODO : check visibility and publicationState
+
     this.route('apiSingleJsonItem', {
         where: 'server',
         path: '/api/project.json/:_id',
@@ -154,7 +156,30 @@ Router.map(function() {
     });
 
     this.route('apiSingleItem', {
-        path: '/api/project.:format/:_id'
-    });
+        where: 'server',
+        path: '/api/project.:format/:_id',
+        action: function() {
+            var url = Meteor.absoluteUrl()+'project/'+this.params._id+'/show';
+            var filePath = process.env.PWD+'/../.uploads/'+this.params._id+'.'+this.params.format;
+            var exec = Npm.require('child_process').exec;
+            var action = this;
+            var cmd = '/usr/lib/phantomjs/phantomjs '+process.env.PWD+'/scripts/phantomjs-screenshot.js '+url+' '+filePath;
+            exec(cmd,
+                function (error, stdout, stderr) {
+                    console.log('stdout: ' + stdout);
+                    console.log('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                    var fs = Npm.require('fs');
 
+                    fs.readFile(filePath, function(err, data) {
+                        if (err) throw err; // Fail if the file can't be read.
+                        action.response.writeHead(200, {'Content-Type': 'image/jpeg'});
+                        action.response.end(data);
+                    });
+                }
+            );
+        }
+    });
 });

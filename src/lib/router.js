@@ -44,9 +44,9 @@ Router.map(function() {
         data: function() {
             return Projects.findOne(this.params._id);
         },
-    yieldTemplates: {
-      'header': {to: 'header'}
-    }
+        yieldTemplates: {
+          'header': {to: 'header'}
+        }
     });
 
     this.route('projectRaw', {
@@ -175,7 +175,7 @@ Router.map(function() {
             var filePath = process.env.PWD+'/.uploads/'+this.params._id+'.'+this.params.format;
             var exec = Npm.require('child_process').exec;
             var action = this;
-            var cmd = '/usr/lib/phantomjs/phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath;
+            var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath;
             console.log(filePath);
             console.log(cmd);
             exec(cmd,

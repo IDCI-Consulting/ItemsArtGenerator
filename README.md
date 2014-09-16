@@ -17,6 +17,12 @@ It was built with [Meteor](http://meteor.com) as a companion app to [The Meteor 
         If you may need root permission to install Meteorite:
         $ sudo -H npm install -g meteorite
 
-    3/ Run the project
+    2/ Install phantomjs
+        $ npm install -g phantomjs
+
+        If you may need root permission to install phantomjs:
+        $ sudo -H npm install -g phantomjs
+
+    4/ Run the project
         $ cd /path/to/repository
         $ mrt

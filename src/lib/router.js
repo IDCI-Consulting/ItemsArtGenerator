@@ -125,16 +125,13 @@ Router.map(function() {
     /*********************/
     /****ROUTES FOR API***/
     /*********************/
-
-    // TODO : check visibility and publicationState
-
     this.route('apiSingleJsonItem', {
         where: 'server',
         path: '/api/project.json/:_id',
         action: function() {
             // create project object from mongo data
             var projectId = this.params._id;
-            var project = Projects.findOne(projectId);
+            var project = Projects.findOne({_id:projectId, visibility:'public', publicationState:'published'});
             project.categories = ItemCategories.find({'projectId':projectId}).fetch();
             _.each(project.categories, function(categorie){
                 delete categorie.projectId;
@@ -155,7 +152,8 @@ Router.map(function() {
         where: 'server',
         path: '/api/projects.json',
         action: function() {
-            var projects = Projects.find().fetch();
+            var projects = Projects.find({visibility:'public', publicationState:'published'}).fetch();
+            console.log(projects);
             _.each(projects, function(project){
                 project.previewLink = Meteor.absoluteUrl()+'api/project.png/'+project._id;
             });
@@ -171,6 +169,7 @@ Router.map(function() {
         where: 'server',
         path: '/api/project.:format/:_id',
         action: function() {
+            // TODO check visibility & publicationState & render error else?
             var url = Meteor.absoluteUrl()+'project/'+this.params._id+'/show';
             var filePath = process.env.PWD+'/.uploads/'+this.params._id+'.'+this.params.format;
             var exec = Npm.require('child_process').exec;

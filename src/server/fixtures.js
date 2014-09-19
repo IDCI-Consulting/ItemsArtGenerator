@@ -6,6 +6,8 @@ if (Projects.find().count() === 0) {
     var projectId = Projects.insert({
         name: "LYON",
         description: "Metro de Lyon",
+        publicationState: "published",
+        visibility: "public",
         type: "subway",
         tags: [
             "Lyon",

@@ -3,21 +3,6 @@
 if (Projects.find().count() === 0) {
     // insert data in projects collection if there's no data
 
-    var projectId = Projects.insert({
-        name: "LYON",
-        description: "Metro de Lyon",
-        type: "subway",
-        tags: [
-            "Lyon",
-            "TCL",
-            "Métro"
-        ],
-        createdAt: new Date().getTime(),
-        authors: [
-            "Brahim"
-        ],
-    });
-
     // Insert lines
     var lineAId = ItemCategories.insert({
         name: "Ligne A",
@@ -25,9 +10,9 @@ if (Projects.find().count() === 0) {
         options: {
             subway: {
                 color : "#FF0000"
-            },
+            }
         },
-        projectId : projectId,
+        projectId : projectId
     });
 
     var lineBId = ItemCategories.insert({
@@ -36,9 +21,7 @@ if (Projects.find().count() === 0) {
         options: {
             subway: {
                 color : "#0000FF"
-            },
-        },
-        projectId : projectId,
+c        projectId : projectId
     });
 
     // Insert Stations of A line

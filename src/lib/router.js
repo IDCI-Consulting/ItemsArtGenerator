@@ -176,8 +176,6 @@ Router.map(function() {
             var exec = Npm.require('child_process').exec;
             var action = this;
             var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath;
-            console.log(filePath);
-            console.log(cmd);
             exec(cmd,
                 function (error, stdout, stderr) {
                     console.log('stdout: ' + stdout);

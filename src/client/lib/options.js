@@ -4,11 +4,11 @@ ItemArt.configuration = '{\
     "options": {\
         "subway": {\
             "item": {\
-                "cx": {"tag": "input", "type": "number", "min": "0"},\
-                "cy": {"tag": "input", "type": "number", "min": "0"}\
+                "cx": {"label": "X Coordinate", "tag": "input", "type": "number", "min": "0"},\
+                "cy": {"label": "Y Coordinate", "tag": "input", "type": "number", "min": "0"}\
             },\
             "category": {\
-                "color": {"tag": "input", "type": "color"}\
+                "color": {"label": "Color", "tag": "input", "type": "color"}\
             }\
         }\
     }\

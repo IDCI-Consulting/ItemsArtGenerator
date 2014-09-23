@@ -17,9 +17,8 @@ Template.itemEdit.events({
             item = {
                 categories: [],
             };
-
-        var result = Meteor.bindFormData(item, formData);
-        Items.update(this._id, {$set: result});
+        var boundData = Meteor.bindFormData(item, formData);
+        Items.update(this._id, {$set: boundData});
     },
 
     'click .delete': function(e, template) {

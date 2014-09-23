@@ -53,7 +53,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -67,7 +67,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -81,7 +81,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -95,7 +95,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -109,7 +109,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -123,7 +123,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -137,7 +137,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId]
+        categories: [lineAId],
     });
 
     Items.insert({
@@ -151,7 +151,7 @@ if (Projects.find().count() === 0) {
             }
         },
         projectId: projectId,
-        categories: [lineAId, lineBId]
+        categories: [lineAId, lineBId],
     });
 
     Items.insert({

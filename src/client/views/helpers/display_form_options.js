@@ -7,7 +7,7 @@ UI.registerHelper('displayFormOptions', function(context, type) {
     ;
 
     _.each(formConfiguration, function(value, key) {
-        string += ' <' + value['tag'] + ' type="' + value['type'] + '" name="options.' + project.type + '.' + key + '"';
+        string += '<label>' + value['label'] + '</label>' + ' <' + value['tag'] + ' type="' + value['type'] + '" name="options.' + project.type + '.' + key + '"';
         if(context.options !== undefined) {
             string += 'value ="' + context.options[project.type][key] + '">';
         } else {

@@ -13,13 +13,13 @@ Template.itemCreate.events({
                 categories: [],
             };
 
-        var result = Meteor.bindFormData(item, formData);
-        Meteor.call('insertItem', result, function(error) {
-            if (error) {
-                throwError(error.reason);
-            } else {
-                Router.go('projectShow', {_id: result.projectId});
-            }
+        var boundData = Meteor.bindFormData(item, formData);
+        var itemId = Items.insert(boundData);
+
+        _.each(boundData.categories, function(categoryId) {
+            var category = ItemCategories.findOne(categoryId);
+            Meteor.addCategoryItem(category, itemId);
+            ItemCategories.update(category._id, {$set: {"items": category.items}});
         });
     }
 });

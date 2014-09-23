@@ -7,13 +7,7 @@ Template.itemCategoryCreate.events({
         ;
 
         var result = Meteor.bindFormData(itemCategory, formData);
-        /*Meteor.call('insertItemCategory', result, function(error) {
-            if (error) {
-                throwError(error.reason);
-            } else {
-                Router.go('projectShow', {_id: result.projectId});
-            }
-        });*/
+        ItemCategories.insert(result);
     },
 
 });

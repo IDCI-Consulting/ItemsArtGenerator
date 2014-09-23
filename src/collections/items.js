@@ -1,9 +1,16 @@
 Items = new Meteor.Collection('items');
 
-Meteor.methods({
-    insertItem: function(itemAttributes) {
-        var item = _.extend(_.pick(itemAttributes, 'name', 'description','options', 'categories', 'projectId'));
-
-        Items.insert(item);
+Items.find({}).observe({
+    changed: function(newDocument, oldDocument) {
+        if(!newDocument.options.subway['dragged']) {
+            console.log(newDocument);
+        }
+    },
+    removed: function(oldDocument) {
+        _.each(oldDocument.categories, function(categoryId) {
+            var category = ItemCategories.findOne(categoryId);
+            Meteor.removeCategoryItem(category, oldDocument._id);
+            ItemCategories.update(category._id, {$set: {items: category.items}});
+        });
     }
 });

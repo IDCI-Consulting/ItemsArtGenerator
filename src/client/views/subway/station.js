@@ -30,6 +30,8 @@ Template.station.rendered = function() {
                 return c;
             })
             .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
+            .select('text')
+            .text(subwayStation.name)
         ;
     };
 

@@ -15,8 +15,12 @@ Meteor.removeCategoryItem = function(category, itemId) {
             deletedKey = key;
             delete category.items[key];
         }
-        if(deletedKey != undefined) {
-            console.log(deletedKey);
+        if(deletedKey != undefined && (parseInt(deletedKey) + 1) == key) {
+            category.items[deletedKey] = category.items[key];
+            delete category.items[key];
+            deletedKey = parseInt(deletedKey) + 1;
+            console.log(category.items);
         }
+
     });
 };

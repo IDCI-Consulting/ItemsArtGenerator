@@ -9,9 +9,14 @@ Meteor.addCategoryItem = function(category, itemId) {
 };
 
 Meteor.removeCategoryItem = function(category, itemId) {
+    var deletedKey;
     _.each(category.items, function(value, key) {
         if(itemId === value) {
+            deletedKey = key;
             delete category.items[key];
+        }
+        if(deletedKey != undefined) {
+            console.log(deletedKey);
         }
     });
 };

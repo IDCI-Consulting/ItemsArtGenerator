@@ -27,6 +27,11 @@ hr {
     height: 100%;
 }
 
+.move-item {
+    overflow: auto;
+    float: right;
+}
+
 #output {
     background-image: url('/images/grid.png');
     height: 100%;
@@ -37,8 +42,34 @@ hr {
     overflow: auto;
 }
 
+a.success {
+    color: #43ac6a;
+    font-size: 32px;
+}
+
+a.secondary {
+    color: #eee;
+    font-size: 32px;
+}
+
+a.secondary:hover, a.secondary:focus {
+    color: #b9b9b9;
+}
+
+a.success:hover, a.success:focus {
+    color: #368a54;
+}
+
 li {
-    color: #FFFFFF
+    color: #FFFFFF;
+}
+
+li.item {
+    cursor: pointer;
+}
+
+li.item.selected {
+    background: #5e5e5e;
 }
 
 .accordion .accordion-navigation > .content.active, .accordion dd > .content.active {

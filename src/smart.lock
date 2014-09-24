@@ -10,7 +10,8 @@
       "zurb-foundation": {},
       "mys-subway": {
         "path": "../packages"
-      }
+      },
+      "ionicons": {}
     },
     "packages": {
       "iron-router": {
@@ -30,6 +31,11 @@
       },
       "mys-subway": {
         "path": "../packages"
+      },
+      "ionicons": {
+        "git": "https://github.com/Pagebakers/meteor-ionicons.git",
+        "tag": "v1.5.2",
+        "commit": "009bb12b091b7a9655b636dabe678e160d5942bf"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

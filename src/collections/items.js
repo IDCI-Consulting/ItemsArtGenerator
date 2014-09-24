@@ -3,7 +3,6 @@ Items = new Meteor.Collection('items');
 Items.find({}).observe({
     changed: function(newDocument, oldDocument) {
         if(!newDocument.options.subway['dragged']) {
-            console.log(newDocument);
         }
     },
     removed: function(oldDocument) {

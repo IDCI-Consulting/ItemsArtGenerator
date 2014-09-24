@@ -15,7 +15,7 @@
         <dd>
             <a href="#panel1">Categories</a>
             <div id="panel1" class="content">
-                <a class="tiny button radius success create-item-category" href="{{pathFor 'itemCategoryCreate'}}"></a>
+                <a class="success ion-plus create-item-category" href="{{pathFor 'itemCategoryCreate'}}"></a>
                 <ul class="off-canvas-list">
                     {{> itemCategoriesList}}
                 </ul>
@@ -24,7 +24,11 @@
         <dd>
         <a href="#panel2">Items</a>
             <div id="panel2" class="content">
-                <a class="tiny button radius success create-item" href="{{pathFor 'itemCreate'}}"></a>
+                <a class="success create-item ion-plus" href="{{pathFor 'itemCreate'}}"></a>
+                <div class="move-item">
+                    <a class="secondary ion-chevron-up"></a>
+                    <a class="secondary ion-chevron-down"></a>
+                </div>
                 <ul class="off-canvas-list">
                     {{> itemsList}}
                 </ul>

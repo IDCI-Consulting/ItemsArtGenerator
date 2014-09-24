@@ -10,5 +10,4 @@ Template.itemItem.events({
             Router.go('projectShow', {_id: currentProjectId});
         }
     }
-
 })

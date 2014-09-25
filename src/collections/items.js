@@ -2,10 +2,10 @@ Items = new Meteor.Collection('items');
 
 Items.find({}).observe({
     changed: function(newDocument, oldDocument) {
-        if(!newDocument.options.subway['dragged']) {
-        }
+        Meteor.updateCategoryItem(newDocument, oldDocument);
     },
     removed: function(oldDocument) {
+        // Remove the deleted item for each category
         _.each(oldDocument.categories, function(categoryId) {
             var category = ItemCategories.findOne(categoryId);
             Meteor.removeCategoryItem(category, oldDocument._id);

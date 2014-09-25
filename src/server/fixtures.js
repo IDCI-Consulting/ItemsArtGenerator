@@ -1,6 +1,6 @@
 // Fixture data
 
-if (Projects.find().count() === 0) {
+/*if (Projects.find().count() === 0) {
     // insert data in projects collection if there's no data
 
     var projectId = Projects.insert({
@@ -252,4 +252,4 @@ if (Projects.find().count() === 0) {
         projectId: projectId,
         categories: [lineBId]
     });
-}
+}*/

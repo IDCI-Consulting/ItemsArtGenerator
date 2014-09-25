@@ -1,13 +1,15 @@
 <template name="itemsList">
-    {{#each items}}
-        <li class="item {{selected}}">
-            <div class="name">
-                {{name}}
-            </div>
-            <ul class="actions">
-                <li><a href="#" class="tiny button alert delete"></a></li>
-                <li><a class="tiny button secondary edit-item" href="{{pathFor 'itemEdit'}}"></a></li>
-            </ul>
-        </li>
+    {{#each lines}}
+        {{#each sortByPosition items projectId}}
+            <li class="item {{selected}}">
+                <div class="name">
+                    {{name}}
+                </div>
+                <ul class="actions">
+                    <li><a href="#" class="tiny button alert delete"></a></li>
+                    <li><a class="tiny button secondary edit-item" href="{{pathFor 'itemEdit'}}"></a></li>
+                </ul>
+            </li>
+        {{/each}}
     {{/each}}
 </template>

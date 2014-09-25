@@ -1,6 +1,6 @@
 Template.itemsList.helpers({
-    items: function() {
-        return Items.find({projectId: this._id});
+    lines: function() {
+        return ItemCategories.find({projectId: this._id});
     },
     selected: function() {
         return Session.equals("selected_item", this._id) ? "selected" : '';

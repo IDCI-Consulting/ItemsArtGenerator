@@ -1,15 +1,18 @@
 var ObserveLine;
 
-Template.line.helpers({
-    stations: function() {
-        return Items.find({categories: {$in: [this._id]}});
-    }
-});
-
 Template.line.rendered = function() {
     var subwayLine = this.data;
     var gLines = d3.select('#subway-lines');
     var gLegend = d3.select('#subway-legend > ul');
+    var stations = [];
+    var items = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
+    _.each(subwayLine.items, function(itemId, key) {
+        _.each(items, function(value, key) {
+            if(itemId === value._id) {
+                stations.push(value);
+            }
+        });
+    });
 
     // Get path coords
     var lineFunction = d3.svg.line()
@@ -24,13 +27,20 @@ Template.line.rendered = function() {
 
     // Draw line with new station coords
     var draw = function(subwayLine) {
-        var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
+        var stations = [];
+        var items = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
+        _.each(subwayLine.items, function(itemId, key) {
+            _.each(items, function(value, key) {
+                if(itemId === value._id) {
+                    stations.push(value);
+                }
+            });
+        });
         gLines
             .selectAll('#line-' + subwayLine._id)
             .transition()
             .duration(500)
             .attr('d', function(subwayLine) {
-                var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
                 return lineFunction(stations);
             })
             .style('stroke', function(subwayLine) {
@@ -38,18 +48,6 @@ Template.line.rendered = function() {
             })
     }
 
-    // Items collection observer
-    ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
-        added: function(docuement) {
-            draw(subwayLine);
-        },
-        changed: function(newDocument, oldDocument) {
-            draw(subwayLine);
-        },
-        removed: function(oldDocument) {
-            draw(subwayLine);
-        }
-    });
 
     // ItemCategories collection observer
     ObserveLine = ItemCategories.find({_id: subwayLine._id}).observe({
@@ -60,7 +58,6 @@ Template.line.rendered = function() {
                 .attr('id', "line-" + document._id)
                 .attr('class', 'subway-line')
                 .attr('d', function(subwayLine) {
-                    var stations = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
                     return lineFunction(stations);
                 })
                 .style('stroke', document.options.subway.color)
@@ -90,6 +87,19 @@ Template.line.rendered = function() {
                 .remove()
             ;
             draw(oldDocument);
+        }
+    });
+
+    // Items collection observer
+    ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
+        added: function(document) {
+            draw(subwayLine);
+        },
+        changed: function(newDocument, oldDocument) {
+            draw(subwayLine);
+        },
+        removed: function(oldDocument) {
+            draw(subwayLine);
         }
     });
 };

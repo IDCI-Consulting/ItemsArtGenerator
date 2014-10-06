@@ -2,16 +2,14 @@ Template.projectEdit.events({
     'submit form': function(e) {
         e.preventDefault();
 
-        var currentProjectId = this._id,
-            formData = $(e.target).serializeArray(),
-            project = {
+        var formData = $(e.target).serializeArray();
+        var project = {
                 updatedAt: new Date().getTime(),
             };
 
-        var result = Meteor.bindFormData(project, formData);
-        Projects.update(currentProjectId, {$set: result}, function() {
-            Router.go('projectShow', {_id: currentProjectId});
-        });
+        var boundData = Meteor.bindFormData(project, formData);
+        Projects.update(this._id, {$set: boundData});
+        Router.go('projectShow', {_id: this._id});
     },
 
     'click .delete': function(e) {

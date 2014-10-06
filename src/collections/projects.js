@@ -1,6 +1,6 @@
 Projects = new Meteor.Collection('projects');
 
-Meteor.methods({
+/*Meteor.methods({
     project: function(projectAttributes) {
         var project = _.extend(_.pick(projectAttributes, 'name', 'description', 'visibility', 'tags', 'publicationState'), {
             createdAt: new Date().getTime()
@@ -10,4 +10,4 @@ Meteor.methods({
 
         return projectId;
     }
-});
+});*/

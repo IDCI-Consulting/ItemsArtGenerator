@@ -1,9 +1,9 @@
-UI.registerHelper('sortByPosition', function(categoryItems, projectId) {
+UI.registerHelper('sortByPosition', function(category) {
     var itemsSorted = [];
-    var items = Items.find({projectId: projectId}).fetch();
+    var items = Items.find({categories: {$in: [category._id]}}).fetch();
 
     // Sort items
-    _.each(categoryItems, function(itemId) {
+    _.each(category.items, function(itemId) {
         _.each(items, function(item) {
             if(itemId === item._id) {
                 itemsSorted.push(item);

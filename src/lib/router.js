@@ -96,7 +96,6 @@ Router.map(function() {
     /***ROUTES FOR ITEMS***/
     /**********************/
 
-
     this.route('itemCreate', {
         path: '/project/:_id/item/new',
         waitOn: function() {
@@ -123,8 +122,28 @@ Router.map(function() {
     });
 
     /*********************/
-    /****ROUTES FOR API***/
+    /***ROUTES FOR USER***/
     /*********************/
+
+    this.route('userCreate', {
+        path: '/user/new'
+    });
+
+    this.route('userEdit', {
+        path: '/user/:_id/edit',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleUser', this.params._id)
+            ]
+        },
+        data: function() {
+            return Users.findOne(this.params._id);
+        }
+    });
+
+    /********************/
+    /***ROUTES FOR API***/
+    /********************/
 
     // TODO : check visibility and publicationState
 

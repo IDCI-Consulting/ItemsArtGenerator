@@ -30,11 +30,8 @@ Template.station.rendered = function() {
                 return c;
             })
             .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
-            .select('circle')
-            .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
             .select('text')
             .text(subwayStation.name)
-            .attr('x', 8 + (subwayStation.categories.length - 1) * 4)
         ;
     };
 
@@ -45,19 +42,19 @@ Template.station.rendered = function() {
                 var gContainer = gStations
                     .append('g')
                     .datum(document)
-                    .attr('id', 'station-' + subwayStation._id)
+                    .attr('id', 'station-' + document._id)
                     .attr('class', 'subway-station')
                     .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
                     .call(dragStation)
                 ;
                 gContainer
                     .append('circle')
-                    .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
+                    .attr('r', 8 + (document.categories.length - 1) * 4)
                 ;
                 gContainer
                     .append('text')
-                    .text(subwayStation.name)
-                    .attr('x', 8 + (subwayStation.categories.length - 1) * 4)
+                    .text(document.name)
+                    .attr('x', 8 + (document.categories.length - 1) * 4)
                 ;
             }
         },

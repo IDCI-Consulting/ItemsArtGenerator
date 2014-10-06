@@ -45,6 +45,7 @@ Meteor.updateCategoryItem = function(newItem, oldItem) {
             }
         });
     }
+
     // Check if category is added
     if(newItem.categories.length > oldItem.categories.length) {
         _.each(newItem.categories, function(categoryIdFromNew, keyFromNew) {

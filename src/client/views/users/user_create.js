@@ -10,6 +10,5 @@ Template.userCreate.events({
         var boundData = Meteor.bindFormData(user, formData);
         var userId = Users.insert(boundData);
         Session.set('userToken', boundData.token);
-        console.log(Session);
     }
 });

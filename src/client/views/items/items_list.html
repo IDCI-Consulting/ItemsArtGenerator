@@ -1,7 +1,7 @@
 <template name="itemsList">
     {{#each lines}}
-        {{#each sortByPosition items projectId}}
-            <li class="item {{selected}}">
+        {{#each sortByPosition this}}
+            <li class="item {{selected ../_id}}">
                 <div class="name">
                     {{name}}
                 </div>

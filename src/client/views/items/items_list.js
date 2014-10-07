@@ -2,8 +2,10 @@ Template.itemsList.helpers({
     lines: function() {
         return ItemCategories.find({projectId: this._id});
     },
-    selected: function() {
-        return Session.equals("selected_item", this._id) ? "selected" : '';
+    selected: function(categoryId) {
+        this.categories = [];
+        this.categories.push(categoryId);
+        return Session.equals("selected_item", this._id) && Session.equals("selected_itemCategory", categoryId) ? "selected" : '';
     }
 });
 
@@ -26,5 +28,6 @@ Template.itemsList.events({
 
     'click .item': function () {
         Session.set("selected_item", this._id);
+        Session.set("selected_itemCategory", this.categories[0]);
     }
 })

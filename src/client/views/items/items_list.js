@@ -5,7 +5,7 @@ Template.itemsList.helpers({
     selected: function(categoryId) {
         this.categories = [];
         this.categories.push(categoryId);
-        return Session.equals("selected_item", this._id) && Session.equals("selected_itemCategory", categoryId) ? "selected" : '';
+        return Session.equals("selected_item_id", this._id) && Session.equals("selected_itemCategory_id", categoryId) ? "selected" : '';
     }
 });
 
@@ -27,7 +27,7 @@ Template.itemsList.events({
     },
 
     'click .item': function () {
-        Session.set("selected_item", this._id);
-        Session.set("selected_itemCategory", this.categories[0]);
+        Session.set("selected_item_id", this._id);
+        Session.set("selected_itemCategory_id", this.categories[0]);
     }
 })

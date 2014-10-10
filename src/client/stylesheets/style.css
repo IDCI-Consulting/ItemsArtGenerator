@@ -70,6 +70,7 @@ li.item {
 
 li.item.selected {
     background: #5e5e5e;
+    cursor: move;
 }
 
 .accordion .accordion-navigation > .content.active, .accordion dd > .content.active {
@@ -100,7 +101,7 @@ li.item.selected {
     margin-right: 20px;
     margin-top: -25px;
 }
-.actions>li {
+.actions > li {
     height: 10px;
     margin-bottom: 15px;
 }
@@ -112,7 +113,7 @@ button.tiny, .button.tiny {
 }
 
 .subway-station:hover {
-    cursor: pointer;
+    cursor: move;
 }
 
 .subway-station > circle {

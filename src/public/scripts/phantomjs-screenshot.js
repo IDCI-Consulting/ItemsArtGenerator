@@ -31,45 +31,63 @@ function waitFor(testFx, onReady, timeOutMillis) {
                 }
             }
         }, 250); //< repeat check every 250ms
-};
+}
 
-var page = require('webpage').create();
+/**
+ * Render a project
+ *
+ * @param url : the web page url to be rendered
+ * @param filePath : the path and complete name of the picture to be rendered
+ */
+function renderProject(url, filePath) {
+    var page = require('webpage').create();
+    page.clipRect = { top: 0, left: 0, width: 1440, height: 900 };
+    page.open(url, function (status) {
+        // Check for page load success
+        if (status !== "success") {
+            console.log("Unable to access network");
+            return "fail";
+        } else {
+            // Wait for '#subway-svg' to be visible
+            waitFor(function() {
+                // Check in the page if a specific element is now visible
+                var result = page.evaluate(function() {
+                    if ($('#subway-stations').length) {
+                        return document.getElementById('subway-stations').getBoundingClientRect();
+                    }
+                    return false;
+                });
+
+                result.top -= 10;
+                result.left -= 10;
+                result.width += 20;
+                result.height += 20;
+                if (result !== false) {
+                    page.clipRect = result;
+                    return true;
+                }
+
+                return false;
+
+            }, function() {
+                console.log("The svg is visible. Rendering the picture...");
+                page.render(filePath);
+                phantom.exit();
+            });
+        }
+    });
+}
+
 var args = require('system').args;
 var url = args[1];
 var filePath = args[2];
 
-page.viewportSize = { width: 1440, height: 900 };
-page.clipRect = { top: 0, left: 0, width: 1440, height: 900 };
-page.open(url, function (status) {
-    // Check for page load success
-    if (status !== "success") {
-        console.log("Unable to access network");
-    } else {
-        // Wait for '#subway-svg' to be visible
-        waitFor(function() {
-            // Check in the page if a specific element is now visible
-            var result = page.evaluate(function() {
-                if ($('#subway-stations').length) {
-                    return document.getElementById('subway-stations').getBoundingClientRect();
-                }
-                return false;
-            });
+renderProject(url, filePath);
 
-            result.top -= 10;
-            result.left -= 10;
-            result.width += 20;
-            result.height += 20;
-            if (result !== false) {
-                page.clipRect = result;
-                return true;
-            }
 
-            return false;
 
-        }, function() {
-            console.log("The svg is visible. Rendering the picture...");
-            page.render(filePath);
-            phantom.exit();
-        });
-    }
-});
+
+
+
+
+

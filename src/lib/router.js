@@ -170,7 +170,7 @@ Router.map(function() {
         path: '/api/project.:format/:_id',
         action: function() {
             // TODO check visibility & publicationState & render error else?
-            var url = Meteor.absoluteUrl()+'project/'+this.params._id+'/show';
+            var url = Meteor.absoluteUrl()+'project/'+this.params._id+'/raw';
             var filePath = process.env.PWD+'/.uploads/'+this.params._id+'.'+this.params.format;
             var exec = Npm.require('child_process').exec;
             var action = this;

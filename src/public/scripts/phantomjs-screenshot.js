@@ -48,14 +48,28 @@ page.open(url, function (status) {
         // Wait for '#subway-svg' to be visible
         waitFor(function() {
             // Check in the page if a specific element is now visible
-            return page.evaluate(function() {
-                return $("#subway-svg").length;
+            var result = page.evaluate(function() {
+                if ($('#subway-stations').length) {
+                    return document.getElementById('subway-stations').getBoundingClientRect();
+                }
+                return false;
             });
+
+            result.top -= 10;
+            result.left -= 10;
+            result.width += 20;
+            result.height += 20;
+            if (result !== false) {
+                page.clipRect = result;
+                return true;
+            }
+
+            return false;
+
         }, function() {
+            console.log("The svg is visible. Rendering the picture...");
             page.render(filePath);
-            console.log("The sign-in dialog should be visible now.");
             phantom.exit();
         });
     }
 });
-

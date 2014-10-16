@@ -41,7 +41,6 @@ function waitFor(testFx, onReady, timeOutMillis) {
  */
 function renderProject(url, filePath) {
     var page = require('webpage').create();
-    page.clipRect = { top: 0, left: 0, width: 1440, height: 900 };
     page.open(url, function (status) {
         // Check for page load success
         if (status !== "success") {
@@ -58,11 +57,11 @@ function renderProject(url, filePath) {
                     return false;
                 });
 
-                result.top -= 10;
-                result.left -= 10;
-                result.width += 20;
-                result.height += 20;
                 if (result !== false) {
+                    result.top -= 10;
+                    result.left -= 10;
+                    result.width += 20;
+                    result.height += 20;
                     page.clipRect = result;
                     return true;
                 }

@@ -66,11 +66,17 @@ Template.line.rendered = function() {
             gLegend
                 .append('li')
                 .datum(document)
-                .attr('id', 'legend-' + document._id)
+                .attr('id', 'legend-line-' + document._id)
                 .append('span')
                 .style('background', document.options.subway.color)
                 .append('p')
                 .text(document.name)
+            ;
+            gLegend
+                .select('#legend-line-' + document._id)
+                .append('ul')
+                .attr('id', 'stations-' + document._id)
+                .style('font-size', "14px")
             ;
         },
 
@@ -102,6 +108,14 @@ Template.line.rendered = function() {
     // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
         added: function(document) {
+            gLegend
+                .select('#stations-' + subwayLine._id)
+                .datum(document)
+                .append('li')
+                .attr('id', 'legend-station-' + document._id)
+                .style('color', subwayLine.options.subway.color)
+                .text(document.name)
+            ;
             draw(subwayLine);
         },
         changed: function(newDocument, oldDocument) {

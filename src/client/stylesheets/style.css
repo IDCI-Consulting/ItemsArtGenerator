@@ -42,6 +42,10 @@ hr {
     overflow: auto;
 }
 
+ul {
+list-style-type:none;
+}
+
 a.success {
     color: #43ac6a;
     font-size: 32px;

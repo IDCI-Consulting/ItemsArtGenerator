@@ -3,3 +3,4 @@ Template.outputSubway.helpers({
         return ItemCategories.find({projectId: this._id});
     }
 });
+

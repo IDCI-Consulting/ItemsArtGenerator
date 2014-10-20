@@ -30,8 +30,11 @@ Template.station.rendered = function() {
                 return c;
             })
             .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
+            .select('circle')
+            .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
             .select('text')
             .text(subwayStation.name)
+            .attr('x', 8 + (document.categories.length - 1) * 4)
         ;
     };
 

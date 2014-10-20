@@ -30,18 +30,11 @@ Meteor.updateCategoryItem = function(newItem, oldItem) {
     // Check if category is removed
     if(newItem.categories.length < oldItem.categories.length) {
         _.each(oldItem.categories, function(categoryIdFromOld, keyFromOld) {
-            if(newItem.categories.length === 0) {
+            if(newItem.categories.length === 0 || newItem.categories.indexOf(categoryIdFromOld) === -1) {
                 // Remove the item in collection if category is unchecked
                 category = ItemCategories.findOne(categoryIdFromOld);
                 Meteor.removeCategoryItem(category, newItem._id);
                 ItemCategories.update(category._id, {$set: {items: category.items}});
-            } else {
-                if(newItem.categories.indexOf(categoryIdFromOld) === -1) {
-                    // Remove the item in collection if category's checkbox unchecked
-                    category = ItemCategories.findOne(categoryIdFromOld);
-                    Meteor.removeCategoryItem(category, newItem._id);
-                    ItemCategories.update(category._id, {$set: {items: category.items}});
-                }
             }
         });
     }
@@ -49,18 +42,11 @@ Meteor.updateCategoryItem = function(newItem, oldItem) {
     // Check if category is added
     if(newItem.categories.length > oldItem.categories.length) {
         _.each(newItem.categories, function(categoryIdFromNew, keyFromNew) {
-            if(oldItem.categories.length === 0) {
+            if(oldItem.categories.length === 0 || oldItem.categories.indexOf(categoryIdFromNew) === -1) {
                 // Add the item in category's collection if category's checkbox checked
                 category = ItemCategories.findOne(categoryIdFromNew);
                 Meteor.addCategoryItem(category, newItem._id);
                 ItemCategories.update(category._id, {$set: {items: category.items}});
-            } else {
-                if(oldItem.categories.indexOf(categoryIdFromNew) === -1) {
-                    // Add the item in category's collection if category's checkbox checked
-                    category = ItemCategories.findOne(categoryIdFromNew);
-                    Meteor.addCategoryItem(category, newItem._id);
-                    ItemCategories.update(category._id, {$set: {items: category.items}});
-                }
             }
         });
     }

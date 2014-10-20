@@ -4,42 +4,20 @@ Template.projectRaw.helpers({
     }
 });
 
-Template.projectRaw.legendSVG = function() {
+Template.projectRaw.title = function() {
     var self = this;
     if(! self.handle) {
         self.handle = Deps.autorun(function() {
-            var subwayLines = ItemCategories.find({projectId: self._id}).fetch();
-            var stations = Items.find({projectId: self._id}).fetch();
-            var subwayLegend = d3.select('#subway-legend');
-
-            var legend = subwayLegend
-                .attr('transform', 'translate(80,500)')
-            ;
-            // d3 enter
-            legend.selectAll('rect')
-                .data(subwayLines)
-                .enter()
-                .append('rect')
-                .attr('y', function(line, index) {
-                    return index * 20;
-                })
-                .attr("width", 10)
-                .attr("height", 10)
-                .style('fill', function(line) {
-                    return line.options.subway.color;
-                })
-            ;
-            legend.selectAll('text')
-                .data(subwayLines)
-                .enter()
+            console.log(self);
+            var subwayTitle = d3.select('#subway-title');
+            subwayTitle
                 .append("text")
-                .attr("x", 20)
-                .attr("y", function(line, index){
-                    return index *  20 + 9;
-                })
-                .text(function(line) {
-                    return line.name;
-                });
+                .data([self])
+                .attr("x", (1000 / 2))
+                .attr("y", 50)
+                .attr("text-anchor", "middle")
+                .style("font-size", "50px")
+                .text(self.description);
             ;
         });
     }

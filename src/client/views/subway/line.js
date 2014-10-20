@@ -64,6 +64,7 @@ Template.line.rendered = function() {
             ;
 
             gLegend
+                .attr('class', 'inline-list')
                 .append('li')
                 .datum(document)
                 .attr('id', 'legend-line-' + document._id)
@@ -119,9 +120,17 @@ Template.line.rendered = function() {
             draw(subwayLine);
         },
         changed: function(newDocument, oldDocument) {
+            gLegend
+                .select('#legend-station-' + newDocument._id)
+                .datum(newDocument)
+            ;
             draw(subwayLine);
         },
         removed: function(oldDocument) {
+            gLegend
+                .select('#legend-station-' + oldDocument._id)
+                .remove()
+            ;
             draw(subwayLine);
         }
     });

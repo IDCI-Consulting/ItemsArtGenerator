@@ -158,10 +158,6 @@ button.tiny, .button.tiny {
     padding-left: 20px;
 }
 
-#subway-legend > ul {
-    list-style-type: none;
-}
-
 #subway-legend > ul > li {
     width: 100px;
     margin: 10px;

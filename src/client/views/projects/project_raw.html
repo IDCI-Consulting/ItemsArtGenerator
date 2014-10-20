@@ -6,10 +6,17 @@
         viewBox="0 0 1000 1000"
         preserveAspectRatio="xMinYMin meet"
     >
+        <g id="subway-title"></g>
         <g id="subway-lines"></g>
         <g id="subway-stations"></g>
     </svg>
-    {{legend}}
+
+    {{title}}
+
+    <div id="subway-legend">
+        <ul>
+        </ul>
+    </div>
 
     {{#each lines}}
         {{> line}}

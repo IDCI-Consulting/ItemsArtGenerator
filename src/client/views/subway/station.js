@@ -18,7 +18,7 @@ Template.station.rendered = function() {
 
     // Draw station
     var draw = function(subwayStation) {
-        gStations
+        var gContainer = gStations
             .selectAll('#station-' + subwayStation._id)
             .transition()
             .duration(500)
@@ -30,11 +30,15 @@ Template.station.rendered = function() {
                 return c;
             })
             .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
+        ;
+        gContainer
             .select('circle')
             .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
+        ;
+        gContainer
             .select('text')
+            .attr('x', 8 + (subwayStation.categories.length - 1) * 4)
             .text(subwayStation.name)
-            .attr('x', 8 + (document.categories.length - 1) * 4)
         ;
     };
 

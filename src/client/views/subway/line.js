@@ -124,6 +124,7 @@ Template.line.rendered = function() {
                 .select('#legend-station-' + newDocument._id)
                 .datum(newDocument)
             ;
+            console.log(newDocument);
             draw(subwayLine);
         },
         removed: function(oldDocument) {

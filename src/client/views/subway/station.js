@@ -1,7 +1,8 @@
 var ObserveStation;
 
-Template.station.rendered = function() {
+Template.station.rendered = function(parent) {
     var subwayStation = this.data;
+    var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
     // Drag Functions
     var dragStation = d3.behavior.drag()
@@ -33,11 +34,18 @@ Template.station.rendered = function() {
         ;
         gContainer
             .select('circle')
+            .attr('stroke', function(subwayStation) {
+                if (subwayStation.categories.length > 1) {
+                    return 'rgba(180, 180, 180, 1)';
+                }
+
+                return category.options.subway.color;
+            })
             .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
         ;
         gContainer
             .select('text')
-            .attr('x', 8 + (subwayStation.categories.length - 1) * 4)
+            .attr('x', 10 + (subwayStation.categories.length - 1) * 4)
             .text(subwayStation.name)
         ;
     };
@@ -56,12 +64,19 @@ Template.station.rendered = function() {
                 ;
                 gContainer
                     .append('circle')
+                    .attr('stroke', function(subwayStation) {
+                        if (subwayStation.categories.length > 1) {
+                            return 'rgba(180, 180, 180, 1)';
+                        }
+
+                        return category.options.subway.color;
+                    })
                     .attr('r', 8 + (document.categories.length - 1) * 4)
                 ;
                 gContainer
                     .append('text')
                     .text(document.name)
-                    .attr('x', 8 + (document.categories.length - 1) * 4)
+                    .attr('x', 10 + (document.categories.length - 1) * 4)
                 ;
             }
         },

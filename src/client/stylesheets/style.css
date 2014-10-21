@@ -121,7 +121,8 @@ button.tiny, .button.tiny {
 }
 
 .subway-station > circle {
-    fill: rgba(180, 180, 180, 1);
+    fill: #eee;
+    stroke-width: 3;
 }
 
 .subway-station.dragged > circle {
@@ -129,8 +130,7 @@ button.tiny, .button.tiny {
 }
 
 .subway-station > text {
-    fill: black;
-    font-size : 1em;
+    font-size : 1.1em;
 }
 
 .subway-station:hover > circle {
@@ -148,14 +148,19 @@ button.tiny, .button.tiny {
 }
 
 #subway-legend {
+    resize: both;
+    overflow: auto;
+    background: #eee;
+    display: inline-block;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    min-height: 100px;
+    min-height: 200px;
     margin: 0;
     padding: 0;
     padding-left: 20px;
+    border-top: thick double #ff0000;
 }
 
 #subway-legend > ul > li {

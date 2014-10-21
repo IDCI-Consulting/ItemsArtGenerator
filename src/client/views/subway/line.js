@@ -77,7 +77,7 @@ Template.line.rendered = function() {
                 .select('#legend-line-' + document._id)
                 .append('ul')
                 .attr('id', 'stations-' + document._id)
-                .style('font-size', "14px")
+                .style('font-size', "7px")
             ;
         },
 
@@ -124,7 +124,6 @@ Template.line.rendered = function() {
                 .select('#legend-station-' + newDocument._id)
                 .datum(newDocument)
             ;
-            console.log(newDocument);
             draw(subwayLine);
         },
         removed: function(oldDocument) {

@@ -36,7 +36,25 @@ Template.station.rendered = function(parent) {
             .select('circle')
             .attr('stroke', function(subwayStation) {
                 if (subwayStation.categories.length > 1) {
-                    return 'rgba(180, 180, 180, 1)';
+                    var gradient = d3.select('defs')
+                        .append("linearGradient")
+                        .attr("id", "gradient-" + subwayStation._id)
+                        .attr("x1", "0%")
+                        .attr("y1", "0%")
+                        .attr("x2", "100%")
+                        .attr("y2", "0%")
+                        .attr("spreadMethod", "pad")
+                    ;
+                    _.each(subwayStation.categories, function(categoryId, key) {
+                        var category = ItemCategories.findOne(categoryId);
+                        gradient
+                            .append('stop')
+                            .attr('offset', 100 * key + "%")
+                            .attr('stop-color', category.options.subway.color)
+                            .attr('stop-opacity', 1)
+                        ;
+                    });
+                    return 'url(#gradient-' + subwayStation._id + ')';
                 }
 
                 return category.options.subway.color;
@@ -66,7 +84,25 @@ Template.station.rendered = function(parent) {
                     .append('circle')
                     .attr('stroke', function(subwayStation) {
                         if (subwayStation.categories.length > 1) {
-                            return 'rgba(180, 180, 180, 1)';
+                            var gradient = d3.select('defs')
+                                .append("linearGradient")
+                                .attr("id", "gradient-" + subwayStation._id)
+                                .attr("x1", "0%")
+                                .attr("y1", "0%")
+                                .attr("x2", "100%")
+                                .attr("y2", "0%")
+                                .attr("spreadMethod", "pad")
+                            ;
+                            _.each(subwayStation.categories, function(categoryId, key) {
+                                var category = ItemCategories.findOne(categoryId);
+                                gradient
+                                    .append('stop')
+                                    .attr('offset', 100 * key + "%")
+                                    .attr('stop-color', category.options.subway.color)
+                                    .attr('stop-opacity', 1)
+                                ;
+                            });
+                            return 'url(#gradient-' + subwayStation._id + ')';
                         }
 
                         return category.options.subway.color;

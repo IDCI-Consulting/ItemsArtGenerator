@@ -11,7 +11,8 @@
       "mys-subway": {
         "path": "../packages"
       },
-      "ionicons": {}
+      "ionicons": {},
+      "modernizr-meteor": {}
     },
     "packages": {
       "iron-router": {
@@ -36,6 +37,11 @@
         "git": "https://github.com/Pagebakers/meteor-ionicons.git",
         "tag": "v1.5.2",
         "commit": "009bb12b091b7a9655b636dabe678e160d5942bf"
+      },
+      "modernizr-meteor": {
+        "git": "https://github.com/ckir/modernizr-meteor.git",
+        "tag": "v2.6.2",
+        "commit": "391ca2a3beff3cd2b0e1099cb2d744b5a2e8a73e"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

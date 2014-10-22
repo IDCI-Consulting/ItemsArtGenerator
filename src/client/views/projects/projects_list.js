@@ -1,6 +1,6 @@
 Template.projectsList.helpers({
     projects: function() {
-        return Projects.find();
+        return Projects.find({state: "done"});
     }
 });
 

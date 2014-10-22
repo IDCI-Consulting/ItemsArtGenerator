@@ -1,13 +1,9 @@
 Projects = new Meteor.Collection('projects');
 
-/*Meteor.methods({
-    project: function(projectAttributes) {
-        var project = _.extend(_.pick(projectAttributes, 'name', 'description', 'visibility', 'tags', 'publicationState'), {
-            createdAt: new Date().getTime()
-        });
-
-        var projectId = Projects.insert(project);
-
-        return projectId;
+Projects.find({}).observe({
+    removed: function(oldDocument) {
+        // Remove items & categories associated
+        Items.remove({projectId: oldDocument._id});
+        ItemCategories.remove({projectId: oldDocument._id});
     }
-});*/
+});

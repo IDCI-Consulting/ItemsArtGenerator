@@ -9,6 +9,7 @@
     "mys-subway": {
       "path": "../packages"
     },
-    "ionicons": {}
+    "ionicons": {},
+    "modernizr-meteor": {}
   }
 }

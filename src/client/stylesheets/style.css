@@ -14,6 +14,11 @@ hr {
     color: #666666;
 }
 
+svg {
+    height: 100%;
+    width: 100%;
+}
+
 .off-canvas-wrap {
     height: 100%;
 }
@@ -148,9 +153,6 @@ button.tiny, .button.tiny {
 }
 
 #subway-legend {
-    resize: both;
-    overflow: auto;
-    background: #eee;
     display: inline-block;
     position: absolute;
     bottom: 0;

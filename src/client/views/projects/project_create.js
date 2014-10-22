@@ -3,6 +3,7 @@ Template.projectCreate.events({
         e.preventDefault();
 
         var formData = $(e.target).serializeArray();
+        console.log(formData);
         var project = {
             createdAt: new Date().getTime(),
         };

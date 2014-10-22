@@ -36,6 +36,7 @@ Template.station.rendered = function(parent) {
             .select('circle')
             .attr('stroke', function(subwayStation) {
                 if (subwayStation.categories.length > 1) {
+                    var n = 100 / (subwayStation.categories.length - 1)
                     var gradient = d3.select('defs')
                         .append("linearGradient")
                         .attr("id", "gradient-" + subwayStation._id)
@@ -49,7 +50,7 @@ Template.station.rendered = function(parent) {
                         var category = ItemCategories.findOne(categoryId);
                         gradient
                             .append('stop')
-                            .attr('offset', 100 * key + "%")
+                            .attr('offset', n * key + "%")
                             .attr('stop-color', category.options.subway.color)
                             .attr('stop-opacity', 1)
                         ;
@@ -84,6 +85,7 @@ Template.station.rendered = function(parent) {
                     .append('circle')
                     .attr('stroke', function(subwayStation) {
                         if (subwayStation.categories.length > 1) {
+                            var n = 100 / (subwayStation.categories.length - 1)
                             var gradient = d3.select('defs')
                                 .append("linearGradient")
                                 .attr("id", "gradient-" + subwayStation._id)
@@ -97,7 +99,7 @@ Template.station.rendered = function(parent) {
                                 var category = ItemCategories.findOne(categoryId);
                                 gradient
                                     .append('stop')
-                                    .attr('offset', 100 * key + "%")
+                                    .attr('offset', n * key + "%")
                                     .attr('stop-color', category.options.subway.color)
                                     .attr('stop-opacity', 1)
                                 ;

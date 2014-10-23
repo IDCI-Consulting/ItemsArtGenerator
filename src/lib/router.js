@@ -5,7 +5,11 @@ Router.configure({
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     waitOn: function() {
-        return Meteor.subscribe('projects');
+        return  [
+            Meteor.subscribe('projects'),
+            Meteor.subscribe('itemCategories'),
+            Meteor.subscribe('items')
+        ];
     }
 });
 
@@ -37,8 +41,8 @@ Router.map(function() {
         waitOn: function() {
             return [
                 Meteor.subscribe('singleProject', this.params._id),
-                Meteor.subscribe('itemCategories', this.params._id),
-                Meteor.subscribe('items', this.params._id)
+                Meteor.subscribe('itemCategories'),
+                Meteor.subscribe('items')
             ];
         },
         data: function() {
@@ -64,7 +68,14 @@ Router.map(function() {
     });
 
     this.route('projectCreate', {
-        path: '/project/new'
+        path: '/project/new',
+        waitOn: function() {
+            return  [
+                Meteor.subscribe('projects'),
+                Meteor.subscribe('itemCategories'),
+                Meteor.subscribe('items')
+            ];
+        }
     });
 
     /*******************************/

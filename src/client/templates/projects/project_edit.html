@@ -1,37 +1,37 @@
-<template name="projectCreate">
+<template name="projectEdit">
     <form class="main">
         <div class="row">
             <div class="large-12 columns">
                 <label for="name">Name</label>
-                <input name="name" type="text" value="" placeholder="Name your project"/>
+                <input name="name" type="text" value="{{name}}" placeholder="Name your project"/>
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
             <label for="description">Description</label>
-                <textarea name="description" type="text" value=""></textarea>
+                <textarea name="description" type="text" value="{{description}}"></textarea>
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
                 <label for="visibility">Visibility</label>
-                <input type="text" name="visibility" value="" placeholder="Visibility" />
+                <input type="text" name="visibility" value="{{visibility}}" placeholder="Visibility" />
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
                 <label for="type">Type</label>
-                <input type="text" name="type" value="" placeholder="Type" />
+                <input type="text" name="type" value="{{type}}" placeholder="Type" />
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
                 <label for="tags">Tags</label>
-                <input type="text" name="tags" value="" placeholder="Tags" />
+                <input type="text" name="tags" value="{{tags}}" placeholder="Tags" />
             </div>
         </div>
 
@@ -39,15 +39,22 @@
             <div class="large-12 columns">
                 <label for="State">State</label>
                 <select name="state">
-                    <option value="pending">Pending</option>
-                    <option value="done">Done</option>
+                    <option value="new">New</option>
+                    <option value="blocked">Blocked</option>
+                    <option value="published">Published</option>
                 </select>
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
-                <input type="submit" value="Submit" class="button"/>
+                <input type="submit" value="Submit" class="small button radius"/>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="large-12 columns">
+                <a class="small button radius alert delete" href="#">Delete project</a>
             </div>
         </div>
     </form>

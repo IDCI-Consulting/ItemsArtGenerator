@@ -1,6 +1,6 @@
 {
     "projects": [
-        { "name" : "LYON", "description" : "Metro de Lyon", "type" : "subway", "tags" : [  "Lyon",  "TCL",  "Métro" ], "createdAt" : 1411457136946, "authors" : [  "Brahim" ], "_id" : "uboG5BKNXHk8sszsG" }
+        { "name" : "LYON", "description" : "Metro de Lyon", "type" : "subway", "tags" : [  "Lyon",  "TCL",  "Métro" ], "createdAt" : 1411457136946, "authors" : [  "Brahim" ], "_id" : "uboG5BKNXHk8sszsG", "isModel" : true }
     ],
 
     "categories": [

@@ -188,19 +188,6 @@ Router.map(function() {
         }
     });
 
-    /**
-     * List a user projects
-     * Method GET
-     */
-    this.route('apiUserProjectsList', {
-        where: 'server',
-        path: '/api/1.0/users/:_id/projects',
-        action: function() {
-            checkRequest(this, 'GET');
-            
-        }
-    });
-
     /*********************/
     /***METHODS FOR API***/
     /*********************/

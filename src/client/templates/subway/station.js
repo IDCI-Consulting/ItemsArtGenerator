@@ -4,6 +4,13 @@ Template.station.rendered = function(parent) {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
+    var div = d3.select('.tooltip');
+    Meteor.defer(function () {
+        if(d3.select('#done').empty()) {
+            d3.select('svg').append('div').attr('id', 'done');
+        }
+    });
+
     // Drag Functions
     var dragStation = d3.behavior.drag()
         .on('dragstart', function(subwayStation) {
@@ -73,6 +80,7 @@ Template.station.rendered = function(parent) {
     ObserveStation = Items.find({_id: subwayStation._id}).observe({
         added: function(document) {
             if(d3.select('#station-' + document._id).empty()) {
+
                 var gContainer = gStations
                     .append('g')
                     .datum(document)

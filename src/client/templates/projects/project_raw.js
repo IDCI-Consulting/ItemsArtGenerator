@@ -18,4 +18,5 @@ Template.projectRaw.rendered = function() {
         .attr('id', 'subway-lines');
     svg.append('g')
         .attr('id', 'subway-stations');
+
 }

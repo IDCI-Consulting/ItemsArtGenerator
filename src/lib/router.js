@@ -202,9 +202,8 @@ Router.map(function() {
         where: 'server',
         path: '/api/1.0/projects',
         action: function() {
-            console.log(this.request.query);
             checkRequest(this, 'GET');
-            var query = buildQuery(this.params);
+            var query = buildQuery(this.request.query);
             var filters = buildFilters(this.params);
             var projects = Projects.find(query, filters).fetch();
             _.each(projects, function(project) {
@@ -221,22 +220,38 @@ Router.map(function() {
     /**
      * Build query from request parameters
      */
-    function buildQuery(params) {
-        // Dans des versions prochaines, utiliser directement les paramètres
-        var query = {
+    function buildQuery(query) {
+        var builtQuery = {
+            // TODO uncomment if needed
             /*visibility:'public',
             publicationState:'published'*/
         }
+        var fields = {
+            // 'query_parameter': 'matching_project_field'
+            'tags': 'tags',
+            'authors': 'authors',
+            'types' : 'type'
+        };
 
+        for (var parameter in fields) {
+            if (fields.hasOwnProperty(parameter)) {
+                // hasOwnProperty is used to check if your target really have that property, rather than have it inherited from its prototype
+                var field = fields[parameter];
+                var parametersForField = query[parameter];
+                // if the query has a parameter we can find in fields
+                if (query[parameter]) {
+                    builtQuery[field] = { '$in': parametersForField }
+                }
+            }
+        }
 
-        return query;
+        return builtQuery;
     }
 
     /**
      * Build filters from request parameters
      */
     function buildFilters(params) {
-        console.log(params);
         var sort_order = getSort(params);
         var offset = params.offset ? params.offset : 0;
         var limit = params.limit ? params.limit : null;
@@ -290,7 +305,6 @@ Router.map(function() {
             // render the project
             var exec = Npm.require('child_process').exec;
             var renderInfo = getRenderInfo(this.params);
-            console.log(renderInfo.cmd);
             exec(renderInfo.cmd,
                 function (error, stdout, stderr) {
                     console.log('stdout: ' + stdout);

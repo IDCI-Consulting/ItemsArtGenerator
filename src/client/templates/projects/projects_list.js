@@ -1,6 +1,13 @@
 Template.projectsList.helpers({
     projects: function() {
         return Projects.find({state: "published"});
+    },
+    isAdmin: function() {
+        var admin = Users.findOne(Meteor.connection.userId());
+        if (admin === undefined) {
+            return false;
+        }
+        return admin.isAdmin;
     }
 });
 

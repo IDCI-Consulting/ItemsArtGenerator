@@ -13,7 +13,9 @@
                     {{/each}}
             </table>
             <a class="small button radius success createProject" href="{{pathFor 'projectCreate'}}" data-reveal-id="projectCreate">create</a>
-            <a class="small button radius success createUser" href="{{pathFor 'userCreate'}}" data-reveal-id="userCreate">create User</a>
+            {{#if isAdmin}}
+                <a class="small button radius success createUser" href="{{pathFor 'userCreate'}}" data-reveal-id="userCreate">create Model</a>
+            {{/if}}
         </div>
     </div>
     <div id="modalEditor" class="reveal-modal" data-reveal>

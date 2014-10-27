@@ -6,8 +6,12 @@ Meteor.cloneProject = function(model) {
     var project = {
         _id: new Meteor.Collection.ObjectID()._str,
         createdAt: new Date().getTime(),
-        background: model.background
-    }
+        background: model.background,
+        authors: []
+    };
+
+    project.authors.push(Meteor.connection.userId());
+    Projects.insert(project);
 
     _.each(items, function(item, key) {
         var newItem = {

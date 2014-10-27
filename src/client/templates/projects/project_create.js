@@ -18,10 +18,25 @@ Template.projectCreate.events({
             var project = {
                 _id: new Meteor.Collection.ObjectID()._str,
                 createdAt: new Date().getTime(),
+                authors: []
             };
+            project.authors.push(Meteor.connection.userId());
+            Projects.insert(project);
         }
 
         var boundData = Meteor.bindFormData(project, formData);
-        Projects.insert(boundData);
+        Projects.update(
+            boundData._id,
+            {
+                $set: {
+                    name: boundData.name,
+                    description: boundData.description,
+                    visibility: boundData.visibility,
+                    type: boundData.type,
+                    tags: boundData.tags,
+                    state: boundData.state
+                }
+            }
+        );
     }
 });

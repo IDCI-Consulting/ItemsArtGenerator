@@ -202,9 +202,11 @@ Router.map(function() {
         where: 'server',
         path: '/api/1.0/projects',
         action: function() {
+            console.log(this.request.query);
             checkRequest(this, 'GET');
-            var sort_order = getSort(this.params);
-            var projects = Projects.find({/*visibility:'public', publicationState:'published'*/}, {sort: sort_order, skip:0, limit:2}).fetch();
+            var query = buildQuery(this.params);
+            var filters = buildFilters(this.params);
+            var projects = Projects.find(query, filters).fetch();
             _.each(projects, function(project) {
                 project.visual_link = Meteor.absoluteUrl()+'api/1.0/projects/'+project._id+'/render';
             });
@@ -215,6 +217,42 @@ Router.map(function() {
             this.response.end(JSON.stringify(projects));
         }
     });
+
+    /**
+     * Build query from request parameters
+     */
+    function buildQuery(params) {
+        // Dans des versions prochaines, utiliser directement les paramètres
+        var query = {
+            /*visibility:'public',
+            publicationState:'published'*/
+        }
+
+
+        return query;
+    }
+
+    /**
+     * Build filters from request parameters
+     */
+    function buildFilters(params) {
+        console.log(params);
+        var sort_order = getSort(params);
+        var offset = params.offset ? params.offset : 0;
+        var limit = params.limit ? params.limit : null;
+
+        if (limit) {
+            return {
+                'sort': sort_order,
+                'skip': parseInt(offset),
+                'limit': parseInt(limit)
+            };
+        }
+
+        return {
+            'sort': sort_order,
+        };
+    }
 
     /**
      * Get sort from request parameters
@@ -316,7 +354,9 @@ Router.map(function() {
         var url = Meteor.absoluteUrl()+'project/'+projectId+'/raw';
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
         var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' ';
-        cmd += params.mode;
+        if (params.mode) {
+            cmd += params.mode;
+        }
 
         return {
             'cmd': cmd,

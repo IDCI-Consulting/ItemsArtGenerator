@@ -14,6 +14,11 @@ hr {
     color: #666666;
 }
 
+svg {
+    height: 100%;
+    width: 100%;
+}
+
 .off-canvas-wrap {
     height: 100%;
 }
@@ -27,6 +32,11 @@ hr {
     height: 100%;
 }
 
+.move-item {
+    overflow: auto;
+    float: right;
+}
+
 #output {
     background-image: url('/images/grid.png');
     height: 100%;
@@ -37,8 +47,39 @@ hr {
     overflow: auto;
 }
 
+ul {
+list-style-type:none;
+}
+
+a.success {
+    color: #43ac6a;
+    font-size: 32px;
+}
+
+a.secondary {
+    color: #eee;
+    font-size: 32px;
+}
+
+a.secondary:hover, a.secondary:focus {
+    color: #b9b9b9;
+}
+
+a.success:hover, a.success:focus {
+    color: #368a54;
+}
+
 li {
-    color: #FFFFFF
+    color: #FFFFFF;
+}
+
+li.item {
+    cursor: pointer;
+}
+
+li.item.selected {
+    background: #5e5e5e;
+    cursor: move;
 }
 
 .accordion .accordion-navigation > .content.active, .accordion dd > .content.active {
@@ -69,7 +110,7 @@ li {
     margin-right: 20px;
     margin-top: -25px;
 }
-.actions>li {
+.actions > li {
     height: 10px;
     margin-bottom: 15px;
 }
@@ -81,46 +122,47 @@ button.tiny, .button.tiny {
 }
 
 .subway-station:hover {
-    cursor: pointer;
+    cursor: move;
 }
+
 .subway-station > circle {
-    fill: rgba(180, 180, 180, 1);
-    stroke: #555;
+    fill: #eee;
     stroke-width: 3;
 }
+
 .subway-station.dragged > circle {
     fill: rgba(180, 0, 0, 1);
 }
+
 .subway-station > text {
-    fill: black;
-    font-size : 1em;
+    font-size : 1.1em;
 }
+
 .subway-station:hover > circle {
     fill: rgba(80, 80, 180, 1);
 }
+
 .subway-station.dragged:hover > circle {
     fill: rgba(180, 0, 0, 1);
 }
+
 .subway-line {
     fill: none;
-    stroke-width: 5;
+    stroke-width: 8;
     z-index: 1;
 }
 
 #subway-legend {
+    display: inline-block;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    min-height: 100px;
+    min-height: 200px;
     margin: 0;
     padding: 0;
-    background: #F0F0F0;
-    border-top: 2px solid #555;
-}
-
-#subway-legend > ul {
-    list-style-type: none;
+    padding-left: 20px;
+    border-top: thick double #ff0000;
 }
 
 #subway-legend > ul > li {

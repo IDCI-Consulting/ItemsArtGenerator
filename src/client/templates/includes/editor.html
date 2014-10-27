@@ -1,0 +1,36 @@
+<template name="editor">
+    <ul class="off-canvas-list">
+        <li><label>Editor</label></li>
+            <div class="row">
+                <div class="small-10 columns">
+                    <li>Description :</li>
+                </div>
+                <div class="small-10 columns">
+                    <li id="project-description">{{description}}</li>
+                </div>
+            </div>
+    </ul>
+    <hr />
+    <dl class="accordion" data-accordion="">
+        <dd>
+            <a href="#panel1">Categories</a>
+            <div id="panel1" class="content">
+                <a class="success ion-plus create-item-category" href="{{pathFor 'itemCategoryCreate'}}"></a>
+                <ul class="off-canvas-list">
+                    {{> itemCategoriesList}}
+                </ul>
+            </div>
+        </dd>
+        <dd>
+        <a href="#panel2">Items</a>
+            <div id="panel2" class="content">
+                {{> itemsList}}
+            </div>
+        </dd>
+    </dl>
+
+    <div id="modalEditor" class="reveal-modal" data-reveal>
+        <div class="content"></div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</template>

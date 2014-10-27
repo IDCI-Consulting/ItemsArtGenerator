@@ -1,0 +1,39 @@
+<template name="itemCreate">
+    <form class="main">
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="name">Name</label>
+                <input name="name" type="text" value="" placeholder="Name your item"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="description">Description</label>
+                <textarea name="description" rows="2"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Choose Categories</label>
+                {{#each categories}}
+                    <input type="checkbox" id="itemsCategories_{{_id}}" name="categories[]" value="{{_id}}" />{{name}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                {{displayFormOptions this 'item'}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <input type="hidden" name="projectId" value="{{projectId}}" />
+                <input type="submit" value="Submit" class="button small radius" />
+            </div>
+        </div>
+    </form>
+</template>

@@ -6,7 +6,11 @@ Router.configure({
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     waitOn: function() {
-        return Meteor.subscribe('projects');
+        return  [
+            Meteor.subscribe('projects'),
+            Meteor.subscribe('itemCategories'),
+            Meteor.subscribe('items')
+        ];
     }
 });
 
@@ -47,8 +51,8 @@ Router.map(function() {
         waitOn: function() {
             return [
                 Meteor.subscribe('singleProject', this.params._id),
-                Meteor.subscribe('itemCategories', this.params._id),
-                Meteor.subscribe('items', this.params._id)
+                Meteor.subscribe('itemCategories'),
+                Meteor.subscribe('items')
             ];
         },
         data: function() {
@@ -81,7 +85,14 @@ Router.map(function() {
     });
 
     this.route('projectCreate', {
-        path: '/project/new'
+        path: '/project/new',
+        waitOn: function() {
+            return  [
+                Meteor.subscribe('projects'),
+                Meteor.subscribe('itemCategories'),
+                Meteor.subscribe('items')
+            ];
+        }
     });
 
     /*******************************/
@@ -113,7 +124,6 @@ Router.map(function() {
     /***ROUTES FOR ITEMS***/
     /**********************/
 
-
     this.route('itemCreate', {
         path: '/project/:_id/item/new',
         waitOn: function() {
@@ -140,8 +150,30 @@ Router.map(function() {
     });
 
     /*********************/
-    /****ROUTES FOR API***/
+    /***ROUTES FOR USER***/
     /*********************/
+
+    this.route('userCreate', {
+        path: '/user/new'
+    });
+
+    this.route('userEdit', {
+        path: '/user/:_id/edit',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleUser', this.params._id)
+            ]
+        },
+        data: function() {
+            return Users.findOne(this.params._id);
+        }
+    });
+
+    /********************/
+    /***ROUTES FOR API***/
+    /********************/
+
+    // TODO : check visibility and publicationState
 
     this.route('apiSingleJsonItem', {
         where: 'server',

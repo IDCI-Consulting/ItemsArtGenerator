@@ -1,0 +1,50 @@
+<template name="itemEdit">
+    <form class="main">
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="name">Name</label>
+                <input type="text" name="name" value="{{name}}" placeholder="Name your Item" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="description">Description</label>
+                <textarea name="description" rows="2">{{description}}</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                {{displayFormOptions this 'item'}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Choose Categories</label>
+                {{#each allCategories}}
+                    {{#if itemHasCategory ../categories _id}}
+                        <input type="checkbox" id="itemsCategories_{{_id}}" name="categories[]" value="{{_id}}" checked="true">
+                    {{else}}
+                        <input type="checkbox" id="itemsCategories_{{_id}}" name="categories[]" value="{{_id}}">
+                    {{/if}}
+                    {{name}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <input type="hidden" name="projectId" value="{{projectId}}" />
+                <input type="submit" value="Submit" class="button small round" />
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="large-12 columns">
+                <a class="button small round alert" href="#">Delete Item</a>
+            </div>
+        </div>
+    </form>
+</template>

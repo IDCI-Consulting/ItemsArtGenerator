@@ -1,0 +1,12 @@
+<template name="projectRaw">
+    {{> title}}
+
+    <div id="subway-legend">
+        <ul>
+        </ul>
+    </div>
+
+    {{#each lines}}
+        {{> line}}
+    {{/each}}
+</template>

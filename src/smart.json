@@ -8,6 +8,8 @@
     "zurb-foundation": {},
     "mys-subway": {
       "path": "../packages"
-    }
+    },
+    "ionicons": {},
+    "modernizr-meteor": {}
   }
 }

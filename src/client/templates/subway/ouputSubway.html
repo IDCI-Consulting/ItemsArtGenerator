@@ -1,0 +1,25 @@
+<template name="outputSubway">
+    <div class="outputSubway">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1600"
+            height="1000"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="xMinYMin meet"
+        >
+            <defs></defs>
+            <g id="subway-title"></g>
+            <g id="subway-lines"></g>
+            <g id="subway-stations"></g>
+        </svg>
+
+        <div id="subway-legend">
+            <ul>
+            </ul>
+        </div>
+    </div>
+
+    {{#each lines}}
+        {{> line}}
+    {{/each}}
+</template>

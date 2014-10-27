@@ -1,0 +1,31 @@
+<template name="itemCategoryCreate">
+    <form class="main" name="itemCategoryCreateForm">
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="name">Name</label>
+                <input type="text" name="name" value="" placeholder="Name your itemCategory"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="description">Description</label>
+                <textarea name="description" rows="2"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Options</label>
+                {{displayFormOptions this 'category'}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <input type="hidden" name="projectId" value="{{projectId}}" />
+                <input type="submit" value="Submit" class="button small radius"/>
+            </div>
+        </div>
+    </form>
+</template>

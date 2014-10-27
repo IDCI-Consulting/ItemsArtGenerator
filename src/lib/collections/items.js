@@ -10,10 +10,8 @@ Items.find({}).observe({
         // Remove the deleted item for each category
         _.each(oldDocument.categories, function(categoryId) {
             var category = ItemCategories.findOne(categoryId);
-            if (category.items !== undefined) {
-                Meteor.removeCategoryItem(category, oldDocument._id);
-                ItemCategories.update(category._id, {$set: {items: category.items}});
-            }
+            Meteor.removeCategoryItem(category, oldDocument._id);
+            ItemCategories.update(category._id, {$set: {items: category.items}});
         });
     }
 });

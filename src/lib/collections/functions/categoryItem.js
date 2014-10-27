@@ -10,6 +10,7 @@ Meteor.addCategoryItem = function(category, itemId) {
 
 Meteor.removeCategoryItem = function(category, itemId) {
     var deletedKey;
+
     _.each(category.items, function(value, key) {
         // delete the item
         if(itemId === value) {
@@ -33,8 +34,10 @@ Meteor.updateCategoryItem = function(newItem, oldItem) {
             if(newItem.categories.length === 0 || newItem.categories.indexOf(categoryIdFromOld) === -1) {
                 // Remove the item in collection if category is unchecked
                 category = ItemCategories.findOne(categoryIdFromOld);
-                Meteor.removeCategoryItem(category, newItem._id);
-                ItemCategories.update(category._id, {$set: {items: category.items}});
+                if (category != undefined) {
+                    Meteor.removeCategoryItem(category, newItem._id);
+                    ItemCategories.update(category._id, {$set: {items: category.items}});
+                }
             }
         });
     }

@@ -1,14 +1,15 @@
 <template name="projectRaw">
-    {{> subwayBackground}}
-    {{> projectTitle}}
+    <div class="raw">
+        {{> subwayBackground}}
+        {{> projectTitle}}
 
-    <div id="subway-legend">
-        <ul>
-        </ul>
+        <div id="subway-legend">
+            <ul>
+            </ul>
+        </div>
+
+        {{#each lines}}
+            {{> line}}
+        {{/each}}
     </div>
-
-    {{#each lines}}
-        {{> line}}
-    {{/each}}
-
 </template>

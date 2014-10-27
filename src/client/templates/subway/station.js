@@ -4,7 +4,6 @@ Template.station.rendered = function(parent) {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
-    var div = d3.select('.tooltip');
     Meteor.defer(function () {
         if(d3.select('#done').empty()) {
             d3.select('svg').append('div').attr('id', 'done');
@@ -88,6 +87,24 @@ Template.station.rendered = function(parent) {
                     .attr('class', 'subway-station')
                     .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
                     .call(dragStation)
+                    .on("mouseover", function (document) {
+                        d3.select("#tooltip")
+                            .style("left", document.options.subway.cx + "px")
+                            .style("top", document.options.subway.cy + "px")
+                            .style("opacity", 1)
+                            .select("#description")
+                            .text(document.description)
+                        ;
+                    })
+                    .on("mousemove", function() {
+                        d3.select("#tooltip")
+                            .style("left", d3.event.x + "px")
+                            .style("top", d3.event.y + "px")
+                    })
+                    .on("mouseout", function () {
+                        d3.select("#tooltip")
+                            .style("opacity", 0);
+                    })
                 ;
                 gContainer
                     .append('circle')

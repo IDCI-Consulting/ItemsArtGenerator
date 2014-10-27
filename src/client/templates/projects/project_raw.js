@@ -6,7 +6,7 @@ Template.projectRaw.helpers({
 
 Template.projectRaw.rendered = function() {
 
-    var svg = d3.select('body')
+    var svg = d3.select('div.raw')
         .append('svg')
     ;
     svg.append('defs');

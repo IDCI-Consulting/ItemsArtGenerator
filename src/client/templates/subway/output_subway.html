@@ -1,9 +1,22 @@
 <template name="outputSubway">
 
+    <svg>
+        <defs></defs>
+        <g class="subway-background"></g>
+        <g id="subway-lines"></g>
+        <g id="subway-stations"></g>
+    </svg>
+
     <div id="subway-legend">
         <ul>
         </ul>
     </div>
+
+<div id="tooltip" class="hidden">
+    <p>
+        <span id="description"></span>
+    </p>
+</div>
     {{> subwayBackground}}
 
     {{#each lines}}

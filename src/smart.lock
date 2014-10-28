@@ -12,7 +12,8 @@
         "path": "../packages"
       },
       "ionicons": {},
-      "modernizr-meteor": {}
+      "modernizr-meteor": {},
+      "errors": {}
     },
     "packages": {
       "iron-router": {
@@ -42,6 +43,11 @@
         "git": "https://github.com/ckir/modernizr-meteor.git",
         "tag": "v2.6.2",
         "commit": "391ca2a3beff3cd2b0e1099cb2d744b5a2e8a73e"
+      },
+      "errors": {
+        "git": "https://github.com/tmeasday/meteor-errors.git",
+        "tag": "v0.2.1",
+        "commit": "f2af03510a9e3d9952601f5f091aa76bfbcbf224"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

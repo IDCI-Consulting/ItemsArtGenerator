@@ -10,10 +10,6 @@ Meteor.publish('projects', function() {
     return Projects.find({});
 });
 
-Meteor.publish('users', function() {
-    return Users.find({});
-});
-
 Meteor.publish('singleProject', function(id) {
     return id && Projects.find(id);
 });

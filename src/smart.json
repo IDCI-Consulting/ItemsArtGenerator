@@ -10,6 +10,7 @@
       "path": "../packages"
     },
     "ionicons": {},
-    "modernizr-meteor": {}
+    "modernizr-meteor": {},
+    "errors": {}
   }
 }

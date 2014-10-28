@@ -9,7 +9,6 @@ Template.projectEdit.events({
 
         var boundData = Meteor.bindFormData(project, formData);
         Projects.update(this._id, {$set: boundData});
-        Router.go('projectShow', {_id: this._id});
     },
 
     'click .delete': function(e) {

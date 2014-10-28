@@ -9,13 +9,13 @@ ProjectsListController = RouteController.extend({
         return  [
             Meteor.subscribe('projects'),
             Meteor.subscribe('itemCategories'),
-            Meteor.subscribe('items')
+            Meteor.subscribe('items'),
+            Meteor.subscribe('users')
         ];
     }
 });
 
 Router.map(function() {
-
     /*************************/
     /*****NOT FOUND ROUTE*****/
     /*************************/
@@ -91,6 +91,15 @@ Router.map(function() {
                 Meteor.subscribe('projects'),
                 Meteor.subscribe('itemCategories'),
                 Meteor.subscribe('items')
+            ];
+        }
+    });
+
+    this.route('projectCreateModel', {
+        path: '/project/new-model',
+        waitOn: function() {
+            return  [
+                Meteor.subscribe('projects')
             ];
         }
     });

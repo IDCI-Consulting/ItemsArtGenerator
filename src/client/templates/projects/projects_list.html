@@ -1,6 +1,7 @@
 <template name="projectsList">
     <div class="row">
         <h3>Projects list</h3>
+        {{> loginButtons}}
         <div class="large-12 columns">
             <table>
                 <tr>
@@ -14,7 +15,7 @@
             </table>
             <a class="small button radius success createProject" href="{{pathFor 'projectCreate'}}" data-reveal-id="projectCreate">create</a>
             {{#if isAdmin}}
-                <a class="small button radius success createUser" href="{{pathFor 'userCreate'}}" data-reveal-id="userCreate">create Model</a>
+                <a class="small button radius success createModel" href="{{pathFor 'projectCreateModel'}}" data-reveal-id="userCreate">create model</a>
             {{/if}}
         </div>
     </div>

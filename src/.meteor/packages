@@ -11,6 +11,7 @@ d3
 reactive-dict
 ionicons
 modernizr-meteor
-accounts-ui
-accounts-base
 errors
+user-session
+accounts-ui
+

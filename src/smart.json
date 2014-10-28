@@ -11,6 +11,7 @@
     },
     "ionicons": {},
     "modernizr-meteor": {},
-    "errors": {}
+    "errors": {},
+    "user-session": {}
   }
 }

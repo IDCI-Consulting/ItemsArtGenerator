@@ -177,4 +177,28 @@ Router.map(function() {
             return Users.findOne(this.params._id);
         }
     });
+
+    /**********************/
+    /***ROUTES FOR LOGIN***/
+    /**********************/
+
+    /**
+     * Create a user
+     * Method POST
+     */
+    this.route('userLogin', {
+        where: 'server',
+        path: '/editor',
+        action: function() {
+            Meteor.checkRequest(this, 'GET', null, ['x-userid']);
+            var userId = this.request.headers['x-userid'];
+            var user = Meteor.users.findOne(userId);
+            if (!user) {
+                this.response.writeHead(403, {'Content-Type': 'text/html'});
+                this.response.end('You are not allowed to access this page');
+            } else {
+                console.log(Meteor.call('setUserId', userId));
+            }
+        }
+    });
 });

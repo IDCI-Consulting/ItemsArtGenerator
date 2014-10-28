@@ -4,6 +4,11 @@ Template.station.rendered = function(parent) {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
+    Meteor.defer(function () {
+        if(d3.select('#done').empty()) {
+            d3.select('svg').append('div').attr('id', 'done');
+        }
+    });
 
     // Drag Functions
     var dragStation = d3.behavior.drag()

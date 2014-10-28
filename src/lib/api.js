@@ -16,7 +16,7 @@ Router.map(function() {
         where: 'server',
         path: '/api/1.0/projects/:_id',
         action: function() {
-            checkRequest(this, 'GET');
+            Meteor.checkRequest(this, 'GET');
             checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
             // create project object from mongo data
             var projectId = this.params._id;
@@ -47,7 +47,7 @@ Router.map(function() {
         where: 'server',
         path: '/api/1.0/projects',
         action: function() {
-            checkRequest(this, 'GET');
+            Meteor.checkRequest(this, 'GET');
             var query = buildMongoQuery(this.request.query);
             var filters = buildMongoFilters(this.params);
             var projects = Projects.find(query, filters).fetch();
@@ -71,7 +71,7 @@ Router.map(function() {
         path: '/api/1.0/projects/:_id/render',
         action: function() {
             action = this;
-            checkRequest(action, 'GET');
+            Meteor.checkRequest(action, 'GET');
             checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
             // render the project
             var exec = Npm.require('child_process').exec;
@@ -113,7 +113,7 @@ Router.map(function() {
         path: '/api/1.0/projects/:_id/vote',
         action: function() {
             var requiredParameters = ['userId'];
-            checkRequest(this, 'POST', requiredParameters);
+            Meteor.checkRequest(this, 'POST', requiredParameters);
             checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
             var data = this.request.body;
             // check if the user already voted
@@ -146,7 +146,7 @@ Router.map(function() {
         path: '/api/1.0/projects/:_id/sales',
         action: function() {
             var requiredParameters = ['sales'];
-            checkRequest(this, 'PUT', requiredParameters);
+            Meteor.checkRequest(this, 'PUT', requiredParameters);
             checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
             var data = this.request.body;
             // update sales number
@@ -172,7 +172,7 @@ Router.map(function() {
         path: '/api/1.0/users/',
         action: function() {
             var requiredParameters = ['mail'];
-            checkRequest(this, 'POST', requiredParameters);
+            Meteor.checkRequest(this, 'POST', requiredParameters);
             var mail = this.request.body.mail;
             var user = Users.findOne({'mail': mail});
             if (user) {
@@ -192,34 +192,6 @@ Router.map(function() {
     /*********************/
     /***METHODS FOR API***/
     /*********************/
-
-    /**
-     * Check if the request is as expected
-     * 
-     * @param action: the action being processed, which contains the request
-     * @param method : the request method to be checked
-     * @param dataArray : an array of data whose elements must be in the request data (for post and put method for example)
-     * @return a 405 or a 400 response, or nothing
-     */
-    function checkRequest(action, method, dataArray) {
-        // throw a 405 if project not found
-        if (method && action.request.method != method) {
-            action.response.writeHead(405, {'Content-Type': 'text/html'});
-            action.response.end("Method "+action.request.method+" not allowed");
-        }
-        // throw a 400 (bad request) if some required parameters are missing
-        if (dataArray) {
-            var missingParameter = true;
-            for (var i = 0; i < dataArray.length; i++) {
-                if (method == 'POST' || method == 'PUT') {
-                    if (!action.request.body[dataArray[i]]) {
-                        action.response.writeHead(400, {'Content-Type': 'text/html'});
-                        action.response.end("The parameter "+dataArray[i]+" is missing");
-                    }
-                }
-            }
-        }
-    }
 
     /**
      * Check if a collection entry exists
@@ -340,7 +312,7 @@ Router.map(function() {
         var projectId = params._id;
         var url = Meteor.absoluteUrl()+'project/'+projectId+'/raw';
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
-        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot-with-legend.js '+url+' '+filePath+' ';
+        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot-without-legend.js '+url+' '+filePath+' ';
         if (params.mode) {
             cmd += params.mode;
         }

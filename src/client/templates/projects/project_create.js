@@ -18,12 +18,9 @@ Template.projectCreate.events({
             var project = {
                 _id: new Meteor.Collection.ObjectID()._str,
                 createdAt: new Date().getTime(),
-<<<<<<< HEAD
+                authors: [],
                 votes: 0,
                 sales: 0
-=======
-                authors: []
->>>>>>> master
             };
             project.authors.push(Meteor.connection.userId());
             Projects.insert(project);

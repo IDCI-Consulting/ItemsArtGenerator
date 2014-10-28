@@ -41,6 +41,11 @@ function waitFor(testFx, onReady, timeOutMillis) {
  */
 function renderProject(url, filePath) {
     var page = require('webpage').create();
+
+    page.viewportSize = {
+      width: 1440,
+      height: 900
+    };
     page.open(url, function (status) {
         // Check for page load success
         if (status !== "success") {
@@ -51,22 +56,13 @@ function renderProject(url, filePath) {
             waitFor(function() {
                 // Check in the page if a specific element is now visible
                 var result = page.evaluate(function() {
-                    if ($('#subway-stations').length) {
-                        return document.getElementById('subway-stations').getBoundingClientRect();
+                    if ($('#done').length == 1) {
+                        return true;
                     }
                     return false;
                 });
 
-                if (result !== false) {
-                    result.top -= 10;
-                    result.left -= 10;
-                    result.width += 20;
-                    result.height += 20;
-                    page.clipRect = result;
-                    return true;
-                }
-
-                return false;
+                return result;
 
             }, function() {
                 console.log("The svg is visible. Rendering the picture...");

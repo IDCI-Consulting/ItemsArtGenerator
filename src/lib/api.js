@@ -48,8 +48,8 @@ Router.map(function() {
         path: '/api/1.0/projects',
         action: function() {
             checkRequest(this, 'GET');
-            var query = buildQuery(this.request.query);
-            var filters = buildFilters(this.params);
+            var query = buildMongoQuery(this.request.query);
+            var filters = buildMongoFilters(this.params);
             var projects = Projects.find(query, filters).fetch();
             _.each(projects, function(project) {
                 project.visual_link = Meteor.absoluteUrl()+'api/1.0/projects/'+project._id+'/render';
@@ -76,6 +76,7 @@ Router.map(function() {
             // render the project
             var exec = Npm.require('child_process').exec;
             var renderInfo = getRenderInfo(this.params);
+            console.log(renderInfo.cmd);
             exec(renderInfo.cmd,
                 function (error, stdout, stderr) {
                     console.log('stdout: ' + stdout);
@@ -116,13 +117,13 @@ Router.map(function() {
             checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
             var data = this.request.body;
             // check if the user already voted
-            var vote = Votes.findOne({'projectId': this.params._id, 'userId': data['userId']});
+            var vote = Votes.findOne({'projectId': this.params._id, 'userId': data.userId});
             if (vote) {
                 this.response.writeHead(409, {'Content-Type': 'text/html'});
-                this.response.end("The user "+data['userId']+" already voted for the project "+this.params._id);
+                this.response.end("The user "+data.userId+" already voted for the project "+this.params._id);
             } else {
                 Votes.insert({
-                    'userId': data['userId'],
+                    'userId': data.userId,
                     'projectId': this.params._id,
                     'createdAt': new Date().getTime()
                 });
@@ -151,7 +152,7 @@ Router.map(function() {
             // update sales number
             Projects.update(
                 this.params._id,
-                { $set: { sales: data['sales'] } }
+                { $set: { sales: data.sales } }
             );
             this.response.writeHead(204, {'Content-Type': 'text/html'});
             this.response.end();
@@ -172,7 +173,7 @@ Router.map(function() {
         action: function() {
             var requiredParameters = ['mail'];
             checkRequest(this, 'POST', requiredParameters);
-            var mail = this.request.body['mail'];
+            var mail = this.request.body.mail;
             var user = Users.findOne({'mail': mail});
             if (user) {
                 this.response.writeHead(409, {'Content-Type': 'text/html'});
@@ -193,13 +194,14 @@ Router.map(function() {
     /*********************/
 
     /**
-     * Check if the request is valid
+     * Check if the request is as expected
      * 
      * @param action: the action being processed, which contains the request
      * @param method : the request method to be checked
-     * @param dataArray : an array of data whose elements must be in the request data (for Post, PUt method for example)
+     * @param dataArray : an array of data whose elements must be in the request data (for post and put method for example)
+     * @return a 405 or a 400 response, or nothing
      */
-    function checkRequest(action, method, dataArray, mongoEntry) {
+    function checkRequest(action, method, dataArray) {
         // throw a 405 if project not found
         if (method && action.request.method != method) {
             action.response.writeHead(405, {'Content-Type': 'text/html'});
@@ -220,34 +222,39 @@ Router.map(function() {
     }
 
     /**
-     * Check if an collection entry exists
+     * Check if a collection entry exists
      *
      * @param mongoEntry : a mongo collections and the Id to be found (ex: { 'collection': 'Project', 'id' : '12d12sq1se5f41sed' }
+     * @return a 404 response, or nothing
      */
     function checkCollectionEntryExists(action, mongoEntry) {
         if (mongoEntry) {
-            if (mongoEntry['collection'] == 'Projects') {
-                var mongoCollection = Projects.findOne(mongoEntry['id']);
+            var mongoCollection = null;
+            if (mongoEntry.collection == 'Projects') {
+                mongoCollection = Projects.findOne(mongoEntry.id);
             }
-            if (mongoEntry['collection'] == 'Users') {
-                var mongoCollection = Users.findOne(mongoEntry['id']);
+            if (mongoEntry.collection == 'Users') {
+                mongoCollection = Users.findOne(mongoEntry.id);
             }
             if (!mongoCollection) {
                 action.response.writeHead(404, {'Content-Type': 'text/html'});
-                action.response.end(mongoEntry['collection']+" "+action.params._id+" was not found");
+                action.response.end(mongoEntry.collection+" "+action.params._id+" was not found");
             }
         }
     }
 
     /**
-     * Build query from request parameters
+     * Build a mongo query from request parameters
+     * 
+     * @param : the query from the request
+     * @return : the mongo query
      */
-    function buildQuery(query) {
+    function buildMongoQuery(query) {
         var builtQuery = {
             // TODO uncomment if needed
             /*visibility:'public',
             publicationState:'published'*/
-        }
+        };
         var fields = {
             // 'query_parameter': 'matching_project_field'
             'tags': 'tags',
@@ -262,7 +269,7 @@ Router.map(function() {
                 var parametersForField = query[parameter];
                 // if the query has a parameter we can find in fields
                 if (query[parameter]) {
-                    builtQuery[field] = { '$in': parametersForField }
+                    builtQuery[field] = { '$in': parametersForField };
                 }
             }
         }
@@ -271,9 +278,12 @@ Router.map(function() {
     }
 
     /**
-     * Build filters from request parameters
+     * Build mongo filters from request parameters
+     * 
+     * @params : the query parameters
+     * @return : the mongo query filter
      */
-    function buildFilters(params) {
+    function buildMongoFilters(params) {
         var sort_order = getSort(params);
         var offset = params.offset ? params.offset : 0;
         var limit = params.limit ? params.limit : null;
@@ -293,6 +303,9 @@ Router.map(function() {
 
     /**
      * Get sort from request parameters
+     * 
+     * @params : the query parameters
+     * @return : the mongo sort object for the query filters
      */
     function getSort(params) {
         var sort = {};
@@ -305,7 +318,7 @@ Router.map(function() {
         var requestOrder = params.sort_order;
         var order = 1;
         if (requestOrder == 'desc' || requestOrder == 'DESC') {
-            order = -1
+            order = -1;
         }
         sort[field] = order;
 
@@ -313,7 +326,10 @@ Router.map(function() {
     }
 
     /**
-     * Create the command from route parameters
+     * Get infos used to render an image from a project with the query parameters
+     * 
+     * @params : the query parameters
+     * @return : the info
      */
     function getRenderInfo(params) {
         var format = params.format;
@@ -324,7 +340,7 @@ Router.map(function() {
         var projectId = params._id;
         var url = Meteor.absoluteUrl()+'project/'+projectId+'/raw';
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
-        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' ';
+        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot-with-legend.js '+url+' '+filePath+' ';
         if (params.mode) {
             cmd += params.mode;
         }
@@ -333,6 +349,6 @@ Router.map(function() {
             'cmd': cmd,
             'filePath': filePath,
             'format': format
-        }
+        };
     }
 });

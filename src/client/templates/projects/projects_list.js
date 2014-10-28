@@ -3,11 +3,7 @@ Template.projectsList.helpers({
         return Projects.find({state: "published"});
     },
     isAdmin: function() {
-        var admin = Users.findOne(Meteor.connection.userId());
-        if (admin === undefined) {
-            return false;
-        }
-        return admin.isAdmin;
+        return true;
     }
 });
 
@@ -19,10 +15,10 @@ Template.projectsList.events({
         Meteor.loadModal(instance);
     },
 
-    "click .createUser": function(e) {
+    "click .createModel": function(e) {
         e.preventDefault();
 
-        var instance = UI.render(Template.userCreate);
+        var instance = UI.render(Template.projectCreateModel);
         Meteor.loadModal(instance);
     }
 });

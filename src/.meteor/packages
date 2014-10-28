@@ -8,8 +8,9 @@ iron-router
 zurb-foundation
 mys-subway
 d3
-insecure
 reactive-dict
 ionicons
 modernizr-meteor
-
+accounts-ui
+accounts-base
+errors

@@ -22,7 +22,7 @@ Router.map(function() {
             var projectId = this.params._id;
             var project = Projects.findOne({_id: projectId});
 
-            project.visual_link = Meteor.absoluteUrl()+'api/1.0/projects/'+project._id+'/render';
+            project.visualLink = Parameters.api_public_endpoint+'/api/1.0/projects/'+project._id+'/render';
             project.categories = ItemCategories.find({'projectId':projectId}).fetch();
             _.each(project.categories, function(categorie){
                 delete categorie.projectId;
@@ -52,7 +52,7 @@ Router.map(function() {
             var filters = buildMongoFilters(this.params);
             var projects = Projects.find(query, filters).fetch();
             _.each(projects, function(project) {
-                project.visual_link = Meteor.absoluteUrl()+'api/1.0/projects/'+project._id+'/render';
+                project.visualLink = Parameters.api_public_endpoint+'/api/1.0/projects/'+project._id+'/render';
             });
 
             // set response
@@ -87,15 +87,18 @@ Router.map(function() {
                     var fs = Npm.require('fs');
                     fs.readFile(renderInfo.filePath, function(err, data) {
                         // Fail if the file can't be read
-                        if (err) throw err;
+                        if (err) {
+                            action.response.writeHead(500, {'Content-Type': 'text/html'});
+                            action.response.end('Internal server error');
+                        }
                         //set the response
                         if (action.params.mode == 'base64') {
                             fs.writeFile(renderInfo.filePath, data, function(err) {});
                             var base64Image = new Buffer(data, 'binary').toString('base64');
-                            action.response.writeHead(200, {'Content-Type': 'text/html'});
-                            action.response.end('<img src="data:image/'+renderInfo.format+';base64,'+base64Image+'">');
+                            action.response.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
+                            action.response.end('data:image/'+renderInfo.format+';base64,'+base64Image);
                         } else {
-                            action.response.writeHead(200, {'Content-Type': 'image/jpeg'});
+                            action.response.writeHead(200, {'Content-Type': 'image/jpeg', 'Access-Control-Allow-Origin': '*'});
                             action.response.end(data);
                         }
                     });

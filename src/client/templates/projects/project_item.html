@@ -5,10 +5,8 @@
         <td>
             <div class="button-bar">
                 <ul class="button-group round">
-                    {{#if isAuthor}}
-                        <li><a class="small button secondary editProject" href="{{pathFor 'projectEdit'}}">edit</a></li>
-                        <li><a class="small button alert delete">remove</a></li>
-                    {{/if}}
+                    <li><a class="small button secondary editProject" href="{{pathFor 'projectEdit'}}">edit</a></li>
+                    <li><a class="small button alert delete">remove</a></li>
                     <li><a class="small button" href="{{pathFor 'projectShow'}}">show</a></li>
                 </ul>
             </div>

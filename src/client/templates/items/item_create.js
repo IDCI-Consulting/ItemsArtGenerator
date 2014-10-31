@@ -1,6 +1,6 @@
 Template.itemCreate.helpers({
     categories: function() {
-        return ItemCategories.find({projectId: this.projectId}).fetch();
+        return ItemCategories.find({projectId: this.projectId});
     }
 });
 

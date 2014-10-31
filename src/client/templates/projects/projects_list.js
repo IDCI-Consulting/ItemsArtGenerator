@@ -1,6 +1,6 @@
 Template.projectsList.helpers({
     projects: function() {
-        return Projects.find({authors: {$in: [UserId]}});
+        return Projects.find({state: "published", visibility: "public"});
     },
     isAdmin: function() {
         return this.isAdmin;

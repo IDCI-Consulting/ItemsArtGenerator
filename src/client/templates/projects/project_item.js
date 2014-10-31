@@ -1,3 +1,17 @@
+Template.projectItem.helpers({
+    isAuthor: function() {
+        var bool;
+        _.each(this.authors, function(authorId) {
+            if(authorId === UserId) {
+                bool = true;
+            } else {
+                bool = false;
+            }
+        });
+        return bool;
+    }
+});
+
 Template.projectItem.events({
     'click .delete': function(e, template) {
         e.preventDefault();

@@ -1,6 +1,9 @@
 Template.currentUserProjects.helpers({
     currentUserProjects: function() {
-        return Projects.find({authors: {$in: [Meteor.connection.userId()]}});
+        Meteor.subscribe('currentUserProjects', UserId);
+        var projects = Projects.find({authors: {$in: [UserId]}}).fetch();
+        console.log(projects);
+        return projects;
     }
 });
 

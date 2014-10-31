@@ -229,7 +229,7 @@ Router.map(function() {
             // TODO uncomment if needed
             /*visibility: 'public',
             publicationState: 'published',*/
-            'isModel': { $not: { $exists: true } }
+            'isModel': { $exists: false }
         };
         var fields = {
             // 'query_parameter': 'matching_project_field'

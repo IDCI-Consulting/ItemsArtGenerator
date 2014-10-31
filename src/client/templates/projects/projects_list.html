@@ -12,7 +12,7 @@
                         {{> projectItem}}
                     {{/each}}
             </table>
-            <a class="small button radius success createProject" href="{{pathFor 'projectCreate'}}" data-reveal-id="projectCreate">create</a>
+            <a class="small button radius success createProject" href="{{pathFor 'projectCreate' user_id=this._id}}" data-reveal-id="projectCreate">create</a>
             {{#if isAdmin}}
                 <a class="small button radius success createModel" href="{{pathFor 'projectCreateModel'}}" data-reveal-id="userCreate">create model</a>
             {{/if}}

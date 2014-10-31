@@ -1,0 +1,10 @@
+<template name="currentUserProjects">
+    <ul class="off-canvas-list">
+        <li><label>Your projects</label></li>
+        {{#each currentUserProjects}}
+            <li>
+                <a href="{{pathFor 'projectShow'}}">{{name}}</a>
+            </li>
+        {{/each}}
+    </ul>
+</template>

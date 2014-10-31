@@ -6,12 +6,17 @@ Router.configure({
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     waitOn: function() {
+        // Hacking the login system provisional
+        localStorage.setItem("Meteor.userId", this.params.user_id);
         return  [
             Meteor.subscribe('projects'),
             Meteor.subscribe('itemCategories'),
             Meteor.subscribe('items'),
-            Meteor.subscribe('users')
+            Meteor.subscribe('singleUser', this.params.user_id)
         ];
+    },
+    data: function() {
+        return Users.findOne(this.params.user_id);
     }
 });
 
@@ -30,7 +35,7 @@ Router.map(function() {
     /*************************/
 
     this.route('projects', {
-        path: '/',
+        path: '/:user_id',
         controller: ProjectsListController
     });
 
@@ -85,13 +90,18 @@ Router.map(function() {
     });
 
     this.route('projectCreate', {
-        path: '/project/new',
+        path: '/:user_id/project/new',
         waitOn: function() {
             return  [
                 Meteor.subscribe('projects'),
                 Meteor.subscribe('itemCategories'),
                 Meteor.subscribe('items')
             ];
+        },
+        data: function() {
+            return {
+                'userId': this.params.user_id
+            };
         }
     });
 
@@ -155,50 +165,6 @@ Router.map(function() {
         },
         data: function() {
             return Items.find(this.params._id);
-        }
-    });
-
-    /*********************/
-    /***ROUTES FOR USER***/
-    /*********************/
-
-    this.route('userCreate', {
-        path: '/user/new'
-    });
-
-    this.route('userEdit', {
-        path: '/user/:_id/edit',
-        waitOn: function() {
-            return [
-                Meteor.subscribe('singleUser', this.params._id)
-            ]
-        },
-        data: function() {
-            return Users.findOne(this.params._id);
-        }
-    });
-
-    /**********************/
-    /***ROUTES FOR LOGIN***/
-    /**********************/
-
-    /**
-     * Create a user
-     * Method POST
-     */
-    this.route('userLogin', {
-        where: 'server',
-        path: '/editor',
-        action: function() {
-            Meteor.checkRequest(this, 'GET', null, ['x-userid']);
-            var userId = this.request.headers['x-userid'];
-            var user = Meteor.users.findOne(userId);
-            if (!user) {
-                this.response.writeHead(403, {'Content-Type': 'text/html'});
-                this.response.end('You are not allowed to access this page');
-            } else {
-                console.log(Meteor.call('setUserId', userId));
-            }
         }
     });
 });

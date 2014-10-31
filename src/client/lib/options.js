@@ -1,5 +1,9 @@
 ItemArt = {};
 
+// Hacking the login system provisional
+UserId = localStorage.getItem("Meteor.userId");
+Meteor.call('setUserId', UserId);
+
 ItemArt.configuration = '{\
     "options": {\
         "subway": {\

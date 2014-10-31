@@ -5,15 +5,16 @@ Template.projectCreate.helpers({
 });
 
 Template.projectCreate.events({
-    'submit form': function(e) {
+    'submit form': function(e, template) {
         e.preventDefault();
 
         var formData = $(e.target).serializeArray();
         var modelId = $(e.target).find('[name=model]').val();
+        var authorId = $(e.target).find('[name=author]').val();
 
         if (modelId !== "") {
             var model = Projects.findOne(modelId);
-            var project = Meteor.cloneProject(model);
+            var project = Meteor.cloneProject(model, authorId);
         } else {
             var project = {
                 _id: new Meteor.Collection.ObjectID()._str,
@@ -22,7 +23,7 @@ Template.projectCreate.events({
                 votes: 0,
                 sales: 0
             };
-            project.authors.push(Meteor.connection.userId());
+            project.authors.push(authorId);
             Projects.insert(project);
         }
 

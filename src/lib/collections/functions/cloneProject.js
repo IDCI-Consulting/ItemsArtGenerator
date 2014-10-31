@@ -1,4 +1,4 @@
-Meteor.cloneProject = function(model) {
+Meteor.cloneProject = function(model, authorId) {
     var categories = ItemCategories.find({projectId: model._id}).fetch();
     var items = Items.find({projectId: model._id}).fetch();
     var itemsMap = {};
@@ -10,7 +10,7 @@ Meteor.cloneProject = function(model) {
         authors: []
     };
 
-    project.authors.push(Meteor.connection.userId());
+    project.authors.push(authorId);
     Projects.insert(project);
 
     _.each(items, function(item, key) {

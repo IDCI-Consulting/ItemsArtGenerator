@@ -2,7 +2,7 @@ Template.editor.events({
     'click .create-item-category': function(e, template) {
         e.preventDefault();
 
-        var instance = UI.renderWithData(Template.itemCategoryCreate, {'projectId': template.data._id});
+        var instance = UI.renderWithData(Template.itemCategoryCreate, {'projectId': template.data.project._id});
         Meteor.loadModal(instance);
     },
     'click .dec': function(e) {
@@ -32,7 +32,7 @@ Template.editor.events({
     'click .create-item': function(e, template) {
         e.preventDefault();
 
-        var instance = UI.renderWithData(Template.itemCreate, {'projectId': template.data._id});
+        var instance = UI.renderWithData(Template.itemCreate, {'projectId': template.data.project._id});
         Meteor.loadModal(instance);
     }
 })

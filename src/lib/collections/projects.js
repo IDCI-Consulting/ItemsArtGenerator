@@ -22,10 +22,3 @@ Projects.deny({
         return doc.isModel;
     }
 });
-
-Meteor.methods({
-    setUserId: function(userId) {
-        console.log(Meteor);
-        return Meteor.userId();
-    }
-});

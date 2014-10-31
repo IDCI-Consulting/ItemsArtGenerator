@@ -1,4 +1,5 @@
 ItemArt = {};
+Meteor.connection.setUserId(localStorage.getItem("Meteor.userId"));
 
 ItemArt.configuration = '{\
     "options": {\

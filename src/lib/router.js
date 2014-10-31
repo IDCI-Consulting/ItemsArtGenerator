@@ -6,6 +6,7 @@ Router.configure({
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     waitOn: function() {
+        // Hacking the login system provisional
         localStorage.setItem("Meteor.userId", this.params.user_id);
         return  [
             Meteor.subscribe('projects'),

@@ -22,6 +22,7 @@ Items.allow({
         return _.contains(project.authors, userId);
     },
     update: function (userId, doc, fields, modifier) {
+        console.log(userId);
         var project = Projects.findOne(doc.projectId);
         return _.contains(project.authors, userId);
     },

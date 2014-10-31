@@ -18,7 +18,7 @@ Template.projectsList.events({
     "click .createModel": function(e, template) {
         e.preventDefault();
 
-        var instance = UI.renderWithData(Template.projectCreate, {'userId': template.data._id});
+        var instance = UI.render(Template.projectCreateModel);
         Meteor.loadModal(instance);
     }
 });

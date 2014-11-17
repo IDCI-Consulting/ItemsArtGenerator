@@ -227,8 +227,9 @@ Router.map(function() {
     function buildMongoQuery(query) {
         var builtQuery = {
             // TODO uncomment if needed
-            /*visibility:'public',
-            publicationState:'published'*/
+            /*visibility: 'public',
+            publicationState: 'published',*/
+            'isModel': { $exists: false }
         };
         var fields = {
             // 'query_parameter': 'matching_project_field'

@@ -1,6 +1,6 @@
 var ObserveStation;
 
-Template.station.rendered = function(parent) {
+Template.station.rendered = function() {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');

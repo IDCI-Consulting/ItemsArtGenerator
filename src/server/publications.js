@@ -28,9 +28,3 @@ Meteor.publish('itemCategories', function() {
 Meteor.publish('singleItemCategory', function(id) {
     return id && ItemCategories.find(id);
 });
-
-
-// USERS PUBLICATION
-Meteor.publish('singleUser', function(id) {
-    return id && Users.find(id);
-});

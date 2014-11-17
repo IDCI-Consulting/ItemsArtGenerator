@@ -10,11 +10,10 @@ Template.projectCreate.events({
 
         var formData = $(e.target).serializeArray();
         var modelId = $(e.target).find('[name=model]').val();
-        var authorId = $(e.target).find('[name=author]').val();
 
         if (modelId !== "") {
             var model = Projects.findOne(modelId);
-            var project = Meteor.cloneProject(model, authorId);
+            var project = Meteor.cloneProject(model);
         } else {
             var project = {
                 _id: new Meteor.Collection.ObjectID()._str,
@@ -23,7 +22,6 @@ Template.projectCreate.events({
                 votes: 0,
                 sales: 0
             };
-            project.authors.push(authorId);
             Projects.insert(project);
         }
 

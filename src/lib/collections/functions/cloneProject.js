@@ -9,8 +9,6 @@ Meteor.cloneProject = function(model, authorId) {
         background: model.background,
         authors: []
     };
-
-    project.authors.push(authorId);
     Projects.insert(project);
 
     _.each(items, function(item, key) {

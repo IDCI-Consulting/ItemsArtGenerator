@@ -1,3 +1,12 @@
+/*
+ * Browse a form and insert values in object
+ *
+ * @param object: Where we insert form's data
+ * @param formData: The submitted form
+ *
+ * @return an object with data
+ */
+
 Meteor.bindFormData = function(object, formData) {
     for(var i = 0, len = formData.length; i < len; i++) {
         var patternCategory = /(\S+)\[\]$/;

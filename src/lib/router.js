@@ -6,17 +6,12 @@ Router.configure({
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     waitOn: function() {
-        // Hacking the login system provisional
-        localStorage.setItem("Meteor.userId", this.params.user_id);
         return  [
             Meteor.subscribe('projects'),
             Meteor.subscribe('itemCategories'),
             Meteor.subscribe('items'),
             Meteor.subscribe('singleUser', this.params.user_id)
         ];
-    },
-    data: function() {
-        return Users.findOne(this.params.user_id);
     }
 });
 
@@ -35,7 +30,7 @@ Router.map(function() {
     /*************************/
 
     this.route('projects', {
-        path: '/:user_id',
+        path: '/',
         controller: ProjectsListController
     });
 
@@ -90,18 +85,13 @@ Router.map(function() {
     });
 
     this.route('projectCreate', {
-        path: '/:user_id/project/new',
+        path: '/project/new',
         waitOn: function() {
             return  [
                 Meteor.subscribe('projects'),
                 Meteor.subscribe('itemCategories'),
                 Meteor.subscribe('items')
             ];
-        },
-        data: function() {
-            return {
-                'userId': this.params.user_id
-            };
         }
     });
 

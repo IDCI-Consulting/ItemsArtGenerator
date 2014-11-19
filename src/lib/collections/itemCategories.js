@@ -1,4 +1,4 @@
-ItemCategories = new Meteor.Collection('itemCategories');
+ItemCategories = new Mongo.Collection('itemCategories');
 
 ItemCategories.find({}).observe({
     removed: function(oldDocument) {

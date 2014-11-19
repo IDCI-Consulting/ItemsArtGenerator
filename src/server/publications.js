@@ -28,3 +28,7 @@ Meteor.publish('itemCategories', function() {
 Meteor.publish('singleItemCategory', function(id) {
     return id && ItemCategories.find(id);
 });
+
+Meteor.publish('images', function () {
+    return Images.find({});
+});

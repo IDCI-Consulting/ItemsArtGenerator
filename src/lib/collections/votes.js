@@ -1,1 +1,1 @@
-Votes = new Meteor.Collection('votes');
+Votes = new Mongo.Collection('votes');

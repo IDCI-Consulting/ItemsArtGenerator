@@ -1,6 +1,9 @@
 Template.projectsList.helpers({
     projects: function() {
         return Projects.find({state: "published", visibility: "public"});
+    },
+    images: function() {
+        return Images.find({});
     }
 });
 

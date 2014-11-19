@@ -4,13 +4,13 @@ Router.configure({
 });
 
 ProjectsListController = RouteController.extend({
-    template: 'projectsList',
+    template: 'projectsList'
     waitOn: function() {
         return  [
             Meteor.subscribe('projects'),
             Meteor.subscribe('itemCategories'),
             Meteor.subscribe('items'),
-            Meteor.subscribe('singleUser', this.params.user_id)
+            Meteor.subscribe('images')
         ];
     }
 });

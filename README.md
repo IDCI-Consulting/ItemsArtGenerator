@@ -25,7 +25,9 @@ It was built with [Meteor](http://meteor.com) as a companion app to [The Meteor 
 
     4/ Run the project
         $ cd /path/to/repository
-        $ mrt
+        /!\ Foundation package is not compatible with Meteor 1.0. You need execute this command
+        $ mrt add zurb-foundation
+        $ meteor
 
 # API
 

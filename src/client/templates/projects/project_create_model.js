@@ -13,7 +13,6 @@ Template.projectCreateModel.events({
             isModel: true
         };
         var boundData = Meteor.bindFormData(project, formData);
-        console.log(boundData);
-        //Projects.insert(boundData);
+        Projects.insert(boundData);
     }
 });

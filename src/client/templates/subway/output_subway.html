@@ -1,23 +1,27 @@
 <template name="outputSubway">
 
     <svg>
-        <defs></defs>
-        <g class="subway-background"></g>
+        <defs>
+            <pattern id="bg" patternUnits="userSpaceOnUse" width="1600" heigth="1000">
+                <image xlink:href="{{url}}" x="0" y="0" width="1600" height="1000"></image>
+            </pattern>
+        </defs>
+        <g class="subway-background">
+            <rect width="1600" height="1000" fill="url(#bg)"></rect>
+        </g>
         <g id="subway-lines"></g>
         <g id="subway-stations"></g>
     </svg>
-
     <div id="subway-legend">
         <ul>
         </ul>
     </div>
 
-<div id="tooltip" class="hidden">
-    <p>
-        <span id="description"></span>
-    </p>
-</div>
-    {{> subwayBackground}}
+    <div id="tooltip" class="hidden">
+        <p>
+            <span id="description"></span>
+        </p>
+    </div>
 
     {{#each lines}}
         {{> line}}

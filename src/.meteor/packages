@@ -4,10 +4,16 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-iron-router
 zurb-foundation
-mys-subway
 d3
 reactive-dict
 ionicons
 modernizr-meteor
+insecure
+iron:router
+sacha:spin@2.0.4
+cfs:standard-packages
+cfs:filesystem
+cfs:gridfs
+cfs:graphicsmagick
+

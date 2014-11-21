@@ -5,6 +5,10 @@ Router.configure({
 
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
+    onBeforeAction: function() {
+        Meteor.autoLogin(this.params.userId);
+        this.next();
+    },
     waitOn: function() {
         return  [
             Meteor.subscribe('projects'),
@@ -30,7 +34,7 @@ Router.map(function() {
     /*************************/
 
     this.route('projects', {
-        path: '/',
+        path: '/:userId',
         controller: ProjectsListController
     });
 

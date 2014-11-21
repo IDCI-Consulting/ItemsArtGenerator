@@ -16,4 +16,5 @@ cfs:graphicsmagick
 mrt:modernizr-meteor
 mrt:ionicons
 zurb-foundation
+accounts-ui
 

@@ -182,15 +182,30 @@ Router.map(function() {
                 this.response.writeHead(409, {'Content-Type': 'text/html'});
                 this.response.end("The user "+mail+" already exist.");
             } else {
-                Users.insert({
+                /*Users.insert({
                     'mail': mail,
                     'createdAt': new Date().getTime()
-                });
+                });*/
                 this.response.writeHead(201, {'Content-Type': 'text/html'});
                 this.response.end();
             }
         }
     });
+
+    /**
+     * Log a user
+     * Method GET
+     */
+    this.route('apiLoginUser', {
+        where: 'server',
+        path: '/api/1.0/login',
+        action: function() {
+            var requiredParameters = ['user_id'];
+            var userId = this.request.headers.user_id;
+            Meteor.autoLogin(userId);
+        }
+    });
+
 
     /*********************/
     /***METHODS FOR API***/

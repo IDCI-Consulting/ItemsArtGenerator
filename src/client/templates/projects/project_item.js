@@ -1,15 +1,5 @@
 Template.projectItem.helpers({
-    isAuthor: function() {
-        var bool;
-        _.each(this.authors, function(authorId) {
-            if(authorId === UserId) {
-                bool = true;
-            } else {
-                bool = false;
-            }
-        });
-        return bool;
-    }
+    isAuthor: Meteor.isAuthor(Meteor.userId())
 });
 
 Template.projectItem.events({

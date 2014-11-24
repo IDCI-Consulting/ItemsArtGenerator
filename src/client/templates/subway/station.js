@@ -14,12 +14,19 @@ Template.station.rendered = function() {
     var dragStation = d3.behavior.drag()
         .on('dragstart', function(subwayStation) {
             Items.update(subwayStation._id, {$set: {options: {subway: {cx: subwayStation.options.subway.cx, cy: subwayStation.options.subway.cy, dragged: true}}}});
+            d3.select("#tooltip")
+                .style("display", "none");
         })
         .on('drag', function(subwayStation) {
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
+            d3.select("#tooltip")
+                .style("display", "none");
         })
         .on('dragend', function(subwayStation) {
             Items.update(subwayStation._id, {$set: {options: {subway: {cx: d3.event.sourceEvent.layerX, cy: d3.event.sourceEvent.layerY, dragged: false}}}});
+            d3.select("#tooltip")
+                .style("display", "block")
+            ;
         })
     ;
 
@@ -91,19 +98,14 @@ Template.station.rendered = function() {
                         d3.select("#tooltip")
                             .style("left", document.options.subway.cx + "px")
                             .style("top", document.options.subway.cy + "px")
-                            .style("opacity", 1)
+                            .style("display", "block")
                             .select("#description")
                             .text(document.description)
                         ;
                     })
-                    .on("mousemove", function() {
-                        d3.select("#tooltip")
-                            .style("left", d3.event.x + "px")
-                            .style("top", d3.event.y + "px")
-                    })
                     .on("mouseout", function () {
                         d3.select("#tooltip")
-                            .style("opacity", 0);
+                            .style("display", "none");
                     })
                 ;
                 gContainer

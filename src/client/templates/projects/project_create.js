@@ -18,7 +18,7 @@ Template.projectCreate.events({
             var project = {
                 _id: new Meteor.Collection.ObjectID()._str,
                 createdAt: new Date().getTime(),
-                authors: [],
+                authors: [Meteor.userId()],
                 votes: 0,
                 sales: 0
             };

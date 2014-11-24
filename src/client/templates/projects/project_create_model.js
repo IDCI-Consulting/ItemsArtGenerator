@@ -9,7 +9,7 @@ Template.projectCreateModel.events({
             _id: new Meteor.Collection.ObjectID()._str,
             createdAt: new Date().getTime(),
             background: fileObj._id,
-            authors: [],
+            authors: [Meteor.userId()],
             isModel: true
         };
         var boundData = Meteor.bindFormData(project, formData);

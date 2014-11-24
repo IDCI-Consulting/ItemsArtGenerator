@@ -210,3 +210,12 @@ button.tiny, .button.tiny {
     margin: 0;
     line-height: 12px;
 }
+
+.reserved {
+    fill: blue;
+    stroke: pink;
+    stroke-width: 5;
+    fill-opacity: 0.1;
+    stroke-opacity: 0.9;
+    color: #FFF;
+}

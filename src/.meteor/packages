@@ -6,7 +6,6 @@
 standard-app-packages
 d3
 reactive-dict
-insecure
 iron:router
 sacha:spin@2.0.4
 cfs:standard-packages
@@ -17,4 +16,5 @@ mrt:modernizr-meteor
 mrt:ionicons
 zurb-foundation
 accounts-ui
+accounts-password
 

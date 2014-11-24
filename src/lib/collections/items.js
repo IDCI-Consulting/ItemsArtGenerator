@@ -17,3 +17,18 @@ Items.find({}).observe({
         }
     }
 });
+
+Items.allow({
+    insert: function(userId, doc) {
+        var project = Projects.findOne(doc.projectId);
+        return _.contains(project.authors, userId);
+    },
+    update: function (userId, doc, fields, modifier) {
+        var project = Projects.findOne(doc.projectId);
+        return _.contains(project.authors, userId);
+    },
+    remove: function (userId, doc) {
+        var project = Projects.findOne(doc.projectId);
+        return _.contains(project.authors, userId);
+    }
+});

@@ -6,7 +6,7 @@ Parameters = {
 Accounts.registerLoginHandler(function(loginRequest) {
     var user = Meteor.users.findOne(loginRequest.userId);
     if(!user) {
-        console.log('erreur');
+        return 'notFound';
     }
     //creating the token and adding to the user
     var stampedToken = Accounts._generateStampedLoginToken();

@@ -39,5 +39,6 @@ Template.projectCreate.events({
                 }
             }
         );
+        $('#modalEditor').foundation('reveal', 'close');
     }
 });

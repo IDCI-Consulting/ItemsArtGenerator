@@ -14,5 +14,7 @@ Template.projectCreateModel.events({
         };
         var boundData = Meteor.bindFormData(project, formData);
         Projects.insert(boundData);
+
+        $('#modalEditor').foundation('reveal', 'close');
     }
 });

@@ -113,9 +113,6 @@ li.item.selected {
     background-color: #eee;
     border-radius: 10px;
 }
-#tooltip.hidden {
-    opacity: 0;
-}
 #tooltip p {
     margin: 0;
     font-family: sans-serif;
@@ -123,7 +120,9 @@ li.item.selected {
     line-height: 20px;
 }
 
-
+.error{
+    color: #FF2727;
+}
 
 
 /***************************************************/

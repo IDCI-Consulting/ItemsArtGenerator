@@ -7,5 +7,6 @@ Template.itemCategoryEdit.events({
 
         var result = Meteor.bindFormData(itemCategory, formData);
         ItemCategories.update(this._id, {$set: result});
+        $('#modalEditor').foundation('reveal', 'close');
     }
 });

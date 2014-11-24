@@ -8,6 +8,6 @@ Template.itemCategoryCreate.events({
 
         var result = Meteor.bindFormData(itemCategory, formData);
         ItemCategories.insert(result);
-    },
-
+        $('#modalEditor').foundation('reveal', 'close');
+    }
 });

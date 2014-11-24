@@ -9,6 +9,7 @@ Template.projectEdit.events({
 
         var boundData = Meteor.bindFormData(project, formData);
         Projects.update(this._id, {$set: boundData});
+        $('#modalEditor').foundation('reveal', 'close');
     },
 
     'click .delete': function(e) {

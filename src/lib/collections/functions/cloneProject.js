@@ -1,4 +1,12 @@
-Meteor.cloneProject = function(model, authorId) {
+/*
+ * Clone a model for a new project
+ *
+ * @param model: The model which we are going to clone
+ *
+ * @return the new project with model's data
+ */
+
+Meteor.cloneProject = function(model) {
     var categories = ItemCategories.find({projectId: model._id}).fetch();
     var items = Items.find({projectId: model._id}).fetch();
     var itemsMap = {};
@@ -7,7 +15,7 @@ Meteor.cloneProject = function(model, authorId) {
         _id: new Meteor.Collection.ObjectID()._str,
         createdAt: new Date().getTime(),
         background: model.background,
-        authors: []
+        authors: [Meteor.userId()]
     };
     Projects.insert(project);
 

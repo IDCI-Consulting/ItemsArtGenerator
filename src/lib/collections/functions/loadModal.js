@@ -1,3 +1,9 @@
+/*
+ * Display a Modal
+ *
+ * @param templateInstance: The template's instance which want to load in the modal
+ */
+
 Meteor.loadModal = function(templateInstance) {
     $('#modalEditor > .content').empty();
     UI.insert(templateInstance, $('#modalEditor > .content').get(0));

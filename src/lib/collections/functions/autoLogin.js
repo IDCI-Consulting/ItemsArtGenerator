@@ -1,3 +1,9 @@
+/*
+ * Log In the user automatically
+ *
+ * @param userId: The user's id
+ */
+
 Meteor.autoLogin = function(userId, callback) {
   //create a login request with admin: true, so our loginHandler can handle this request
     loginRequest = {userId: userId};

@@ -1,3 +1,10 @@
+/*
+ * Add an item's id in the category's array
+ *
+ * @param category: The category where we adding the item's id
+ * @param itemId: The item's id
+ */
+
 Meteor.addCategoryItem = function(category, itemId) {
     var list = {};
     if(category.items === undefined || category.items === null) {
@@ -7,6 +14,14 @@ Meteor.addCategoryItem = function(category, itemId) {
     list[position] = itemId;
     _.extend(category.items, list);
 };
+
+
+/*
+ * Remove an item's id in the category's array
+ *
+ * @param category: The category where we adding the item's id
+ * @param itemId: The item's id
+ */
 
 Meteor.removeCategoryItem = function(category, itemId) {
     var deletedKey;
@@ -26,6 +41,13 @@ Meteor.removeCategoryItem = function(category, itemId) {
     });
 };
 
+
+/*
+ * Update an item's id in the category's array
+ *
+ * @param newItem: The new item's id which want to set
+ * @param oldItem: The old item's id which want to delete
+ */
 Meteor.updateCategoryItem = function(newItem, oldItem) {
     var category = {};
     // Check if category is removed

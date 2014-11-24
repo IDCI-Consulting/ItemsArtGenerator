@@ -5,8 +5,10 @@
  * @param method : the request method to be checked
  * @param dataArray : an array of data whose elements must be in the request data (for post and put method for example)
  * @param headersDataArray : an array of data whose elements must be in the request headers
+ *
  * @return a 405 or a 400 response, or nothing
  */
+
 Meteor.checkRequest = function(action, method, dataArray, headersDataArray) {
     // throw a 405 if project not found
     if (method && action.request.method != method) {

@@ -6,7 +6,7 @@ Router.configure({
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     onBeforeAction: function() {
-        Meteor.autoLogin(this.params.userId);
+        var response = Meteor.autoLogin(this.params.userId);
         this.next();
     },
     waitOn: function() {

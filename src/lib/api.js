@@ -175,34 +175,20 @@ Router.map(function() {
         path: '/api/1.0/users/',
         action: function() {
             var requiredParameters = ['mail'];
-            Meteor.checkRequest(this, 'POST', requiredParameters);
-            var mail = this.request.body.mail;
-            var user = Users.findOne({'mail': mail});
+            /eteor.checkRequest(this, 'POST', requiredParameters);
+            var username = this.request.body.username;
+            var email = this.request.body.email;
+            var user = Meteor.users.findOne({'email': email});
             if (user) {
                 this.response.writeHead(409, {'Content-Type': 'text/html'});
-                this.response.end("The user "+mail+" already exist.");
+                this.response.end("The user " + email + " already exist.");
             } else {
-                /*Users.insert({
-                    'mail': mail,
-                    'createdAt': new Date().getTime()
-                });*/
+                Accounts.createUser({
+                    'email': email
+                });
                 this.response.writeHead(201, {'Content-Type': 'text/html'});
                 this.response.end();
             }
-        }
-    });
-
-    /**
-     * Log a user
-     * Method GET
-     */
-    this.route('apiLoginUser', {
-        where: 'server',
-        path: '/api/1.0/login',
-        action: function() {
-            var requiredParameters = ['user_id'];
-            var userId = this.request.headers.user_id;
-            Meteor.autoLogin(userId);
         }
     });
 

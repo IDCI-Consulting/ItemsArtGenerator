@@ -1,5 +1,7 @@
 Template.projectItem.helpers({
-    isAuthor: Meteor.isAuthor(Meteor.userId())
+    isAuthor: function() {
+        return _.contains(this.authors, Meteor.userId());
+    }
 });
 
 Template.projectItem.events({

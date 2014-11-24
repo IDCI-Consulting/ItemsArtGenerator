@@ -15,12 +15,13 @@
         </div>
 
         <div class="row">
-            <div class="large-12 columns">
+            <div class="large-12 columns categories">
                 <label>Choose Categories</label>
                 {{#each categories}}
-                    <input type="checkbox" id="itemsCategories_{{_id}}" name="categories[]" value="{{_id}}" />{{name}}
+                    <input type="checkbox" class="categories" name="categories[]" value="{{_id}}" />{{name}}
                 {{/each}}
             </div>
+            <p class="error"></p>
         </div>
 
         <div class="row">

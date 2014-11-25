@@ -7,7 +7,18 @@ FS.HTTP.setHeadersForGet([
 var masterStore = new FS.Store.GridFS("master");
 
 //Create a thumbnail store
-var thumbnailStore = new FS.Store.GridFS("thumbnail");
+var thumbnailStore = new FS.Store.GridFS("thumbnail", {
+    //Create the thumbnail as we save to the store.
+    transformWrite: function(fileObj, readStream, writeStream) {
+        /*
+         * Use graphicsmagick to create a 1170x1170 (size of SVG) square thumbnail at 100% quality,
+         * orient according to EXIF data if necessary and then save by piping to the 
+         * provided writeStream
+         */
+        gm(readStream, fileObj.name).resize(1170,1170,"^")
+        .gravity('Center').crop(1170, 1170).quality(100).autoOrient().stream().pipe(writeStream);
+    }
+});
 
 //Create globally scoped Images collection.
 Images = new FS.Collection("images", {

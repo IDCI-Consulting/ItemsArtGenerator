@@ -202,7 +202,7 @@ button.tiny, .button.tiny {
     padding: 0 20px;
     border-left: 1px solid black;
     border-right: 1px solid black;
-    border-top: thick double #ff0000;
+    border-top: thick solid rgb(0,116,173);
 }
 
 #subway-legend > ul > li {
@@ -221,13 +221,4 @@ button.tiny, .button.tiny {
     font-size: 12px;
     margin: 0;
     line-height: 12px;
-}
-
-.reserved {
-    fill: blue;
-    stroke: pink;
-    stroke-width: 5;
-    fill-opacity: 0.1;
-    stroke-opacity: 0.9;
-    color: #FFF;
 }

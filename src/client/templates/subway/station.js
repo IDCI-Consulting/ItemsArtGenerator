@@ -13,20 +13,37 @@ Template.station.rendered = function() {
     // Drag Functions
     var dragStation = d3.behavior.drag()
         .on('dragstart', function(subwayStation) {
-            Items.update(subwayStation._id, {$set: {options: {subway: {cx: subwayStation.options.subway.cx, cy: subwayStation.options.subway.cy, dragged: true}}}});
+            Items.update(subwayStation._id, {$set: {'options.subway.dragged': true}});
             d3.select("#tooltip")
                 .style("display", "none");
         })
         .on('drag', function(subwayStation) {
+            subwayStation.options.subway.cx = d3.event.x;
+            subwayStation.options.subway.cy = d3.event.y
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
                 .style("display", "none");
         })
         .on('dragend', function(subwayStation) {
-            Items.update(subwayStation._id, {$set: {options: {subway: {cx: d3.event.sourceEvent.layerX, cy: d3.event.sourceEvent.layerY, dragged: false}}}});
+            Items.update(subwayStation._id, {$set: {'options.subway.cx': subwayStation.options.subway.cx, 'options.subway.cy': subwayStation.options.subway.cy, 'options.subway.dragged': false}});
             d3.select("#tooltip")
                 .style("display", "block")
             ;
+        })
+    ;
+
+    var dragStationName = d3.behavior.drag()
+        .on('drag', function(subwayStation) {
+            subwayStation.options.subway.tcx = d3.event.x;
+            subwayStation.options.subway.tcy = d3.event.y;
+
+            d3.select(this)
+                .attr('x', d3.event.x)
+                .attr('y', d3.event.y)
+            ;
+        })
+        .on('dragend', function(subwayStation) {
+            Items.update(subwayStation._id, {$set: {'options.subway.tcx': subwayStation.options.subway.tcx, 'options.subway.tcy': subwayStation.options.subway.tcy}})
         })
     ;
 
@@ -48,6 +65,7 @@ Template.station.rendered = function() {
         gContainer
             .select('circle')
             .attr('stroke', function(subwayStation) {
+                // Define gradient for 
                 if (subwayStation.categories.length > 1) {
                     var n = 100 / (subwayStation.categories.length - 1)
                     var gradient = d3.select('defs')
@@ -77,7 +95,8 @@ Template.station.rendered = function() {
         ;
         gContainer
             .select('text')
-            .attr('x', 10 + (subwayStation.categories.length - 1) * 4)
+            .attr('x', subwayStation.options.subway.tcx)
+            .attr('y', subwayStation.options.subway.tcy)
             .text(subwayStation.name)
         ;
     };
@@ -141,7 +160,9 @@ Template.station.rendered = function() {
                 gContainer
                     .append('text')
                     .text(document.name)
-                    .attr('x', 10 + (document.categories.length - 1) * 4)
+                    .attr('x', document.options.subway.tcx)
+                    .attr('y', document.options.subway.tcy)
+                    .call(dragStationName)
                 ;
             }
         },

@@ -1,17 +1,19 @@
 <template name="outputSubway">
 
-    <svg>
-        <defs>
-            <pattern id="bg" patternUnits="userSpaceOnUse" width="1600" heigth="1000">
-                <image xlink:href="{{url}}" x="0" y="0" width="1600" height="1000"></image>
-            </pattern>
-        </defs>
-        <g class="subway-background">
-            <rect width="1600" height="1000" fill="url(#bg)"></rect>
-        </g>
-        <g id="subway-lines"></g>
-        <g id="subway-stations"></g>
-    </svg>
+    <div id="svg">
+        <svg>
+            <defs>
+                <pattern id="bg" patternUnits="userSpaceOnUse" width="1600" heigth="1000">
+                    <image xlink:href="{{url}}" x="0" y="0" width="1600" height="1000"></image>
+                </pattern>
+            </defs>
+            <g class="subway-background">
+                <rect width="1600" height="1000" fill="url(#bg)"></rect>
+            </g>
+            <g id="subway-lines"></g>
+            <g id="subway-stations"></g>
+        </svg>
+    </div>
     <div id="subway-legend">
         <ul>
         </ul>
@@ -26,4 +28,5 @@
     {{#each lines}}
         {{> line}}
     {{/each}}
+
 </template>

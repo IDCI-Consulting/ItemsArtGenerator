@@ -6,6 +6,7 @@ Author: Brahim BOUKOUFALLAH
 html, body{
     height: 100%;
     width: 100%;
+    background-color: #1e90ff;
 }
 
 hr {
@@ -14,11 +15,22 @@ hr {
     color: #666666;
 }
 
+header {
+    border-bottom: 1px solid black;
+}
+
+#svg {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    height: 1170px;
+    width: 100%;
+}
+
 svg {
     display: block;
     border-left: 1px solid black;
     border-right: 1px solid black;
-    height: 1170px;
+    height: 100%;
     width: 100%;
 }
 
@@ -46,6 +58,7 @@ div.raw {
 }
 
 #output {
+    background-color: #fff;
     margin: 0 auto;
     width: 1170px;
 }

@@ -4,11 +4,26 @@ Template.station.rendered = function() {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
+    var delimiterWidth = 1170;
+    var margin = 20;
     Meteor.defer(function () {
         if(d3.select('#done').empty()) {
             d3.select('svg').append('div').attr('id', 'done');
         }
     });
+
+    /* Reposition the station coords when it's out of the svg
+     *
+     * @param delimiterWidth : The size which we don't want to exceed
+     * @param margin: A margin for reposition the element
+     */
+    var repositionStationCoords = function(delimiterWidth, margin, subwayStation) {
+        if (d3.event.x < 0) { subwayStation.options.subway.cx = margin };
+        if (d3.event.y < 0) { subwayStation.options.subway.cy = margin };
+        if (d3.event.x > delimiterWidth) { subwayStation.options.subway.cx = delimiterWidth - margin };
+        if (d3.event.y > delimiterWidth) { subwayStation.options.subway.cy = delimiterWidth - margin };
+    };
+
 
     // Drag Functions
     var dragStation = d3.behavior.drag()
@@ -19,7 +34,8 @@ Template.station.rendered = function() {
         })
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.cx = d3.event.x;
-            subwayStation.options.subway.cy = d3.event.y
+            subwayStation.options.subway.cy = d3.event.y;
+            repositionStationCoords(delimiterWidth, margin, subwayStation);
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
                 .style("display", "none");

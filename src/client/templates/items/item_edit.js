@@ -2,7 +2,6 @@ Template.itemEdit.helpers({
     allCategories: function() {
         return ItemCategories.find({projectId: this.projectId});
     },
-
     itemHasCategory: function(categories, categoryId) {
         return _.contains(categories, categoryId);
     }
@@ -19,5 +18,6 @@ Template.itemEdit.events({
             };
         var boundData = Meteor.bindFormData(item, formData);
         Items.update(this._id, {$set: boundData});
+        $('#modalEditor').foundation('reveal', 'close');
     }
 });

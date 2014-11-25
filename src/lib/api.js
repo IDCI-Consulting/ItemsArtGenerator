@@ -175,7 +175,7 @@ Router.map(function() {
         path: '/api/1.0/users/',
         action: function() {
             var requiredParameters = ['mail'];
-            /eteor.checkRequest(this, 'POST', requiredParameters);
+            Meteor.checkRequest(this, 'POST', requiredParameters);
             var username = this.request.body.username;
             var email = this.request.body.email;
             var user = Meteor.users.findOne({'email': email});

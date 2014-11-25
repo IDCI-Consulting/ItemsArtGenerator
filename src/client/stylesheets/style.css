@@ -111,6 +111,7 @@ li.item.selected {
 /*************************************************/
 #tooltip {
     position: absolute;
+    margin: 0 auto;
     width: 200px;
     height: auto;
     padding: 10px;

@@ -121,7 +121,6 @@ Template.station.rendered = function() {
     ObserveStation = Items.find({_id: subwayStation._id}).observe({
         added: function(document) {
             if(d3.select('#station-' + document._id).empty()) {
-
                 var gContainer = gStations
                     .append('g')
                     .datum(document)
@@ -132,7 +131,7 @@ Template.station.rendered = function() {
                     .on("mouseover", function (document) {
                         d3.select("#tooltip")
                             .style("left", document.options.subway.cx + "px")
-                            .style("top", document.options.subway.cy + "px")
+                            .style("top", document.options.subway.cy + document.options.subway.tcy + "px")
                             .style("display", "block")
                             .select("#description")
                             .text(document.description)

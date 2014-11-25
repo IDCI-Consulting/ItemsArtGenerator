@@ -13,7 +13,8 @@ cfs:filesystem
 cfs:gridfs
 cfs:graphicsmagick
 mrt:modernizr-meteor
-mrt:ionicons
 zurb-foundation
 accounts-ui
 accounts-password
+nahue:simple-line-icons
+

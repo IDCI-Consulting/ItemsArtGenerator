@@ -64,6 +64,10 @@ a.success {
     font-size: 32px;
 }
 
+.icon-settings:before {
+    font-size: 43px
+}
+
 a.secondary {
     color: #eee;
     font-size: 32px;
@@ -86,6 +90,7 @@ li.item {
 }
 
 li.item.selected {
+    padding-bottom: 10px;
     background: #5e5e5e;
     cursor: move;
 }
@@ -108,10 +113,15 @@ li.item.selected {
     width: 100px;
 }
 
+.category-label {
+    color: #b9b9b9;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
 /*************************************************/
 #tooltip {
     position: absolute;
-    margin: 0 auto;
     width: 200px;
     height: auto;
     padding: 10px;
@@ -136,6 +146,10 @@ li.item.selected {
     float: right;
     list-style-type:none;
     margin-right: 10px;
+}
+
+ul.off-canvas-list li a {
+    border-bottom: 1px none #FFF;
 }
 
 .actions {

@@ -1,11 +1,11 @@
 <template name="itemsList">
     {{#each lines}}
-        <a class="success create-item ion-plus" href="{{pathFor 'itemCreate'}}"></a>
+        <a class="success create-item icon-plus" href="{{pathFor 'itemCreate'}}"></a>
         <div class="move-item">
-            <a class="secondary ion-chevron-up dec"></a>
-            <a class="secondary ion-chevron-down inc"></a>
+            <a class="secondary icon-arrow-up dec"></a>
+            <a class="secondary icon-arrow-down inc"></a>
         </div>
-        <label>{{name}}</label>
+        <label class="category-label">{{name}}</label>
         <ul id="category-{{_id}}" class="off-canvas-list">
             {{#each sortByPosition this}}
                     <li class="item {{selected ../_id}}">
@@ -13,8 +13,8 @@
                             {{name}}
                         </div>
                         <ul class="actions">
-                            <li><a href="#" class="tiny button alert delete"></a></li>
-                            <li><a class="tiny button secondary edit-item" href="{{pathFor 'itemEdit'}}"></a></li>
+                            <li><a class="icon-trash alert delete"></a></li>
+                            <li><a class="icon-pencil edit-item" href="{{pathFor 'itemEdit'}}"></a></li>
                         </ul>
                     </li>
             {{/each}}

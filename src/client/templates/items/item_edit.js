@@ -2,7 +2,6 @@ Template.itemEdit.helpers({
     allCategories: function() {
         return ItemCategories.find({projectId: this.projectId});
     },
-
     itemHasCategory: function(categories, categoryId) {
         return _.contains(categories, categoryId);
     }

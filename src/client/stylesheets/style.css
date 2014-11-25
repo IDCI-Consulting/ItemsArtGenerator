@@ -145,7 +145,6 @@ li.item.selected {
 .actions, .actions>li {
     float: right;
     list-style-type:none;
-    margin-right: 10px;
 }
 
 ul.off-canvas-list li a {
@@ -153,8 +152,7 @@ ul.off-canvas-list li a {
 }
 
 .actions {
-    margin-right: 20px;
-    margin-top: -25px;
+    margin-top: -27px;
 }
 .actions > li {
     height: 10px;

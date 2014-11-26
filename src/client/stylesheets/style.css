@@ -6,7 +6,6 @@ Author: Brahim BOUKOUFALLAH
 html, body{
     height: 100%;
     width: 100%;
-    background-color: #1e90ff;
 }
 
 hr {
@@ -20,16 +19,12 @@ header {
 }
 
 #svg {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    height: 1170px;
+    height: 968px;
     width: 100%;
 }
 
 svg {
     display: block;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
     height: 100%;
     width: 100%;
 }
@@ -61,6 +56,8 @@ div.raw {
     background-color: #fff;
     margin: 0 auto;
     width: 1170px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 
 #project-description {
@@ -209,12 +206,16 @@ button.tiny, .button.tiny {
     z-index: 1;
 }
 
+.subway-title {
+    height: 227px;
+    border-bottom: 3px solid rgb(0,116,173);
+    border-top: 3px solid rgb(0,116,173);
+}
+
 #subway-legend {
     width: 100%;
     min-height: 200px;
     padding: 0 20px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
     border-top: thick solid rgb(0,116,173);
 }
 

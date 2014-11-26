@@ -4,6 +4,7 @@ Template.station.rendered = function() {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
+    var delimiterHeight = 968;
     var delimiterWidth = 1170;
     var margin = 20;
     Meteor.defer(function () {
@@ -21,7 +22,7 @@ Template.station.rendered = function() {
         if (d3.event.x < 0) { subwayStation.options.subway.cx = margin };
         if (d3.event.y < 0) { subwayStation.options.subway.cy = margin };
         if (d3.event.x > delimiterWidth) { subwayStation.options.subway.cx = delimiterWidth - margin };
-        if (d3.event.y > delimiterWidth) { subwayStation.options.subway.cy = delimiterWidth - margin };
+        if (d3.event.y > delimiterHeight) { subwayStation.options.subway.cy = delimiterHeight - margin };
     };
 
 

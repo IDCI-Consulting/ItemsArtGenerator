@@ -178,16 +178,16 @@ Router.map(function() {
             var requiredParameters = ['mail'];
             Meteor.checkRequest(this, 'POST', requiredParameters);
             var email = this.request.body.mail;
-            var user = Meteor.users.findOne({'email': email});
+            var user = Meteor.users.findOne({'emails.address': email});
             if (user) {
                 this.response.writeHead(409, {'Content-Type': 'text/html'});
                 this.response.end("The user " + email + " already exist.");
             } else {
-                Accounts.createUser({
+                var userId = Accounts.createUser({
                     'email': email
                 });
-                this.response.writeHead(201, {'Content-Type': 'text/html'});
-                this.response.end();
+                this.response.writeHead(200, {'Content-type': 'application/json'});
+                this.response.end(JSON.stringify({'userId': userId}));
             }
         }
     });

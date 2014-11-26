@@ -12,10 +12,6 @@ Meteor.publish('projects', function() {
     return Projects.find({});
 });
 
-Meteor.publish('currentUserProjects', function(userId) {
-    return userId && Projects.find({authors: {$in: [userId]}});
-});
-
 Meteor.publish('singleProject', function(id) {
     return id && Projects.find(id);
 });

@@ -174,10 +174,10 @@ Router.map(function() {
         where: 'server',
         path: '/api/1.0/users/',
         action: function() {
+            console.log(this.request.body);
             var requiredParameters = ['mail'];
             Meteor.checkRequest(this, 'POST', requiredParameters);
-            var username = this.request.body.username;
-            var email = this.request.body.email;
+            var email = this.request.body.mail;
             var user = Meteor.users.findOne({'email': email});
             if (user) {
                 this.response.writeHead(409, {'Content-Type': 'text/html'});

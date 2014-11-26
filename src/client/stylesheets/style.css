@@ -6,6 +6,7 @@ Author: Brahim BOUKOUFALLAH
 html, body{
     height: 100%;
     width: 100%;
+    background-color: #1e90ff;
 }
 
 hr {
@@ -14,11 +15,22 @@ hr {
     color: #666666;
 }
 
+header {
+    border-bottom: 1px solid black;
+}
+
+#svg {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    height: 1170px;
+    width: 100%;
+}
+
 svg {
     display: block;
     border-left: 1px solid black;
     border-right: 1px solid black;
-    height: 1170px;
+    height: 100%;
     width: 100%;
 }
 
@@ -46,6 +58,7 @@ div.raw {
 }
 
 #output {
+    background-color: #fff;
     margin: 0 auto;
     width: 1170px;
 }
@@ -62,6 +75,10 @@ list-style-type:none;
 a.success {
     color: #43ac6a;
     font-size: 32px;
+}
+
+.icon-settings:before {
+    font-size: 43px
 }
 
 a.secondary {
@@ -86,6 +103,7 @@ li.item {
 }
 
 li.item.selected {
+    padding-bottom: 10px;
     background: #5e5e5e;
     cursor: move;
 }
@@ -106,6 +124,12 @@ li.item.selected {
 .name {
     display: block;
     width: 100px;
+}
+
+.category-label {
+    color: #b9b9b9;
+    font-weight: bold;
+    margin-bottom: 9px;
 }
 
 /*************************************************/
@@ -134,12 +158,14 @@ li.item.selected {
 .actions, .actions>li {
     float: right;
     list-style-type:none;
-    margin-right: 10px;
+}
+
+ul.off-canvas-list li a {
+    border-bottom: 1px none #FFF;
 }
 
 .actions {
-    margin-right: 20px;
-    margin-top: -25px;
+    margin-top: -27px;
 }
 .actions > li {
     height: 10px;
@@ -189,7 +215,7 @@ button.tiny, .button.tiny {
     padding: 0 20px;
     border-left: 1px solid black;
     border-right: 1px solid black;
-    border-top: thick double #ff0000;
+    border-top: thick solid rgb(0,116,173);
 }
 
 #subway-legend > ul > li {
@@ -208,13 +234,4 @@ button.tiny, .button.tiny {
     font-size: 12px;
     margin: 0;
     line-height: 12px;
-}
-
-.reserved {
-    fill: blue;
-    stroke: pink;
-    stroke-width: 5;
-    fill-opacity: 0.1;
-    stroke-opacity: 0.9;
-    color: #FFF;
 }

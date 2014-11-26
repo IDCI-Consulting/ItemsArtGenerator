@@ -16,12 +16,6 @@
 
         <div class="row">
             <div class="large-12 columns">
-                {{displayFormOptions this 'item'}}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="large-12 columns">
                 <label>Choose Categories</label>
                 {{#each allCategories}}
                     {{#if itemHasCategory ../categories _id}}
@@ -33,6 +27,13 @@
                 {{/each}}
             </div>
         </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                {{displayFormOptions this 'item'}}
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="large-12 columns">

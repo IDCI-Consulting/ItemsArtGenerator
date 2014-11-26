@@ -3,6 +3,13 @@ Router.configure({
     notFoundTemplate: 'notFound'
 });
 
+// Known bug : https://github.com/EventedMind/iron-router/issues/1003
+if (Meteor.isServer) {
+    Router.onBeforeAction(Iron.Router.bodyParser.urlencoded({
+        extended: false
+    }));
+}
+
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
     onBeforeAction: function() {

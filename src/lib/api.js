@@ -184,7 +184,10 @@ Router.map(function() {
                 this.response.end("The user " + email + " already exist.");
             } else {
                 Accounts.createUser({
-                    'email': email
+                    'email': email,
+                    'profile': {
+                        isAdmin: false
+                    }
                 });
                 this.response.writeHead(201, {'Content-Type': 'text/html'});
                 this.response.end();

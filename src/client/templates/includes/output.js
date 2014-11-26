@@ -1,9 +1,10 @@
 Template.output.helpers({
     url: function() {
         if (this.background) {
-            return Images.findOne(this.background).url();
+            var fileObj = Images.findOne(this.background);
+            return 'url(' + fileObj.url() + ')';
         }
 
-        return '';
+        return 'rgb(255,250,230)';
     }
 });

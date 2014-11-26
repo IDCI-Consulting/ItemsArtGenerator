@@ -1,6 +1,26 @@
 Template.projectsList.helpers({
     projects: function() {
-        return Projects.find({state: "published", visibility: "public"});
+        return Projects.find(
+            {
+                $or: [
+                    {
+                        state: "published",
+                        visibility: "public"
+                    },
+                    {
+                        authors: {
+                            $in: [
+                                Meteor.userId()
+                            ]
+                        }
+                    }
+                ]
+            }
+        );
+    },
+    isAdmin: function() {
+        var user = Meteor.users.findOne(Meteor.userId());
+        return user.profile.isAdmin;
     }
 });
 

@@ -20,11 +20,7 @@ Template.projectsList.helpers({
     },
     isAdmin: function() {
         var user = Meteor.users.findOne(Meteor.userId());
-        if(user.isAdmin) {
-            return true;
-        } else {
-            return false;
-        }
+        return user.profile.isAdmin;
     }
 });
 

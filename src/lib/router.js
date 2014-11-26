@@ -10,15 +10,21 @@ if (Meteor.isServer) {
     }));
 }
 
-ProjectsListController = RouteController.extend({
-    template: 'projectsList',
-    onBeforeAction: function() {
+// Test before actions if the user is logged in
+var BeforeHooks = {
+    isLoggedIn: function() {
         if (!Meteor.userId()) {
-            Router.go('notAllowed');
+          Router.go('notAllowed');
         } else {
             this.next();
         }
-    },
+    }
+}
+
+Router.before(BeforeHooks.isLoggedIn, {only: ['projects', 'projectShow']});
+
+ProjectsListController = RouteController.extend({
+    template: 'projectsList',
     waitOn: function() {
         return  [
             Meteor.subscribe('projects'),

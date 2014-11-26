@@ -19,5 +19,6 @@ Template.itemEdit.events({
             };
         var boundData = Meteor.bindFormData(item, formData);
         Items.update(this._id, {$set: boundData});
+        $('#modalEditor').foundation('reveal', 'close');
     }
 });

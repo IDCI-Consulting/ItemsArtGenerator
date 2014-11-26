@@ -226,15 +226,21 @@ button.tiny, .button.tiny {
 
 #subway-legend > ul > li > span {
     display: block;
-    padding: 0 10px 5px;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
 }
 
 #subway-legend > ul > li > span > p {
     display: block;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 18px;
     margin: 0;
     line-height: 12px;
+}
+
+#subway-legend > ul > li > ul > li {
+    font-size: 15px;
 }
 
 /* Error pages */

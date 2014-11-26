@@ -236,3 +236,11 @@ button.tiny, .button.tiny {
     margin: 0;
     line-height: 12px;
 }
+
+/* Error pages */
+
+h2.not-found, h2.not-allowed {
+    text-align: center;
+    margin-top: 50px;
+    color: #000;
+}

@@ -10,12 +10,21 @@ if (Meteor.isServer) {
     }));
 }
 
+// Test before actions if the user is logged in
+var BeforeHooks = {
+    isLoggedIn: function() {
+        if (!Meteor.userId()) {
+          Router.go('notAllowed');
+        } else {
+            this.next();
+        }
+    }
+}
+
+Router.before(BeforeHooks.isLoggedIn, {only: ['projects', 'projectShow']});
+
 ProjectsListController = RouteController.extend({
     template: 'projectsList',
-    onBeforeAction: function() {
-        var response = Meteor.autoLogin(this.params.userId);
-        this.next();
-    },
     waitOn: function() {
         return  [
             Meteor.subscribe('projects'),
@@ -27,13 +36,40 @@ ProjectsListController = RouteController.extend({
 });
 
 Router.map(function() {
+
     /*************************/
     /*****NOT FOUND ROUTE*****/
     /*************************/
 
     this.route('notFound', {
-        path: '/404',
+        path: '/not-found',
         template: 'notFound'
+    });
+
+    /***************************/
+    /**** NOT ALLOWED ROUTE ****/
+    /***************************/
+
+    this.route('notAllowed', {
+        path: '/not-allowed',
+        template: 'notAllowed'
+    });
+
+    /**********************/
+    /***** LOGIN ROUTE ****/
+    /**********************/
+
+    this.route('login', {
+        path: '/login/:_userId',
+        onBeforeAction: function() {
+            Meteor.autoLogin(this.params._userId, function(err) {
+                if (err) {
+                    Router.go('notAllowed');
+                } else {
+                    Router.go('projects');
+                }
+            });
+        }
     });
 
     /*************************/
@@ -41,7 +77,7 @@ Router.map(function() {
     /*************************/
 
     this.route('projects', {
-        path: '/:userId',
+        path: '/',
         controller: ProjectsListController
     });
 

@@ -1,9 +1,7 @@
 <template name="header">
     <header class="tab-bar top-bar">
 
-        <section class="left-small">
-            <a class="left-off-canvas-toggle menu-icon"><span></span></a>
-        </section>
+        <a class="secondary button small round" href="{{pathFor 'projects'}}">Home</a>
         {{#if isAuthor}}
             <section class="right-small">
                 <a class="right-off-canvas-toggle icon-settings secondary"><span></span></a>

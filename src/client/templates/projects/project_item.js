@@ -17,7 +17,7 @@ Template.projectItem.events({
     "click .editProject": function(e) {
         e.preventDefault();
 
-        var instance = UI.renderWithData(Template.projectEdit, Projects.findOne(this._id));
+        var instance = UI.renderWithData(Template.projectEdit, Projects.findOne(this._id), $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
     }
 })

@@ -17,7 +17,7 @@ Template.itemCategoriesList.events({
     "click .edit-item-category": function(e) {
         e.preventDefault();
 
-        var instance = UI.renderWithData(Template.itemCategoryEdit, ItemCategories.findOne(this._id));
+        var instance = Blaze.renderWithData(Template.itemCategoryEdit, ItemCategories.findOne(this._id), $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
     }
 })

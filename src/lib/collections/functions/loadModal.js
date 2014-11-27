@@ -5,8 +5,11 @@
  */
 
 Meteor.loadModal = function(templateInstance) {
-    $('#modalEditor > .content').empty();
-    UI.insert(templateInstance, $('#modalEditor > .content').get(0));
     $('#modalEditor').foundation('reveal', 'open');
     var form = $('#modalEditor > .content').find('form').get(0);
+
+    // Clear the modal content on close
+    $(document).on('closed.fndtn.reveal', function () {
+        $('#modalEditor > .content').empty();
+    });
 };

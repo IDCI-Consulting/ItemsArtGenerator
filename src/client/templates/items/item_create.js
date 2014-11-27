@@ -18,7 +18,6 @@ Template.itemCreate.events({
 
         if (boundData.categories.length === 0) {
             $("p.error").replaceWith('<p class="error">You must choose a category</p>');
-
         } else {
             _.each(boundData.categories, function(categoryId) {
                 var category = ItemCategories.findOne(categoryId);

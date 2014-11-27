@@ -28,14 +28,14 @@ Template.projectsList.events({
     "click .createProject": function(e, template) {
         e.preventDefault();
 
-        var instance = UI.render(Template.projectCreate);
+        var instance = Blaze.render(Template.projectCreate, $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
     },
 
     "click .createModel": function(e, template) {
         e.preventDefault();
 
-        var instance = UI.render(Template.projectCreateModel);
+        var instance = Blaze.render(Template.projectCreateModel, $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
     }
 });

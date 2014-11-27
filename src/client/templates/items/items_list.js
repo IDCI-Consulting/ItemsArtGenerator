@@ -22,7 +22,7 @@ Template.itemsList.events({
     "click .edit-item": function(e) {
         e.preventDefault();
 
-        var instance = Blaze.renderWithData(Template.itemEdit, Items.findOne(this._id));
+        var instance = Blaze.renderWithData(Template.itemEdit, Items.findOne(this._id), $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
     },
 

@@ -51,6 +51,10 @@ div.raw {
     min-width: 300px;
 }
 
+.button-bar a.button {
+    margin: 0.6rem 0px;
+}
+
 .move-item {
     overflow: auto;
     float: right;
@@ -211,7 +215,7 @@ button.tiny, .button.tiny {
 }
 
 .subway-title {
-    height: 227px;
+    min-height: 227px;
     border-bottom: 3px solid rgb(0,116,173);
     border-top: 3px solid rgb(0,116,173);
 }

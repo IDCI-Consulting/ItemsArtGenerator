@@ -175,7 +175,7 @@ button.tiny, .button.tiny {
     padding: 25px 25px 0px 0px;
 }
 
-.subway-station:hover {
+.subway-station:hover, .subway-line:hover {
     cursor: move;
 }
 

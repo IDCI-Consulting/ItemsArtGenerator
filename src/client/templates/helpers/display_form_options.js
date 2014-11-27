@@ -12,7 +12,7 @@ UI.registerHelper('displayFormOptions', function(context, type) {
             string += ' min=' + value['min'];
         }
         // Set a default value if it not exist
-        string += ' value="' + (context.options ? context.options[project.type][key] + '">' : '30">')
+        string += ' value="' + (context.options ? context.options[project.type][key] + '">' : '' + value['min'] + '">')
     });
 
     return new Handlebars.SafeString(string);

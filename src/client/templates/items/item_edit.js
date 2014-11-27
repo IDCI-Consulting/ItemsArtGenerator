@@ -17,7 +17,12 @@ Template.itemEdit.events({
                 categories: [],
             };
         var boundData = Meteor.bindFormData(item, formData);
-        Items.update(this._id, {$set: boundData});
-        $('#modalEditor').foundation('reveal', 'close');
+
+        if (boundData.categories.length === 0) {
+            $("p.error").replaceWith('<p class="error">You must choose a category</p>');
+        } else {
+            Items.update(this._id, {$set: boundData});
+            $('#modalEditor').foundation('reveal', 'close');
+        }
     }
 });

@@ -9,6 +9,7 @@ Template.projectCreateModel.events({
             _id: new Meteor.Collection.ObjectID()._str,
             createdAt: new Date().getTime(),
             background: fileObj._id,
+            type: "subway",
             authors: [Meteor.userId()],
             isModel: true
         };

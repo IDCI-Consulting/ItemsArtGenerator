@@ -19,6 +19,7 @@ Template.projectCreate.events({
                 _id: new Meteor.Collection.ObjectID()._str,
                 createdAt: new Date().getTime(),
                 authors: [Meteor.userId()],
+                type: "subway",
                 votes: 0,
                 sales: 0
             };
@@ -33,7 +34,6 @@ Template.projectCreate.events({
                     name: boundData.name,
                     description: boundData.description,
                     visibility: boundData.visibility,
-                    type: boundData.type,
                     tags: boundData.tags,
                     state: boundData.state
                 }

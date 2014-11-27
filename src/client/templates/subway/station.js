@@ -4,8 +4,6 @@ Template.station.rendered = function() {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
-    var delimiterHeight = 968;
-    var delimiterWidth = 1170;
     var margin = 20;
     Meteor.defer(function () {
         if(d3.select('#done').empty()) {
@@ -18,12 +16,13 @@ Template.station.rendered = function() {
      * @param delimiterWidth : The size which we don't want to exceed
      * @param margin: A margin for reposition the element
      */
-    var repositionStationCoords = function(delimiterWidth, margin, subwayStation) {
+    var repositionStationCoords = function(Delimiter, margin, subwayStation) {
         if (d3.event.x < 0) { subwayStation.options.subway.cx = margin };
         if (d3.event.y < 0) { subwayStation.options.subway.cy = margin };
-        if (d3.event.x > delimiterWidth) { subwayStation.options.subway.cx = delimiterWidth - margin };
-        if (d3.event.y > delimiterHeight) { subwayStation.options.subway.cy = delimiterHeight - margin };
+        if (d3.event.x > Delimiter) { subwayStation.options.subway.cx = Delimiter - margin };
+        if (d3.event.y > Delimiter) { subwayStation.options.subway.cy = Delimiter - margin };
     };
+
 
     // Drag Functions
     var dragStation = d3.behavior.drag()
@@ -35,7 +34,7 @@ Template.station.rendered = function() {
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.cx = (d3.event.x).toFixed();
             subwayStation.options.subway.cy = (d3.event.y).toFixed();
-            repositionStationCoords(delimiterWidth, margin, subwayStation);
+            repositionStationCoords(Delimiter, margin, subwayStation);
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
                 .style("display", "none");
@@ -65,35 +64,37 @@ Template.station.rendered = function() {
 
     // Draw station
     var draw = function(subwayStation) {
+        var station = Items.findOne(subwayStation._id);
+
         var gContainer = gStations
-            .selectAll('#station-' + subwayStation._id)
+            .selectAll('#station-' + station._id)
             .transition()
             .duration(500)
-            .attr('class', function(subwayStation) {
+            .attr('class', function(station) {
                 var c = 'subway-station';
-                if(subwayStation.options.subway.dragged) {
+                if(station.options.subway.dragged) {
                     c += ' dragged';
                 }
                 return c;
             })
-            .attr('transform', 'translate(' + [subwayStation.options.subway.cx,subwayStation.options.subway.cy] + ')')
+            .attr('transform', 'translate(' + [station.options.subway.cx,station.options.subway.cy] + ')')
         ;
         gContainer
             .select('circle')
-            .attr('stroke', function(subwayStation) {
+            .attr('stroke', function(station) {
                 // Define gradient for 
-                if (subwayStation.categories.length > 1) {
-                    var n = 100 / (subwayStation.categories.length - 1)
+                if (station.categories.length > 1) {
+                    var n = 100 / (station.categories.length - 1)
                     var gradient = d3.select('defs')
                         .append("linearGradient")
-                        .attr("id", "gradient-" + subwayStation._id)
+                        .attr("id", "gradient-" + station._id)
                         .attr("x1", "0%")
                         .attr("y1", "0%")
                         .attr("x2", "100%")
                         .attr("y2", "0%")
                         .attr("spreadMethod", "pad")
                     ;
-                    _.each(subwayStation.categories, function(categoryId, key) {
+                    _.each(station.categories, function(categoryId, key) {
                         var category = ItemCategories.findOne(categoryId);
                         gradient
                             .append('stop')
@@ -102,18 +103,18 @@ Template.station.rendered = function() {
                             .attr('stop-opacity', 1)
                         ;
                     });
-                    return 'url(#gradient-' + subwayStation._id + ')';
+                    return 'url(#gradient-' + station._id + ')';
                 }
 
                 return category.options.subway.color;
             })
-            .attr('r', 8 + (subwayStation.categories.length - 1) * 4)
+            .attr('r', 8 + (station.categories.length - 1) * 4)
         ;
         gContainer
             .select('text')
-            .attr('x', subwayStation.options.subway.tcx)
-            .attr('y', subwayStation.options.subway.tcy)
-            .text(subwayStation.name)
+            .attr('x', station.options.subway.tcx)
+            .attr('y', station.options.subway.tcy)
+            .text(station.name)
         ;
     };
 

@@ -17,7 +17,14 @@ Template.projectItem.events({
     "click .editProject": function(e) {
         e.preventDefault();
 
-        var instance = UI.renderWithData(Template.projectEdit, Projects.findOne(this._id), $('#modalEditor > .content').get(0));
+        var instance = Blaze.renderWithData(Template.projectEdit, Projects.findOne(this._id), $('#modalEditor > .content').get(0));
+        Meteor.loadModal(instance);
+    },
+
+    "click .editModel": function(e) {
+        e.preventDefault();
+
+        var instance = Blaze.renderWithData(Template.projectEditModel, Projects.findOne(this._id), $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
     }
 })

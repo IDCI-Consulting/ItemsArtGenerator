@@ -111,16 +111,19 @@ Template.line.rendered = function() {
             .text(line.name)
         ;
         gLegend
-            .selectAll('#legend-' + line._id + ' > span')
+            .selectAll('#legend-line-' + line._id + ' > span')
             .transition()
-            .duration(0)
+            .duration(500)
             .style('background', line.options.subway.color)
         ;
         gLegend
-            .selectAll('#legend-' + line._id + ' > span > p')
-            .text(function(line) {
-                return line.name;
-            })
+            .selectAll('#legend-line-' + line._id + ' > span > p')
+            .text(line.name)
+        ;
+        gLegend
+            .select('#stations-' + line._id)
+            .selectAll('li')
+            .style('color', line.options.subway.color)
         ;
     }
 
@@ -232,7 +235,7 @@ Template.line.rendered = function() {
                 .datum(newDocument)
             ;
             gLegend
-                .select('#legend-' + newDocument._id)
+                .select('#legend-line-' + newDocument._id)
                 .datum(newDocument)
             ;
             draw(newDocument);
@@ -252,7 +255,7 @@ Template.line.rendered = function() {
                 .remove()
             ;
             gLegend
-                .select('#legend-' + oldDocument._id)
+                .select('#legend-line-' + oldDocument._id)
                 .remove()
             ;
             draw(subwayLine);

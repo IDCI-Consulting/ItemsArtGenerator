@@ -15,6 +15,9 @@ Template.projectsList.helpers({
                         }
                     }
                 ]
+            },
+            {
+                sort: { createdAt : -1 }
             }
         );
     },

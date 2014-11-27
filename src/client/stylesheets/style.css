@@ -47,6 +47,10 @@ div.raw {
     height: 100%;
 }
 
+.button-bar {
+    min-width: 300px;
+}
+
 .move-item {
     overflow: auto;
     float: right;

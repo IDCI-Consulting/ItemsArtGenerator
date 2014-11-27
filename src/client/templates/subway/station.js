@@ -34,8 +34,8 @@ Template.station.rendered = function() {
                 .style("display", "none");
         })
         .on('drag', function(subwayStation) {
-            subwayStation.options.subway.cx = d3.event.x;
-            subwayStation.options.subway.cy = d3.event.y;
+            subwayStation.options.subway.cx = (d3.event.x).toFixed();
+            subwayStation.options.subway.cy = (d3.event.y).toFixed();
             repositionStationCoords(delimiterWidth, margin, subwayStation);
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
@@ -51,8 +51,8 @@ Template.station.rendered = function() {
 
     var dragStationName = d3.behavior.drag()
         .on('drag', function(subwayStation) {
-            subwayStation.options.subway.tcx = d3.event.x;
-            subwayStation.options.subway.tcy = d3.event.y;
+            subwayStation.options.subway.tcx = (d3.event.x).toFixed();
+            subwayStation.options.subway.tcy = (d3.event.y).toFixed()y;
 
             d3.select(this)
                 .attr('x', d3.event.x)

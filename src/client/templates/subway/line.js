@@ -51,7 +51,7 @@ Template.line.rendered = function() {
     var draw = function(subwayLine) {
         var stations = [];
         var line = ItemCategories.findOne({_id: subwayLine._id});
-        var items = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
+        var items = Items.find({categories: {$in: [line._id]}}).fetch();
 
         // Add the new stations coords in stations array belonging to this subwayLine
         if (line) {
@@ -64,62 +64,62 @@ Template.line.rendered = function() {
             });
         }
         gLines
-            .selectAll('#line-' + subwayLine._id)
+            .selectAll('#line-' + line._id)
             .transition()
             .duration(500)
-            .attr('d', function(subwayLine) {
+            .attr('d', function(line) {
                 return lineFunction(stations);
             })
-            .style('stroke', function(subwayLine) {
-                return subwayLine.options.subway.color;
+            .style('stroke', function(line) {
+                return line.options.subway.color;
             })
         ;
         gLines
-            .selectAll('#first-line-node-' + subwayLine._id)
+            .selectAll('#first-line-node-' + line._id)
             .transition()
             .duration(500)
-            .attr('transform', 'translate(' + [subwayLine.options.subway.cx1,subwayLine.options.subway.cy1] + ')')
+            .attr('transform', 'translate(' + [line.options.subway.cx1,line.options.subway.cy1] + ')')
         ;
         gLines
-            .selectAll('#first-line-color-' + subwayLine._id)
+            .selectAll('#first-line-color-' + line._id)
             .transition()
             .duration(500)
-            .attr('fill', subwayLine.options.subway.color)
+            .attr('fill', line.options.subway.color)
         ;
         gLines
-            .selectAll('#first-line-name-' + subwayLine._id)
+            .selectAll('#first-line-name-' + line._id)
             .transition()
             .duration(500)
-            .text(subwayLine.name)
+            .text(line.name)
         ;
         gLines
-            .selectAll('#last-line-node-' + subwayLine._id)
+            .selectAll('#last-line-node-' + line._id)
             .transition()
             .duration(500)
-            .attr('transform', 'translate(' + [subwayLine.options.subway.cx2,subwayLine.options.subway.cy2] + ')')
+            .attr('transform', 'translate(' + [line.options.subway.cx2,line.options.subway.cy2] + ')')
         ;
         gLines
-            .selectAll('#last-line-color-' + subwayLine._id)
+            .selectAll('#last-line-color-' + line._id)
             .transition()
             .duration(500)
-            .attr('fill', subwayLine.options.subway.color)
+            .attr('fill', line.options.subway.color)
         ;
         gLines
-            .selectAll('#last-line-name-' + subwayLine._id)
+            .selectAll('#last-line-name-' + line._id)
             .transition()
             .duration(500)
-            .text(subwayLine.name)
+            .text(line.name)
         ;
         gLegend
-            .selectAll('#legend-' + subwayLine._id + ' > span')
+            .selectAll('#legend-' + line._id + ' > span')
             .transition()
             .duration(0)
-            .style('background', subwayLine.options.subway.color)
+            .style('background', line.options.subway.color)
         ;
         gLegend
-            .selectAll('#legend-' + subwayLine._id + ' > span > p')
-            .text(function(subwayLine) {
-                return subwayLine.name;
+            .selectAll('#legend-' + line._id + ' > span > p')
+            .text(function(line) {
+                return line.name;
             })
         ;
     }
@@ -224,11 +224,11 @@ Template.line.rendered = function() {
                 .datum(newDocument)
             ;
             gLines
-                .select('#first-line-name-' + newDocument._id)
+                .select('#first-line-node-' + newDocument._id)
                 .datum(newDocument)
             ;
             gLines
-                .select('#last-line-name-' + newDocument._id)
+                .select('#last-line-node-' + newDocument._id)
                 .datum(newDocument)
             ;
             gLegend
@@ -255,7 +255,7 @@ Template.line.rendered = function() {
                 .select('#legend-' + oldDocument._id)
                 .remove()
             ;
-            draw(subwayLine);
+            draw(oldDocument);
         }
     });
 

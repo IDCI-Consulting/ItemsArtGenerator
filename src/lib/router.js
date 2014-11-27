@@ -93,6 +93,18 @@ Router.map(function() {
         }
     });
 
+    this.route('projectEditModel', {
+        path: '/project/:_id/edit-model',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleProject', this.params._id)
+            ]
+        },
+        data: function() {
+            return Projects.findOne(this.params._id);
+        }
+    });
+
     this.route('projectShow', {
         path: '/project/:_id/show',
         waitOn: function() {

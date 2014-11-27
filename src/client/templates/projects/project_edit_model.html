@@ -1,4 +1,4 @@
-<template name="projectEdit">
+<template name="projectEditModel">
     <form class="main">
         <div class="row">
             <div class="large-12 columns">
@@ -16,13 +16,6 @@
 
         <div class="row">
             <div class="large-12 columns">
-                <label for="visibility">Visibility</label>
-                <input type="text" name="visibility" value="{{visibility}}" placeholder="Visibility" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="large-12 columns">
                 <label for="tags">Tags</label>
                 <input type="text" name="tags" value="{{tags}}" placeholder="Tags" />
             </div>
@@ -30,24 +23,14 @@
 
         <div class="row">
             <div class="large-12 columns">
-                <label for="State">State</label>
-                <select name="state">
-                    <option value="new">New</option>
-                    <option value="blocked">Blocked</option>
-                    <option value="published">Published</option>
-                </select>
+                <label for="background">Background</label>
+                <input id="fileInput" name="background" type="file" multiple="multiple">
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
-                <input type="submit" value="Submit" class="small button radius"/>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="large-12 columns">
-                <a class="small button radius alert delete" href="#">Delete project</a>
+                <input type="submit" value="Submit" class="button"/>
             </div>
         </div>
     </form>

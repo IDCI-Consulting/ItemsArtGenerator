@@ -3,16 +3,18 @@ Template.projectCreateModel.events({
         e.preventDefault();
 
         var file = $('#fileInput').get(0).files[0];
-        var fileObj = Images.insert(file);
         var formData = $(e.target).serializeArray();
         var project = {
             _id: new Meteor.Collection.ObjectID()._str,
             createdAt: new Date().getTime(),
-            background: fileObj._id,
             type: "subway",
             authors: [Meteor.userId()],
             isModel: true
         };
+        if (file) {
+            var fileObj = Images.insert(file);
+            project.background = fileObj._id;
+        }
         var boundData = Meteor.bindFormData(project, formData);
         Projects.insert(boundData);
 

@@ -52,7 +52,7 @@ Template.station.rendered = function() {
     var dragStationName = d3.behavior.drag()
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.tcx = (d3.event.x).toFixed();
-            subwayStation.options.subway.tcy = (d3.event.y).toFixed()y;
+            subwayStation.options.subway.tcy = (d3.event.y).toFixed();
 
             d3.select(this)
                 .attr('x', d3.event.x)

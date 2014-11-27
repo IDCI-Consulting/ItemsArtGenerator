@@ -51,7 +51,7 @@ Template.line.rendered = function() {
     var draw = function(subwayLine) {
         var stations = [];
         var line = ItemCategories.findOne({_id: subwayLine._id});
-        var items = Items.find({categories: {$in: [line._id]}}).fetch();
+        var items = Items.find({categories: {$in: [subwayLine._id]}}).fetch();
 
         // Add the new stations coords in stations array belonging to this subwayLine
         if (line) {
@@ -244,18 +244,18 @@ Template.line.rendered = function() {
                 .remove()
             ;
             gLines
-                .select('#first-line-name-' + oldDocument._id)
+                .select('#first-line-node-' + oldDocument._id)
                 .remove()
             ;
             gLines
-                .select('#last-line-name-' + oldDocument._id)
+                .select('#last-line-node-' + oldDocument._id)
                 .remove()
             ;
             gLegend
                 .select('#legend-' + oldDocument._id)
                 .remove()
             ;
-            draw(oldDocument);
+            draw(subwayLine);
         }
     });
 

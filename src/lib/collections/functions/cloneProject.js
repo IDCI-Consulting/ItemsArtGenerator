@@ -15,6 +15,7 @@ Meteor.cloneProject = function(model) {
         _id: new Meteor.Collection.ObjectID()._str,
         createdAt: new Date().getTime(),
         background: model.background,
+        type: model.type,
         authors: [Meteor.userId()]
     };
     Projects.insert(project);

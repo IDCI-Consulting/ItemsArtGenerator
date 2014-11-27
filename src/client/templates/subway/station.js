@@ -25,7 +25,6 @@ Template.station.rendered = function() {
         if (d3.event.y > delimiterHeight) { subwayStation.options.subway.cy = delimiterHeight - margin };
     };
 
-
     // Drag Functions
     var dragStation = d3.behavior.drag()
         .on('dragstart', function(subwayStation) {
@@ -131,9 +130,11 @@ Template.station.rendered = function() {
                     .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
                     .call(dragStation)
                     .on("mouseover", function (document) {
+                        var tooltipLeftPosition = parseInt(document.options.subway.cx)+100;
+                        var tooltipTopPosition = parseInt(document.options.subway.cy)+200;
                         d3.select("#tooltip")
-                            .style("left", document.options.subway.cx + "px")
-                            .style("top", document.options.subway.cy + "px")
+                            .style("left", tooltipLeftPosition + "px")
+                            .style("top", tooltipTopPosition + "px")
                             .style("display", "block")
                             .select("#description")
                             .text(document.description)

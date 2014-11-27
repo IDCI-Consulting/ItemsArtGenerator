@@ -9,10 +9,10 @@ UI.registerHelper('displayFormOptions', function(context, type) {
     _.each(formConfiguration, function(value, key) {
         string += '<label>' + value['label'] + '</label>' + ' <' + value['tag'] + ' type="' + value['type'] + '" name="options.' + project.type + '.' + key + '"';
         if (value['type'] === 'number') {
-            string += ' min=' + value['min'];
+            string += ' min=' + value['min'] + ' max=' + value['max'];
         }
         // Set a default value if it not exist
-        string += ' value="' + (context.options ? context.options[project.type][key] + '">' : '' + value['min'] + '">')
+        string += ' value="' + (context.options ? context.options[project.type][key] + '">' : '30">')
     });
 
     return new Handlebars.SafeString(string);

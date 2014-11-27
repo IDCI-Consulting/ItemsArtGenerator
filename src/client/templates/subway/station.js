@@ -4,8 +4,6 @@ Template.station.rendered = function() {
     var subwayStation = this.data;
     var category = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
-    var delimiterHeight = 968;
-    var delimiterWidth = 1170;
     var margin = 20;
     Meteor.defer(function () {
         if(d3.select('#done').empty()) {
@@ -18,11 +16,11 @@ Template.station.rendered = function() {
      * @param delimiterWidth : The size which we don't want to exceed
      * @param margin: A margin for reposition the element
      */
-    var repositionStationCoords = function(delimiterWidth, margin, subwayStation) {
+    var repositionStationCoords = function(Delimiter, margin, subwayStation) {
         if (d3.event.x < 0) { subwayStation.options.subway.cx = margin };
         if (d3.event.y < 0) { subwayStation.options.subway.cy = margin };
-        if (d3.event.x > delimiterWidth) { subwayStation.options.subway.cx = delimiterWidth - margin };
-        if (d3.event.y > delimiterHeight) { subwayStation.options.subway.cy = delimiterHeight - margin };
+        if (d3.event.x > Delimiter) { subwayStation.options.subway.cx = Delimiter - margin };
+        if (d3.event.y > Delimiter) { subwayStation.options.subway.cy = Delimiter - margin };
     };
 
 
@@ -36,7 +34,7 @@ Template.station.rendered = function() {
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.cx = (d3.event.x).toFixed();
             subwayStation.options.subway.cy = (d3.event.y).toFixed();
-            repositionStationCoords(delimiterWidth, margin, subwayStation);
+            repositionStationCoords(Delimiter, margin, subwayStation);
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
                 .style("display", "none");

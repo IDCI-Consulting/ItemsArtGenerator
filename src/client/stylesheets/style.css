@@ -126,6 +126,11 @@ li.item.selected {
     background: none repeat scroll 0 0 #5e5e5e;
 }
 
+.accordion .accordion-navigation > a:hover, .accordion dd > a:hover {
+    background-color: #fff;
+    color: #333;
+}
+
 .name {
     display: block;
     width: 100px;
@@ -228,7 +233,7 @@ button.tiny, .button.tiny {
 }
 
 #subway-legend > ul > li {
-    width: 100px;
+    min-width: 100px;
     margin: 10px;
 }
 

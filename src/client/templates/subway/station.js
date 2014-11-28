@@ -5,11 +5,6 @@ Template.station.rendered = function() {
     var line = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
     var margin = 20;
-    Meteor.defer(function () {
-        if(d3.select('#done').empty()) {
-            d3.select('svg').append('div').attr('id', 'done');
-        }
-    });
 
     /* Reposition the station coords when it's out of the svg
      *

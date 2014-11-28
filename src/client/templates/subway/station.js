@@ -66,56 +66,58 @@ Template.station.rendered = function() {
     var draw = function(subwayStation) {
         var station = Items.findOne(subwayStation._id);
 
-        var gContainer = gStations
-            .selectAll('#station-' + station._id)
-            .transition()
-            .duration(500)
-            .attr('class', function(station) {
-                var c = 'subway-station';
-                if(station.options.subway.dragged) {
-                    c += ' dragged';
-                }
-                return c;
-            })
-            .attr('transform', 'translate(' + [station.options.subway.cx,station.options.subway.cy] + ')')
-        ;
-        gContainer
-            .select('circle')
-            .attr('stroke', function(station) {
-                // Define gradient for 
-                if (station.categories.length > 1) {
-                    var n = 100 / (station.categories.length - 1)
-                    var gradient = d3.select('defs')
-                        .append("linearGradient")
-                        .attr("id", "gradient-" + station._id)
-                        .attr("x1", "0%")
-                        .attr("y1", "0%")
-                        .attr("x2", "100%")
-                        .attr("y2", "0%")
-                        .attr("spreadMethod", "pad")
-                    ;
-                    _.each(station.categories, function(categoryId, key) {
-                        var category = ItemCategories.findOne(categoryId);
-                        gradient
-                            .append('stop')
-                            .attr('offset', n * key + "%")
-                            .attr('stop-color', category.options.subway.color)
-                            .attr('stop-opacity', 1)
+        if(station) {
+            var gContainer = gStations
+                .selectAll('#station-' + station._id)
+                .transition()
+                .duration(500)
+                .attr('class', function(station) {
+                    var c = 'subway-station';
+                    if(station.options.subway.dragged) {
+                        c += ' dragged';
+                    }
+                    return c;
+                })
+                .attr('transform', 'translate(' + [station.options.subway.cx,station.options.subway.cy] + ')')
+            ;
+            gContainer
+                .select('circle')
+                .attr('stroke', function(station) {
+                    // Define gradient for 
+                    if (station.categories.length > 1) {
+                        var n = 100 / (station.categories.length - 1)
+                        var gradient = d3.select('defs')
+                            .append("linearGradient")
+                            .attr("id", "gradient-" + station._id)
+                            .attr("x1", "0%")
+                            .attr("y1", "0%")
+                            .attr("x2", "100%")
+                            .attr("y2", "0%")
+                            .attr("spreadMethod", "pad")
                         ;
-                    });
-                    return 'url(#gradient-' + station._id + ')';
-                }
+                        _.each(station.categories, function(categoryId, key) {
+                            var category = ItemCategories.findOne(categoryId);
+                            gradient
+                                .append('stop')
+                                .attr('offset', n * key + "%")
+                                .attr('stop-color', category.options.subway.color)
+                                .attr('stop-opacity', 1)
+                            ;
+                        });
+                        return 'url(#gradient-' + station._id + ')';
+                    }
 
-                return category.options.subway.color;
-            })
-            .attr('r', 8 + (station.categories.length - 1) * 4)
-        ;
-        gContainer
-            .select('text')
-            .attr('x', station.options.subway.tcx)
-            .attr('y', station.options.subway.tcy)
-            .text(station.name)
-        ;
+                    return category.options.subway.color;
+                })
+                .attr('r', 8 + (station.categories.length - 1) * 4)
+            ;
+            gContainer
+                .select('text')
+                .attr('x', station.options.subway.tcx)
+                .attr('y', station.options.subway.tcy)
+                .text(station.name)
+            ;
+        }
     };
 
     // Items collection observer
@@ -131,8 +133,8 @@ Template.station.rendered = function() {
                     .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
                     .call(dragStation)
                     .on("mouseover", function (document) {
-                        var tooltipLeftPosition = parseInt(document.options.subway.cx)+100;
-                        var tooltipTopPosition = parseInt(document.options.subway.cy)+200;
+                        var tooltipLeftPosition = parseInt(document.options.subway.cx) + 100;
+                        var tooltipTopPosition = parseInt(document.options.subway.cy) + 200;
                         d3.select("#tooltip")
                             .style("left", tooltipLeftPosition + "px")
                             .style("top", tooltipTopPosition + "px")

@@ -320,7 +320,7 @@ Router.map(function() {
         var projectId = params._id;
         var url = Parameters.api_public_endpoint+'/project/'+projectId+'/raw';
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
-        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot-without-legend.js '+url+' '+filePath+' ';
+        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' ';
         if (params.mode) {
             cmd += params.mode;
         }

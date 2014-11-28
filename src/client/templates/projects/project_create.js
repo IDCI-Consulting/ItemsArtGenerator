@@ -13,6 +13,7 @@ Template.projectCreate.events({
         e.preventDefault();
 
         var formData = $(e.target).serializeArray();
+        console.log(formData);
         var modelId = $(e.target).find('[name=model]').val();
 
         if (modelId !== "") {
@@ -39,7 +40,8 @@ Template.projectCreate.events({
                     description: boundData.description,
                     visibility: boundData.visibility,
                     tags: boundData.tags,
-                    state: boundData.state
+                    state: boundData.state,
+                    contributors: boundData.contributors
                 }
             }
         );

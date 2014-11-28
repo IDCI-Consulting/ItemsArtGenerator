@@ -77,19 +77,19 @@ Template.line.rendered = function() {
         gLines
             .selectAll('#first-line-node-' + line._id)
             .transition()
-            .duration(500)
+            .duration(0)
             .attr('transform', 'translate(' + [line.options.subway.cx1,line.options.subway.cy1] + ')')
         ;
         gLines
             .selectAll('#first-line-color-' + line._id)
             .transition()
-            .duration(500)
+            .duration(0)
             .attr('fill', line.options.subway.color)
         ;
         gLines
             .selectAll('#first-line-name-' + line._id)
             .transition()
-            .duration(500)
+            .duration(0)
             .text(line.name)
         ;
         gLines
@@ -107,13 +107,13 @@ Template.line.rendered = function() {
         gLines
             .selectAll('#last-line-name-' + line._id)
             .transition()
-            .duration(500)
+            .duration(0)
             .text(line.name)
         ;
         gLegend
             .selectAll('#legend-line-' + line._id + ' > span')
             .transition()
-            .duration(500)
+            .duration(0)
             .style('background', line.options.subway.color)
         ;
         gLegend

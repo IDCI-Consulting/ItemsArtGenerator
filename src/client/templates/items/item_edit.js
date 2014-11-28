@@ -4,6 +4,10 @@ Template.itemEdit.helpers({
     },
     itemHasCategory: function(categories, categoryId) {
         return _.contains(categories, categoryId);
+    },
+    isAdmin: function() {
+        var user = Meteor.users.findOne(Meteor.userId());
+        return user.profile.isAdmin;
     }
 });
 

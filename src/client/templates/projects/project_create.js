@@ -1,6 +1,10 @@
 Template.projectCreate.helpers({
     models: function() {
         return Projects.find({isModel: true});
+    },
+    isAdmin: function() {
+        var user = Meteor.users.findOne(Meteor.userId());
+        return user.profile.isAdmin;
     }
 });
 

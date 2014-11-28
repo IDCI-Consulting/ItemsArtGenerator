@@ -1,6 +1,10 @@
 Template.itemCreate.helpers({
     categories: function() {
         return ItemCategories.find({projectId: this.projectId});
+    },
+    isAdmin: function() {
+        var user = Meteor.users.findOne(Meteor.userId());
+        return user.profile.isAdmin;
     }
 });
 

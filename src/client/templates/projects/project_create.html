@@ -26,21 +26,30 @@
 
         <div class="row">
             <div class="large-12 columns">
-                <label for="tags">Tags</label>
-                <input type="text" name="tags" value="" placeholder="Tags" />
+                <label for="endedAt">Ended At</label>
+                <input name="endedAt" type="date" value="" placeholder="Name your project"/>
             </div>
         </div>
 
-        <div class="row">
-            <div class="large-12 columns">
-                <label for="state">State</label>
-                <select name="state">
-                    <option value="new">New</option>
-                    <option value="blocked">Blocked</option>
-                    <option value="published">Published</option>
-                </select>
+        {{#if isAdmin}}
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="tags">Tags</label>
+                    <input type="text" name="tags" value="" placeholder="Tags" />
+                </div>
             </div>
-        </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="state">State</label>
+                    <select name="state">
+                        <option value="new">New</option>
+                        <option value="blocked">Blocked</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+            </div>
+        {{/if}}
 
         <div class="row">
             <div class="large-12 columns">

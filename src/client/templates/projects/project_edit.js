@@ -1,3 +1,10 @@
+Template.projectEdit.helpers({
+    isAdmin: function() {
+        var user = Meteor.users.findOne(Meteor.userId());
+        return user.profile.isAdmin;
+    }
+});
+
 Template.projectEdit.events({
     'submit form': function(e) {
         e.preventDefault();

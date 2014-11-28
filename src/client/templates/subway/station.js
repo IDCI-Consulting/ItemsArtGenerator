@@ -29,7 +29,8 @@ Template.station.rendered = function() {
         .on('dragstart', function(subwayStation) {
             Items.update(subwayStation._id, {$set: {'options.subway.dragged': true}});
             d3.select("#tooltip")
-                .style("display", "none");
+                .style("display", "none")
+            ;
         })
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.cx = (d3.event.x).toFixed();
@@ -37,7 +38,8 @@ Template.station.rendered = function() {
             repositionStationCoords(Delimiter, margin, subwayStation);
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
-                .style("display", "none");
+                .style("display", "none")
+            ;
         })
         .on('dragend', function(subwayStation) {
             Items.update(subwayStation._id, {$set: {'options.subway.cx': subwayStation.options.subway.cx, 'options.subway.cy': subwayStation.options.subway.cy, 'options.subway.dragged': false}});
@@ -48,6 +50,11 @@ Template.station.rendered = function() {
     ;
 
     var dragStationName = d3.behavior.drag()
+        .on('dragstart', function(subwayStation) {
+            d3.select("#tooltip")
+                .style("display", "none")
+            ;
+        })
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.tcx = (d3.event.x).toFixed();
             subwayStation.options.subway.tcy = (d3.event.y).toFixed();
@@ -56,9 +63,16 @@ Template.station.rendered = function() {
                 .attr('x', d3.event.x)
                 .attr('y', d3.event.y)
             ;
+
+            d3.select("#tooltip")
+                .style("display", "none")
+            ;
         })
         .on('dragend', function(subwayStation) {
             Items.update(subwayStation._id, {$set: {'options.subway.tcx': subwayStation.options.subway.tcx, 'options.subway.tcy': subwayStation.options.subway.tcy}})
+            d3.select("#tooltip")
+                .style("display", "block")
+            ;
         })
     ;
 

@@ -56,7 +56,7 @@ function renderProject(url, filePath) {
             waitFor(function() {
                 // Check in the page if a specific element is now visible
                 var result = page.evaluate(function() {
-                    if ($('#done').length == 1) {
+                    if (document.getElementById('done')) {
                         return true;
                     }
                     return false;

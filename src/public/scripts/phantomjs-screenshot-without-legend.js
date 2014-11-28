@@ -56,18 +56,18 @@ function renderProject(url, filePath) {
             waitFor(function() {
                 // Check in the page if a specific element is now visible
                 var result = page.evaluate(function() {
-                    if ($('#done').length == 1) {
+                    if (document.getElementById('done')) {
                         return document.getElementById('subway-stations').getBoundingClientRect();
                     }
                     return false;
                 });
 
                 if (result !== false) {
-                    result.top -= 30;
+                    /*result.top -= 30;
                     result.left -= 30;
                     result.width += 60;
                     result.height += 60;
-                    page.clipRect = result;
+                    page.clipRect = result;*/
                     return true;
                 }
 

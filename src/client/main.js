@@ -5,7 +5,3 @@
         nope: '/public/scripts/spectrum.js'
     });
 }*/
-
-Meteor.setTimeout(function() {
-    $('#output').append('<div id="done"></div>');
-}, 1000);

@@ -239,6 +239,11 @@ button.tiny, .button.tiny {
     min-height: 200px;
     padding: 0 20px;
     border-top: thick solid rgb(0,116,173);
+    text-align: center;
+}
+
+#subway-legend > ul {
+    display: inline-block;
 }
 
 #subway-legend > ul > li {
@@ -263,6 +268,7 @@ button.tiny, .button.tiny {
 
 #subway-legend > ul > li > ul > li {
     font-size: 15px;
+    text-align: left;
 }
 
 /* Error pages */

@@ -318,7 +318,7 @@ Router.map(function() {
             format = 'jpeg';
         }
         var projectId = params._id;
-        var url = Meteor.absoluteUrl()+'project/'+projectId+'/raw';
+        var url = Parameters.api_public_endpoint+'/project/'+projectId+'/raw';
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
         var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot-without-legend.js '+url+' '+filePath+' ';
         if (params.mode) {

@@ -18,7 +18,7 @@
             <div class="large-12 columns categories">
                 <label>Choose Categories</label>
                 {{#each categories}}
-                    <input type="checkbox" class="categories" name="categories[]" value="{{_id}}" />{{name}}
+                    {{name}}<input type="checkbox" class="categories" name="categories[]" value="{{_id}}" />
                 {{/each}}
             </div>
             <p class="error"></p>

@@ -2,7 +2,7 @@ var ObserveStation;
 
 Template.station.rendered = function() {
     var subwayStation = this.data;
-    var category = ItemCategories.findOne(subwayStation.categories[0]);
+    var line = ItemCategories.findOne(subwayStation.categories[0]);
     var gStations = d3.select('#subway-stations');
     var margin = 20;
     Meteor.defer(function () {
@@ -65,6 +65,7 @@ Template.station.rendered = function() {
     // Draw station
     var draw = function(subwayStation) {
         var station = Items.findOne(subwayStation._id);
+        var subwayLine = ItemCategories.findOne(line._id);
 
         if(station) {
             var gContainer = gStations
@@ -83,22 +84,14 @@ Template.station.rendered = function() {
             gContainer
                 .select('circle')
                 .attr('stroke', function(station) {
-                    // Define gradient for 
+                    // Define gradient for intersection
                     if (station.categories.length > 1) {
                         var n = 100 / (station.categories.length - 1)
-                        var gradient = d3.select('defs')
-                            .append("linearGradient")
-                            .attr("id", "gradient-" + station._id)
-                            .attr("x1", "0%")
-                            .attr("y1", "0%")
-                            .attr("x2", "100%")
-                            .attr("y2", "0%")
-                            .attr("spreadMethod", "pad")
-                        ;
+                        var gradient = d3.select('#gradient-' + station._id);
                         _.each(station.categories, function(categoryId, key) {
                             var category = ItemCategories.findOne(categoryId);
                             gradient
-                                .append('stop')
+                                .select('#line-gradient-' + category._id)
                                 .attr('offset', n * key + "%")
                                 .attr('stop-color', category.options.subway.color)
                                 .attr('stop-opacity', 1)
@@ -107,7 +100,7 @@ Template.station.rendered = function() {
                         return 'url(#gradient-' + station._id + ')';
                     }
 
-                    return category.options.subway.color;
+                    return subwayLine.options.subway.color;
                 })
                 .attr('r', 8 + (station.categories.length - 1) * 4)
             ;
@@ -166,6 +159,7 @@ Template.station.rendered = function() {
                                 var category = ItemCategories.findOne(categoryId);
                                 gradient
                                     .append('stop')
+                                    .attr('id', 'line-gradient-' + category._id)
                                     .attr('offset', n * key + "%")
                                     .attr('stop-color', category.options.subway.color)
                                     .attr('stop-opacity', 1)
@@ -174,7 +168,7 @@ Template.station.rendered = function() {
                             return 'url(#gradient-' + subwayStation._id + ')';
                         }
 
-                        return category.options.subway.color;
+                        return line.options.subway.color;
                     })
                     .attr('r', 8 + (document.categories.length - 1) * 4)
                 ;
@@ -202,6 +196,13 @@ Template.station.rendered = function() {
                 .remove()
             ;
             draw(oldDocument);
+        }
+    });
+
+    // ItemCategories collection observer
+    ObserveLine = ItemCategories.find(line._id).observe({
+        changed: function(newDocument, oldDocument) {
+            draw(subwayStation);
         }
     });
 };

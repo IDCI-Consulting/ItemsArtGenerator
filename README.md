@@ -94,5 +94,5 @@ It was built with [Meteor](http://meteor.com). See the [Documentation](http://do
 
  * Method: POST
  * Route: /api/1.0/users
- * Headers: mail
+ * Data: mail
  * Example: http://itemsartgenerator/api/1.0/users

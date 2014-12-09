@@ -88,11 +88,3 @@ var url = args[1];
 var filePath = args[2];
 
 renderProject(url, filePath);
-
-
-
-
-
-
-
-

@@ -57,7 +57,7 @@ It was built with [Meteor](http://meteor.com). See the [Documentation](http://do
         'votes' : 45,
         'sales' : 25,
         'tags' : ['city'],
-        'visual-link' : 'http://item-art-generator.com/api/1.0./projects/2465
+        'visual-link' : 'http://item-art-generator.com/api/1.0./projects/2465/render
     }
 ```
 

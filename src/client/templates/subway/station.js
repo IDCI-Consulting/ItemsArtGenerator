@@ -18,7 +18,6 @@ Template.station.rendered = function() {
         if (d3.event.y > Delimiter) { subwayStation.options.subway.cy = Delimiter - margin };
     };
 
-
     // Drag Functions
     var dragStation = d3.behavior.drag()
         .on('dragstart', function(subwayStation) {

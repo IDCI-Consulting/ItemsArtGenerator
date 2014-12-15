@@ -21,17 +21,47 @@ Template.line.rendered = function() {
     /****************************/
     /*** Drag the line's name ***/
     /****************************/
-    var dragFirstLineName = d3.behavior.drag()
+    var dragLineName = d3.behavior.drag()
         .on('drag', function(subwayLine) {
-            subwayLine.options.subway.cx1 = (d3.event.x).toFixed();
-            subwayLine.options.subway.cy1 = (d3.event.y).toFixed();
+            subwayLine.options.subway.cx = (d3.event.x).toFixed();
+            subwayLine.options.subway.cy = (d3.event.y).toFixed();
 
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
         })
         .on('dragend', function(subwayLine) {
-            ItemCategories.update(subwayLine._id, {$set: {'options.subway.cx1': subwayLine.options.subway.cx1, 'options.subway.cy1': subwayLine.options.subway.cy1}})
+            ItemCategories.update(subwayLine._id, {$set: {'options.subway.cx': subwayLine.options.subway.cx, 'options.subway.cy': subwayLine.options.subway.cy}})
         })
     ;
+
+    /******************************************/
+    /*** Insert stations in teh right order ***/
+    /******************************************/
+    var displayStationsInRightOrder = function(subwayLine, element) {
+        _.each(subwayLine.items, function(stationId, key) {
+            var document = Items.findOne(stationId);
+            element
+                .select('#stations-' + subwayLine._id)
+                .datum(document)
+                .append('li')
+                .attr('id', 'legend-station-' + document._id)
+                .style('color', subwayLine.options.subway.color)
+                .text(document.name)
+            ;
+        });
+    };
+
+    /*****************************************/
+    /*** Update display stations in legend ***/
+    /*****************************************/
+    var updateDisplayStations = function(subwayLine, element) {
+        element
+            .select('#stations-' + subwayLine._id)
+            .selectAll('li')
+            .remove();
+        ;
+        displayStationsInRightOrder(subwayLine, element);
+    };
+
 
     /*****************************************/
     /*** Draw line with new station coords ***/
@@ -63,19 +93,19 @@ Template.line.rendered = function() {
             })
         ;
         gLines
-            .selectAll('#first-line-node-' + line._id)
+            .selectAll('#line-node-' + line._id)
             .transition()
             .duration(0)
-            .attr('transform', 'translate(' + [line.options.subway.cx1,line.options.subway.cy1] + ')')
+            .attr('transform', 'translate(' + [line.options.subway.cx,line.options.subway.cy] + ')')
         ;
         gLines
-            .selectAll('#first-line-color-' + line._id)
+            .selectAll('#line-color-' + line._id)
             .transition()
             .duration(0)
             .attr('fill', line.options.subway.color)
         ;
         gLines
-            .selectAll('#first-line-name-' + line._id)
+            .selectAll('#line-name-' + line._id)
             .transition()
             .duration(0)
             .text(line.name)
@@ -110,25 +140,25 @@ Template.line.rendered = function() {
                 .style('stroke', document.options.subway.color)
             ;
 
-            var gFirst = gLines
+            var gLineName = gLines
                 .append('g')
                 .datum(document)
-                .attr('id', 'first-line-node-' + document._id)
+                .attr('id', 'line-node-' + document._id)
                 .attr('class', 'subway-line')
-                .attr('transform', 'translate(' + [document.options.subway.cx1,document.options.subway.cy1] + ')')
-                .call(dragFirstLineName)
+                .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
+                .call(dragLineName)
             ;
-            gFirst
+            gLineName
                 .append('rect')
-                .attr('id', 'first-line-color-' + document._id)
+                .attr('id', 'line-color-' + document._id)
                 .attr('width', document.name.length + 150)
                 .attr('height', 30)
                 .attr('fill', document.options.subway.color)
             ;
 
-            gFirst
+            gLineName
                 .append('text')
-                .attr('id', 'first-line-name-' + document._id)
+                .attr('id', 'line-name-' + document._id)
                 .attr('x', 60)
                 .attr("y", 20)
                 .attr('fill', '#fff')
@@ -154,6 +184,8 @@ Template.line.rendered = function() {
                 .attr('id', 'stations-' + document._id)
                 .style('font-size', "7px")
             ;
+
+            displayStationsInRightOrder(document, gLegend);
         },
 
         changed: function(newDocument, oldDocument) {
@@ -162,13 +194,15 @@ Template.line.rendered = function() {
                 .datum(newDocument)
             ;
             gLines
-                .select('#first-line-node-' + newDocument._id)
+                .select('#line-node-' + newDocument._id)
                 .datum(newDocument)
             ;
             gLegend
                 .select('#legend-line-' + newDocument._id)
                 .datum(newDocument)
             ;
+
+            updateDisplayStations(newDocument, gLegend);
             draw(newDocument);
         },
 
@@ -191,17 +225,6 @@ Template.line.rendered = function() {
 
     // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
-        added: function(document) {
-            gLegend
-                .select('#stations-' + subwayLine._id)
-                .datum(document)
-                .append('li')
-                .attr('id', 'legend-station-' + document._id)
-                .style('color', subwayLine.options.subway.color)
-                .text(document.name)
-            ;
-            draw(subwayLine);
-        },
         changed: function(newDocument, oldDocument) {
             gLegend
                 .select('#legend-station-' + newDocument._id)

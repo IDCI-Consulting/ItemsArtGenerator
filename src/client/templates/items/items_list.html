@@ -12,15 +12,15 @@
 
                         <ul id="category-{{_id}}" class="off-canvas-list">
                             {{#each sortByPosition this}}
-                                    <li class="item {{selected ../_id}}">
-                                        <div class="name">
-                                            {{name}}
-                                        </div>
-                                        <ul class="actions">
-                                            <li><a class="icon-trash alert delete"></a></li>
-                                            <li><a class="icon-pencil edit-item" href="{{pathFor 'itemEdit'}}"></a></li>
-                                        </ul>
-                                    </li>
+                                <li class="item {{selected ../_id}}">
+                                    <div class="name">
+                                        {{name}}
+                                    </div>
+                                    <ul class="actions">
+                                        <li><a class="icon-trash alert delete"></a></li>
+                                        <li><a class="icon-pencil edit-item" href="{{pathFor 'itemEdit'}}"></a></li>
+                                    </ul>
+                                </li>
                             {{/each}}
                         </ul>
                     </div>

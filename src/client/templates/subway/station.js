@@ -15,7 +15,7 @@ Template.station.rendered = function() {
         if (d3.event.x < 0) { subwayStation.options.subway.cx = margin };
         if (d3.event.y < 0) { subwayStation.options.subway.cy = margin };
         if (d3.event.x > Delimiter) { subwayStation.options.subway.cx = Delimiter - margin };
-        if (d3.event.y > Delimiter) { subwayStation.options.subway.cy = Delimiter - margin };
+        if (d3.event.y > 960) { subwayStation.options.subway.cy = 960 - margin };
     };
 
     // Drag Functions
@@ -165,8 +165,8 @@ Template.station.rendered = function() {
                     })
                     .attr('r', 8 + (document.categories.length - 1) * 4)
                     .on("mouseover", function (document) {
-                        var tooltipLeftPosition = parseInt(document.options.subway.cx) + 200;
-                        var tooltipTopPosition = parseInt(document.options.subway.cy) + 200;
+                        var tooltipLeftPosition = parseInt(document.options.subway.cx) + 220;
+                        var tooltipTopPosition = parseInt(document.options.subway.cy) + 220;
                         d3.select("#tooltip")
                             .style("left", tooltipLeftPosition + "px")
                             .style("top", tooltipTopPosition + "px")

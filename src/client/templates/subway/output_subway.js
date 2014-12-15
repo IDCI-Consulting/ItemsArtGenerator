@@ -39,4 +39,9 @@ Template.outputSubway.rendered = function() {
             .attr('fill', '#5e5e5e')
         ;
     });
+
+    // Display the editor on double click
+    $(document).on("dblclick", function() {
+        $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-left');
+    });
 };

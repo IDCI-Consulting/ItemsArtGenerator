@@ -45,7 +45,7 @@ Template.line.rendered = function() {
                 .append('li')
                 .attr('id', 'legend-station-' + document._id)
                 .style('color', subwayLine.options.subway.color)
-                .text(document.name)
+                .text(document.name + ": " + document.description)
             ;
         });
     };
@@ -225,10 +225,14 @@ Template.line.rendered = function() {
 
     // Items collection observer
     ObserveStation = Items.find({categories: {$in: [subwayLine._id]}}).observe({
+        added: function(document) {
+            draw(subwayLine);
+        },
         changed: function(newDocument, oldDocument) {
             gLegend
                 .select('#legend-station-' + newDocument._id)
                 .datum(newDocument)
+                .text(newDocument.name + ": " + newDocument.description)
             ;
             draw(subwayLine);
         },

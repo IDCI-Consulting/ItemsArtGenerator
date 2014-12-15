@@ -22,5 +22,14 @@ Template.outputSubway.rendered = function() {
             .style('text-align', 'center')
             .style('padding', '45px')
         ;
+
+        var contributors = d3.select('svg');
+        contributors
+            .append('text')
+            .text("Contributors : " + self.contributors)
+            .attr('x', '20px')
+            .attr('y', "960px")
+            .attr('fill', '#5e5e5e')
+        ;
     });
 };

@@ -33,18 +33,6 @@ Template.line.rendered = function() {
         })
     ;
 
-    var dragLastLineName = d3.behavior.drag()
-        .on('drag', function(subwayLine) {
-            subwayLine.options.subway.cx2 = (d3.event.x).toFixed();
-            subwayLine.options.subway.cy2 = (d3.event.y).toFixed();
-
-            d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
-        })
-        .on('dragend', function(subwayLine) {
-            ItemCategories.update(subwayLine._id, {$set: {'options.subway.cx2': subwayLine.options.subway.cx2, 'options.subway.cy2': subwayLine.options.subway.cy2}})
-        })
-    ;
-
     /*****************************************/
     /*** Draw line with new station coords ***/
     /*****************************************/
@@ -92,24 +80,6 @@ Template.line.rendered = function() {
             .duration(0)
             .text(line.name)
         ;
-        gLines
-            .selectAll('#last-line-node-' + line._id)
-            .transition()
-            .duration(500)
-            .attr('transform', 'translate(' + [line.options.subway.cx2,line.options.subway.cy2] + ')')
-        ;
-        gLines
-            .selectAll('#last-line-color-' + line._id)
-            .transition()
-            .duration(500)
-            .attr('fill', line.options.subway.color)
-        ;
-        gLines
-            .selectAll('#last-line-name-' + line._id)
-            .transition()
-            .duration(0)
-            .text(line.name)
-        ;
         gLegend
             .selectAll('#legend-line-' + line._id + ' > span')
             .transition()
@@ -131,13 +101,6 @@ Template.line.rendered = function() {
     // ItemCategories collection observer
     ObserveLine = ItemCategories.find({_id: subwayLine._id}).observe({
         added: function(document) {
-            var firstStation = 50;
-            var lastStation = 50
-            if (document.items) {
-                var lastStationPosition = _.size(document.items);
-                firstStation = Items.findOne(document.items[1]);
-                lastStation = Items.findOne(document.items[lastStationPosition]);
-            }
 
             gLines
                 .append('path')
@@ -175,34 +138,6 @@ Template.line.rendered = function() {
                 .text(document.name)
             ;
 
-            var gLast = gLines
-                .append('g')
-                .datum(document)
-                .attr('id', 'last-line-node-' + document._id)
-                .attr('class', 'subway-line')
-                .attr('transform', 'translate(' + [document.options.subway.cx2,document.options.subway.cy2] + ')')
-                .call(dragLastLineName)
-            ;
-            gLast
-                .append('rect')
-                .attr('id', 'last-line-color-' + document._id)
-                .attr('width', document.name.length + 150)
-                .attr('height', 30)
-                .attr('fill', document.options.subway.color)
-            ;
-
-            gLast
-                .append('text')
-                .attr('id', 'last-line-name-' + document._id)
-                .attr('x', 60)
-                .attr("y", 20)
-                .attr('fill', '#fff')
-                .style("text-anchor", "middle")
-                .style("stroke-width", 1)
-                .style("font-size","18px")
-                .text(document.name)
-            ;
-
             gLegend
                 .attr('class', 'inline-list')
                 .append('li')
@@ -230,10 +165,6 @@ Template.line.rendered = function() {
                 .select('#first-line-node-' + newDocument._id)
                 .datum(newDocument)
             ;
-            gLines
-                .select('#last-line-node-' + newDocument._id)
-                .datum(newDocument)
-            ;
             gLegend
                 .select('#legend-line-' + newDocument._id)
                 .datum(newDocument)
@@ -247,11 +178,7 @@ Template.line.rendered = function() {
                 .remove()
             ;
             gLines
-                .select('#first-line-node-' + oldDocument._id)
-                .remove()
-            ;
-            gLines
-                .select('#last-line-node-' + oldDocument._id)
+                .select('#line-node-' + oldDocument._id)
                 .remove()
             ;
             gLegend

@@ -5,12 +5,9 @@ Template.outputSubway.helpers({
 });
 
 Template.outputSubway.rendered = function() {
-
-    Meteor.setTimeout(function() {
-        console.log('div id done', $('#ouput'));
-        $('#output').append('<div id="done"></div>');
-    }, 1500);
-
+Meteor.setTimeout(function() {
+    $('#output').append('<div id="done"></div>');
+}, 1500);
     var self = this.data;
     Tracker.autorun(function() {
         var subwayTitle = d3.select('.subway-title');

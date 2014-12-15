@@ -26,7 +26,14 @@ Template.outputSubway.rendered = function() {
         var contributors = d3.select('svg');
         contributors
             .append('text')
-            .text("Contributors : " + self.contributors)
+            .text(function() {
+                var phrase = "Contributors : ";
+                if (self.contributors) {
+                    return phrase += self.contributors;
+                }
+
+                return phrase;
+            })
             .attr('x', '20px')
             .attr('y', "960px")
             .attr('fill', '#5e5e5e')

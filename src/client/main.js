@@ -5,3 +5,7 @@
         nope: '/public/scripts/spectrum.js'
     });
 }*/
+
+$(document).on("dblclick", function() {
+    $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-left');
+});

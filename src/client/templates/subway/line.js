@@ -33,9 +33,11 @@ Template.line.rendered = function() {
         })
     ;
 
-    /******************************************/
-    /*** Insert stations in teh right order ***/
-    /******************************************/
+    /* Insert stations in the right order
+     *
+     * @param subwayLine : The subway line which have the stations list
+     * @param element: the element where we display them
+     */
     var displayStationsInRightOrder = function(subwayLine, element) {
         _.each(subwayLine.items, function(stationId, key) {
             var document = Items.findOne(stationId);
@@ -50,10 +52,12 @@ Template.line.rendered = function() {
         });
     };
 
-    /*****************************************/
-    /*** Update display stations in legend ***/
-    /*****************************************/
-    var updateDisplayStations = function(subwayLine, element) {
+    /* Clear the stations list
+     *
+     * @param subwayLine : The subway line which have the stations list
+     * @param element: the element where we clear them
+     */
+    var clearStationsList = function(subwayLine, element) {
         element
             .select('#stations-' + subwayLine._id)
             .selectAll('li')
@@ -202,7 +206,7 @@ Template.line.rendered = function() {
                 .datum(newDocument)
             ;
 
-            updateDisplayStations(newDocument, gLegend);
+            clearStationsList(newDocument, gLegend);
             draw(newDocument);
         },
 

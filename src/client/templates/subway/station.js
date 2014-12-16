@@ -11,11 +11,11 @@ Template.station.rendered = function() {
      * @param delimiterWidth : The size which we don't want to exceed
      * @param margin: A margin for reposition the element
      */
-    var repositionStationCoords = function(Delimiter, margin, subwayStation) {
-        if (d3.event.x < 0) { subwayStation.options.subway.cx = margin };
-        if (d3.event.y < 0) { subwayStation.options.subway.cy = margin };
-        if (d3.event.x > Delimiter) { subwayStation.options.subway.cx = Delimiter - margin };
-        if (d3.event.y > 960) { subwayStation.options.subway.cy = 960 - margin };
+    var repositionStationCoords = function(WidthDelimiter, HeightDelimiter, margin, subwayStation) {
+        if (d3.event.x < 0) { subwayStation.options.subway.cx = margin }
+        if (d3.event.y < 0) { subwayStation.options.subway.cy = margin }
+        if (d3.event.x > WidthDelimiter) { subwayStation.options.subway.cx = WidthDelimiter - margin }
+        if (d3.event.y > HeightDelimiter) { subwayStation.options.subway.cy = HeightDelimiter - margin }
     };
 
     // Drag Functions
@@ -29,7 +29,7 @@ Template.station.rendered = function() {
         .on('drag', function(subwayStation) {
             subwayStation.options.subway.cx = (d3.event.x).toFixed();
             subwayStation.options.subway.cy = (d3.event.y).toFixed();
-            repositionStationCoords(Delimiter, margin, subwayStation);
+            repositionStationCoords(WidthDelimiter, HeightDelimiter, margin, subwayStation);
             d3.select(this).attr("transform", "translate(" + d3.event.x + "," + d3.event.y + ")");
             d3.select("#tooltip")
                 .style("display", "none")
@@ -44,7 +44,7 @@ Template.station.rendered = function() {
     ;
 
     var dragStationName = d3.behavior.drag()
-        .on('dragstart', function(subwayStation) {
+        .on('dragstart', function() {
             d3.select("#tooltip")
                 .style("display", "none")
             ;
@@ -94,7 +94,7 @@ Template.station.rendered = function() {
                 .attr('stroke', function(station) {
                     // Define gradient for intersection
                     if (station.categories.length > 1) {
-                        var n = 100 / (station.categories.length - 1)
+                        var n = 100 / (station.categories.length - 1);
                         var gradient = d3.select('#gradient-' + station._id);
                         _.each(station.categories, function(categoryId, key) {
                             var category = ItemCategories.findOne(categoryId);
@@ -133,8 +133,8 @@ Template.station.rendered = function() {
                     .attr('class', 'subway-station')
                     .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
                     .on("mouseover", function (document) {
-                        var tooltipLeftPosition = parseInt(document.options.subway.cx) + 220;
-                        var tooltipTopPosition = parseInt(document.options.subway.cy) + 220;
+                        var tooltipLeftPosition = d3.event.pageX + 10;
+                        var tooltipTopPosition = d3.event.pageY - 50;
                         d3.select("#tooltip")
                             .style("left", tooltipLeftPosition + "px")
                             .style("top", tooltipTopPosition + "px")

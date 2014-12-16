@@ -132,6 +132,21 @@ Template.station.rendered = function() {
                     .attr('id', 'station-' + document._id)
                     .attr('class', 'subway-station')
                     .attr('transform', 'translate(' + [document.options.subway.cx,document.options.subway.cy] + ')')
+                    .on("mouseover", function (document) {
+                        var tooltipLeftPosition = parseInt(document.options.subway.cx) + 220;
+                        var tooltipTopPosition = parseInt(document.options.subway.cy) + 220;
+                        d3.select("#tooltip")
+                            .style("left", tooltipLeftPosition + "px")
+                            .style("top", tooltipTopPosition + "px")
+                            .style("display", "block")
+                            .select("#description")
+                            .text(document.description)
+                        ;
+                    })
+                    .on("mouseout", function () {
+                        d3.select("#tooltip")
+                            .style("display", "none");
+                    })
                     .call(dragStation)
                 ;
                 gContainer
@@ -164,21 +179,6 @@ Template.station.rendered = function() {
                         return line.options.subway.color;
                     })
                     .attr('r', 8 + (document.categories.length - 1) * 4)
-                    .on("mouseover", function (document) {
-                        var tooltipLeftPosition = parseInt(document.options.subway.cx) + 220;
-                        var tooltipTopPosition = parseInt(document.options.subway.cy) + 220;
-                        d3.select("#tooltip")
-                            .style("left", tooltipLeftPosition + "px")
-                            .style("top", tooltipTopPosition + "px")
-                            .style("display", "block")
-                            .select("#description")
-                            .text(document.description)
-                        ;
-                    })
-                    .on("mouseout", function () {
-                        d3.select("#tooltip")
-                            .style("display", "none");
-                    })
                 ;
                 gContainer
                     .append('text')

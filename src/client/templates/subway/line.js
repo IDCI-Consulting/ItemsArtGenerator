@@ -57,11 +57,11 @@ Template.line.rendered = function() {
      * @param subwayLine : The subway line which have the stations list
      * @param element: the element where we clear them
      */
-    var clearStationsList = function(subwayLine, element) {
+    var clearStationsList = function (subwayLine, element) {
         element
             .select('#stations-' + subwayLine._id)
             .selectAll('li')
-            .remove();
+            .remove()
         ;
         displayStationsInRightOrder(subwayLine, element);
     };
@@ -77,8 +77,8 @@ Template.line.rendered = function() {
 
         // Add the new stations coords in stations array belonging to this subwayLine
         if (line) {
-            _.each(line.items, function(itemId, key) {
-                _.each(items, function(value, key) {
+            _.each(line.items, function(itemId) {
+                _.each(items, function(value) {
                     if(itemId === value._id) {
                         stations.push(value);
                     }
@@ -89,7 +89,7 @@ Template.line.rendered = function() {
             .selectAll('#line-' + line._id)
             .transition()
             .duration(500)
-            .attr('d', function(line) {
+            .attr('d', function() {
                 return lineFunction(stations);
             })
             .style('stroke', function(line) {
@@ -163,7 +163,7 @@ Template.line.rendered = function() {
             gLineName
                 .append('text')
                 .attr('id', 'line-name-' + document._id)
-                .attr('x', 60)
+                .attr('x', 85)
                 .attr("y", 20)
                 .attr('fill', '#fff')
                 .style("text-anchor", "middle")

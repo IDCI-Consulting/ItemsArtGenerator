@@ -39,7 +39,7 @@ Template.line.rendered = function() {
      * @param element: the element where we display them
      */
     var displayStationsInRightOrder = function(subwayLine, element) {
-        _.each(subwayLine.items, function(stationId, key) {
+        _.each(subwayLine.items, function(stationId) {
             var document = Items.findOne(stationId);
             element
                 .select('#stations-' + subwayLine._id)
@@ -47,7 +47,12 @@ Template.line.rendered = function() {
                 .append('li')
                 .attr('id', 'legend-station-' + document._id)
                 .style('color', subwayLine.options.subway.color)
-                .text(document.name + ": " + document.description)
+                .style("font-weight", "bold")
+                .text(document.name)
+                .append('span')
+                .style('color', 'black')
+                .style("font-weight", "normal")
+                .text(": " + document.description)
             ;
         });
     };

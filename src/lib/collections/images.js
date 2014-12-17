@@ -15,8 +15,8 @@ var thumbnailStore = new FS.Store.GridFS("thumbnail", {
          * orient according to EXIF data if necessary and then save by piping to the 
          * provided writeStream
          */
-        gm(readStream, fileObj.name).resize(1170,1170,"^")
-        .gravity('Center').crop(1170, 1170).quality(100).autoOrient().stream().pipe(writeStream);
+        gm(readStream, fileObj.name).resize(1170,1396,"^")
+        .gravity('Center').crop(1170, 1396).quality(100).autoOrient().stream().pipe(writeStream);
     }
 });
 

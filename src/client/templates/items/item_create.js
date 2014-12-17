@@ -9,12 +9,12 @@ Template.itemCreate.helpers({
 });
 
 Template.itemCreate.events({
-    'submit form': function(e, template) {
+    'submit form': function(e) {
         e.preventDefault();
 
         var formData = $(e.target).serializeArray();
         var item = {
-            categories: [],
+            categories: []
         };
 
         var boundData = Meteor.bindFormData(item, formData);

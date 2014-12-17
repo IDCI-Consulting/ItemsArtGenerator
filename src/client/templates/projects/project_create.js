@@ -9,18 +9,18 @@ Template.projectCreate.helpers({
 });
 
 Template.projectCreate.events({
-    'submit form': function(e, template) {
+    'submit form': function(e) {
         e.preventDefault();
 
+        var project = {};
         var formData = $(e.target).serializeArray();
-        console.log(formData);
         var modelId = $(e.target).find('[name=model]').val();
 
         if (modelId !== "") {
             var model = Projects.findOne(modelId);
-            var project = Meteor.cloneProject(model);
+            project = Meteor.cloneProject(model);
         } else {
-            var project = {
+            project = {
                 _id: new Meteor.Collection.ObjectID()._str,
                 createdAt: new Date().getTime(),
                 authors: [Meteor.userId()],

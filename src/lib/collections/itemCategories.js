@@ -6,7 +6,7 @@ ItemCategories.find({}).observe({
         // Remove the deleted category for each item
         _.each(items, function(item) {
             var index = item.categories.indexOf(oldDocument._id);
-            if (index > -1) {
+            if (index !== -1) {
                 item.categories.splice(index, 1);
             }
             if (item.categories.length === 0) {

@@ -134,7 +134,7 @@ Template.line.rendered = function() {
             .selectAll('li')
             .style('color', line.options.subway.color)
         ;
-    }
+    };
 
 
     // ItemCategories collection observer

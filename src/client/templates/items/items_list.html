@@ -1,18 +1,14 @@
 <template name="itemsList">
     <a class="success create-item icon-plus" href="{{pathFor 'itemCreate'}}"></a>
-    <div class="move-item">
-        <a class="secondary icon-arrow-up dec"></a>
-        <a class="secondary icon-arrow-down inc"></a>
-    </div>
     <dl class="accordion" data-accordion="">
         {{#each lines}}
                 <dd>
-                    <a href="#stations-{{_id}}">{{name}}</a>
-                    <div id="stations-{{_id}}" class="content">
+                    <a href="#panel-{{_id}}">{{name}}</a>
+                    <div id="panel-{{_id}}" class="content">
 
-                        <ul id="category-{{_id}}" class="off-canvas-list">
+                        <ul id="category-{{_id}}" class="stations off-canvas-list">
                             {{#each sortByPosition this}}
-                                <li class="item {{selected ../_id}}">
+                                <li class="item">
                                     <div class="name">
                                         {{name}}
                                     </div>

@@ -1,5 +1,12 @@
 Items = new Mongo.Collection('items');
 
+Meteor.methods({
+    changeStationsRadius: function (projectId, radius) {
+
+        Items.update({projectId: projectId}, {$set: {"options.subway.r": radius}}, {multi: true});
+    }
+});
+
 Items.find({}).observe({
     changed: function(newDocument, oldDocument) {
         if (newDocument.categories && oldDocument.categories) {

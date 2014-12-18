@@ -9,7 +9,7 @@ Template.itemCreate.helpers({
 });
 
 Template.itemCreate.events({
-    'submit form': function(e) {
+    'submit form': function(e, template) {
         e.preventDefault();
 
         var formData = $(e.target).serializeArray();
@@ -18,6 +18,8 @@ Template.itemCreate.events({
         };
 
         var boundData = Meteor.bindFormData(item, formData);
+        //Hack for station's radius
+        boundData.options.subway.r = 8;
         var itemId = Items.insert(boundData);
 
         if (boundData.categories.length === 0) {

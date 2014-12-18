@@ -16,7 +16,7 @@ Meteor.publish('singleProject', function(id) {
     return id && Projects.find(id);
 });
 
-// ITEMCATEGORIES PUBLICATION
+// ITEMS CATEGORIES PUBLICATION
 Meteor.publish('itemCategories', function() {
     return ItemCategories.find({});
 });

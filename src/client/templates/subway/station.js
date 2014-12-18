@@ -110,7 +110,9 @@ Template.station.rendered = function() {
 
                     return subwayLine.options.subway.color;
                 })
-                .attr('r', 8 + (station.categories.length - 1) * 4)
+                .attr('r', function(station) {
+                    return station.options.subway.r + (station.categories.length - 1) * 4;
+                })
             ;
             gContainer
                 .select('text')
@@ -178,7 +180,9 @@ Template.station.rendered = function() {
 
                         return line.options.subway.color;
                     })
-                    .attr('r', 8 + (document.categories.length - 1) * 4)
+                    .attr('r', function(station) {
+                        return station.options.subway.r + (station.categories.length - 1) * 4;
+                    })
                 ;
                 gContainer
                     .append('text')

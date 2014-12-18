@@ -165,9 +165,9 @@ Router.map(function() {
         }
     });
 
-    /*******************************/
-    /***ROUTES FOR ITEMCATEGORIES***/
-    /*******************************/
+    /*********************************/
+    /***ROUTES FOR ITEMS CATEGORIES***/
+    /*********************************/
 
     this.route('itemCategoryCreate', {
         path: '/project/:_id/item-category/new',

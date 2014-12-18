@@ -1,5 +1,9 @@
 <template name="itemsList">
     <a class="success create-item icon-plus" href="{{pathFor 'itemCreate'}}"></a>
+    <div class="move-item">
+        <a href="#" class="secondary zoom-out" data-icon="&#xe092;"></a>
+        <a href="#" class="secondary zoom-in" data-icon="&#xe091;"></a>
+    </div>
     <dl class="accordion" data-accordion="">
         {{#each lines}}
                 <dd>

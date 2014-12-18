@@ -28,5 +28,24 @@ Template.editor.events({
 
         var instance = Blaze.renderWithData(Template.itemCreate, {'projectId': template.data._id}, $('#modalEditor > .content').get(0));
         Meteor.loadModal(instance);
+    },
+
+    "click .zoom-out": function(e) {
+        e.preventDefault();
+
+        Meteor.call('changeStationsRadius', this._id, 5, function(err, data) {
+            if (err) {
+                console.log(err);
+            }
+        })
+    },
+    "click .zoom-in": function(e) {
+        e.preventDefault();
+
+        Meteor.call('changeStationsRadius', this._id, 8, function(err, data) {
+            if (err) {
+                console.log(err);
+            }
+        })
     }
 });

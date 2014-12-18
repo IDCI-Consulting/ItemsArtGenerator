@@ -18,10 +18,11 @@ Template.itemEdit.events({
 
         var formData = $(e.target).serializeArray(),
             item = {
-                categories: [],
+                categories: []
             };
         var boundData = Meteor.bindFormData(item, formData);
-
+        //Hack for station's radius
+        boundData.options.subway.r = this.options.subway.r;
         if (boundData.categories.length === 0) {
             $("p.error").replaceWith('<p class="error">You must choose a category</p>');
         } else {

@@ -1,5 +1,10 @@
 Template.projectRaw.helpers({
-    lines: function() {
-        return ItemCategories.find({projectId: this._id});
+    url: function() {
+        if (this.background) {
+            var fileObj = Images.findOne(this.background);
+            return 'url(' + fileObj.url() + ')';
+        }
+
+        return 'rgb(255,250,230)';
     }
 });

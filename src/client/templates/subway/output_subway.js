@@ -7,7 +7,7 @@ Template.outputSubway.helpers({
 Template.outputSubway.rendered = function() {
 
     Meteor.setTimeout(function() {
-        $('#output').append('<div id="done"></div>');
+        $('#project-raw').append('<div id="done"></div>');
     }, 1500);
 
     var self = this.data;
@@ -20,7 +20,7 @@ Template.outputSubway.rendered = function() {
             .style('font-size', '70px')
             .style('text-transform', 'uppercase')
             .style('text-align', 'center')
-            .style('padding', '45px')
+            .style('padding', '91px')
         ;
 
         var contributors = d3.select('svg');
@@ -44,4 +44,13 @@ Template.outputSubway.rendered = function() {
     $(document).on("dblclick", function() {
         $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-left');
     });
+
+    /*fontsize = function () {
+        if ($("#subway-legend > ul > li > ul > li").height() >= 300) {
+            var fontSize = $("#subway-legend > ul > li > ul > li").width() * 100 / $("#subway-legend > ul > li > ul > li").height(); // 10% of container width
+            $("#subway-legend > ul > li > ul > li").css('font-size', fontSize + "px");
+        }
+    };
+    $(window).resize(fontsize);
+    $(document).ready(fontsize);*/
 };

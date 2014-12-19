@@ -103,26 +103,18 @@ Template.line.rendered = function() {
         ;
         gLines
             .selectAll('#line-node-' + line._id)
-            .transition()
-            .duration(0)
             .attr('transform', 'translate(' + [line.options.subway.cx,line.options.subway.cy] + ')')
         ;
         gLines
             .selectAll('#line-color-' + line._id)
-            .transition()
-            .duration(0)
             .attr('fill', line.options.subway.color)
         ;
         gLines
             .selectAll('#line-name-' + line._id)
-            .transition()
-            .duration(0)
             .text(line.name)
         ;
         gLegend
             .selectAll('#legend-line-' + line._id + ' > span')
-            .transition()
-            .duration(0)
             .style('background', line.options.subway.color)
         ;
         gLegend
@@ -241,7 +233,6 @@ Template.line.rendered = function() {
             gLegend
                 .select('#legend-station-' + newDocument._id)
                 .datum(newDocument)
-                .text(newDocument.name + ": " + newDocument.description)
             ;
             draw(subwayLine);
         },

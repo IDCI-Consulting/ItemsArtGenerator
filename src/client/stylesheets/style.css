@@ -194,7 +194,7 @@ ul.off-canvas-list li a {
 button.tiny, .button.tiny {
     width: 15px;
     height: 5px;
-    padding: 25px 25px 0px 0px;
+    padding: 25px 25px 0 0;
 }
 
 .subway-station:hover, .subway-line:hover {
@@ -230,16 +230,14 @@ button.tiny, .button.tiny {
 
 .subway-title {
     min-height: 227px;
-    border-bottom: 3px solid rgb(0,116,173);
-    border-top: 3px solid rgb(0,116,173);
 }
 
 #subway-legend {
-    width: 100%;
-    min-height: 200px;
-    padding: 0 20px;
     border-top: thick solid rgb(0,116,173);
+    max-height: 300px;
+    padding: 0 20px;
     text-align: center;
+    width: 100%;
 }
 
 #subway-legend > ul {
@@ -248,12 +246,13 @@ button.tiny, .button.tiny {
 
 #subway-legend > ul > li {
     min-width: 100px;
+    max-width: 200px;
     margin: 10px;
 }
 
 #subway-legend > ul > li > span {
     display: block;
-    padding: 15px;
+    padding: 5px;
     border-radius: 15px;
     margin-bottom: 10px;
 }
@@ -261,16 +260,26 @@ button.tiny, .button.tiny {
 #subway-legend > ul > li > span > p {
     display: block;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 10px;
     margin: 0;
     line-height: 12px;
 }
 
 #subway-legend > ul > li > ul > li {
-    font-size: 15px;
+    font-size: 8px;
     text-align: left;
 }
 
+#project-raw {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    margin: 0;
+    width: 1170px;
+}
+
+ul.inline-list {
+    margin-top: 10px;
+}
 /* Error pages */
 
 h2.not-found, h2.not-allowed {

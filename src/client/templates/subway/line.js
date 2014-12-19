@@ -49,10 +49,10 @@ Template.line.rendered = function() {
                 .style('color', subwayLine.options.subway.color)
                 .style("font-weight", "bold")
                 .text(document.name)
-                .append('span')
+                /*.append('span')
                 .style('color', 'black')
                 .style("font-weight", "normal")
-                .text(": " + document.description)
+                .text(": " + document.description)*/
             ;
         });
     };

@@ -145,6 +145,72 @@ Router.map(function() {
         }
     });
 
+    this.route('projectTitleRaw', {
+        path: '/project/:_id/title-raw',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleProject', this.params._id),
+                Meteor.subscribe('itemCategories', this.params._id),
+                Meteor.subscribe('items', this.params._id),
+                Meteor.subscribe('images')
+            ];
+        },
+        data: function() {
+            if (this.ready()) {
+                var project = Projects.findOne(this.params._id);
+                if (!project) {
+                    this.redirect('/404');
+                } else {
+                    return project;
+                }
+            }
+        }
+    });
+
+    this.route('projectMapRaw', {
+        path: '/project/:_id/map-raw',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleProject', this.params._id),
+                Meteor.subscribe('itemCategories', this.params._id),
+                Meteor.subscribe('items', this.params._id),
+                Meteor.subscribe('images')
+            ];
+        },
+        data: function() {
+            if (this.ready()) {
+                var project = Projects.findOne(this.params._id);
+                if (!project) {
+                    this.redirect('/404');
+                } else {
+                    return project;
+                }
+            }
+        }
+    });
+
+    this.route('projectLegendRaw', {
+        path: '/project/:_id/legend-raw',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleProject', this.params._id),
+                Meteor.subscribe('itemCategories', this.params._id),
+                Meteor.subscribe('items', this.params._id),
+                Meteor.subscribe('images')
+            ];
+        },
+        data: function() {
+            if (this.ready()) {
+                var project = Projects.findOne(this.params._id);
+                if (!project) {
+                    this.redirect('/404');
+                } else {
+                    return project;
+                }
+            }
+        }
+    });
+
     this.route('projectCreate', {
         path: '/project/new',
         waitOn: function() {

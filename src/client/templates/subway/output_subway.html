@@ -1,14 +1,7 @@
 <template name="outputSubway">
 
-    <div class="subway-title"></div>
-    <div id="svg">
-        <svg>
-            <defs>
-            </defs>
-            <g id="subway-lines"></g>
-            <g id="subway-stations"></g>
-        </svg>
-    </div>
+    {{> subwayTitle}}
+    {{> subwayMap}}
     <div id="subway-legend">
         <ul>
         </ul>
@@ -19,9 +12,5 @@
             <span id="description"></span>
         </p>
     </div>
-
-    {{#each lines}}
-        {{> line}}
-    {{/each}}
 
 </template>

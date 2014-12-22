@@ -1,0 +1,14 @@
+<template name="subwayMap">
+    <div id="svg">
+        <svg>
+            <defs>
+            </defs>
+            <g id="subway-lines"></g>
+            <g id="subway-stations"></g>
+        </svg>
+    </div>
+
+    {{#each lines}}
+        {{> line}}
+    {{/each}}
+</template>

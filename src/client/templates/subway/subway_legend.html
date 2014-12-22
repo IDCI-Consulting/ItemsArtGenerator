@@ -1,0 +1,10 @@
+<template name="subwayLegend">
+    <div id="subway-legend" style="width: 1170px;">
+        <ul>
+        </ul>
+    </div>
+
+    {{#each lines}}
+        {{> line}}
+    {{/each}}
+</template>

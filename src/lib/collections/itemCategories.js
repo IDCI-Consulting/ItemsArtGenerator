@@ -19,14 +19,23 @@ ItemCategories.find({}).observe({
 
 ItemCategories.allow({
     insert: function(userId, doc) {
+        if (Meteor.checkIfUserIsAdmin(userId)) {
+            return true;
+        }
         var project = Projects.findOne(doc.projectId);
         return _.contains(project.authors, userId);
     },
     update: function (userId, doc, fields, modifier) {
+        if (Meteor.checkIfUserIsAdmin(userId)) {
+            return true;
+        }
         var project = Projects.findOne(doc.projectId);
         return _.contains(project.authors, userId);
     },
     remove: function (userId, doc) {
+        if (Meteor.checkIfUserIsAdmin(userId)) {
+            return true;
+        }
         var project = Projects.findOne(doc.projectId);
         return _.contains(project.authors, userId);
     }

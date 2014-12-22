@@ -2,15 +2,21 @@ Projects = new Mongo.Collection('projects');
 
 Projects.allow({
     insert: function(userId, doc) {
-        if(userId === null) {
-            return false;
+        if (Meteor.checkIfUserIsAdmin(userId)) {
+            return true;
         }
         return _.contains(doc.authors, userId);
     },
     update: function (userId, doc, fields, modifier) {
+        if (Meteor.checkIfUserIsAdmin(userId)) {
+            return true;
+        }
         return _.contains(doc.authors, userId);
     },
     remove: function (userId, doc) {
+        if (Meteor.checkIfUserIsAdmin(userId)) {
+            return true;
+        }
         return _.contains(doc.authors, userId);
     }
 });

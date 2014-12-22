@@ -1,5 +1,8 @@
 Template.projectItem.helpers({
     isAuthor: function() {
+        if (Meteor.checkIfUserIdAdmin(Meteor.userId())) {
+            return true;
+        }
         return _.contains(this.authors, Meteor.userId());
     }
 });

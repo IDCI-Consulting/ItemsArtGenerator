@@ -11,7 +11,7 @@
  * @param timeOutMillis the max amount of time to wait. If not specified, 3 sec is used.
  */
 function waitFor(testFx, onReady, timeOutMillis) {
-    var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 3000, //< Default Max Timout is 3s
+    var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 10000, //< Default Max Timout is 3s
         start = new Date().getTime(),
         condition = false,
         interval = setInterval(function() {
@@ -39,12 +39,14 @@ function waitFor(testFx, onReady, timeOutMillis) {
  * @param url : the web page url to be rendered
  * @param filePath : the path and complete name of the picture to be rendered
  */
-function renderProject(url, filePath) {
-    var page = require('webpage').create();
-
+function renderProject(url, filePath, format, zoom, quality) {
+    var page = require('webpage').create(),
+        pageWidth = 1170*Number(zoom);
+    ;
+    page.zoomFactor = zoom;
     page.viewportSize = {
-      width: 1440,
-      height: 900
+        width: pageWidth,
+        height: 1
     };
     page.open(url, function (status) {
         // Check for page load success
@@ -63,11 +65,6 @@ function renderProject(url, filePath) {
                 });
 
                 if (result !== false) {
-                    /*result.top -= 30;
-                    result.left -= 30;
-                    result.width += 60;
-                    result.height += 60;
-                    page.clipRect = result;*/
                     return true;
                 }
 
@@ -75,16 +72,19 @@ function renderProject(url, filePath) {
 
             }, function() {
                 console.log("The svg is visible. Rendering the picture...");
-                //page.zoomFactor = 0.9;
-                page.render(filePath);
+                page.render(filePath, {format: format, quality: quality});
                 phantom.exit();
             });
         }
     });
 }
 
-var args = require('system').args;
-var url = args[1];
-var filePath = args[2];
+var args = require('system').args,
+    url = args[1],
+    filePath = args[2],
+    format = args[3],
+    zoom = args[4],
+    quality = args[5]
+;
 
-renderProject(url, filePath);
+renderProject(url, filePath, format, zoom, quality);

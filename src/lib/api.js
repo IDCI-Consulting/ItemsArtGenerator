@@ -312,17 +312,24 @@ Router.map(function() {
      * @return : the info
      */
     function getRenderInfo(params) {
-        var format = params.format;
+        var partToRender = params.query.part;
+        var availableParts = ['title', 'legend', 'map'];
+        if (availableParts.indexOf(partToRender) == -1) {
+            partToRender = 'raw';
+        }
+        var format = params.query.format;
         var availableFormats = ['png', 'jpeg', 'jpg', 'pdf', 'gif'];
         if (availableFormats.indexOf(format) == -1) {
             format = 'jpeg';
         }
         var projectId = params._id;
-        var url = Parameters.api_public_endpoint+'/project/'+projectId+'/raw';
+        var url = Parameters.api_public_endpoint+'/project/'+projectId+'/'+partToRender;
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
-        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' ';
-        if (params.mode) {
-            cmd += params.mode;
+        var zoom = params.query.zoom ? params.query.zoom : 1;
+        var quality = params.query.quality ? params.query.quality : 100;
+        var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' '+format+' '+zoom+' '+quality;
+        if (params.query.mode) {
+            cmd += params.query.mode;
         }
 
         return {

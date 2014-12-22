@@ -312,11 +312,22 @@ Router.map(function() {
      * @return : the info
      */
     function getRenderInfo(params) {
+
+        var partToRenderMap = {
+            'title': 'title-raw',
+            'legend': 'legend-raw',
+            'map': 'map-raw'
+        };
+
         var partToRender = params.query.part;
+        
         var availableParts = ['title', 'legend', 'map'];
         if (availableParts.indexOf(partToRender) == -1) {
             partToRender = 'raw';
+        } else {
+            partToRender = partToRenderMap[partToRender];
         }
+
         var format = params.query.format;
         var availableFormats = ['png', 'jpeg', 'jpg', 'pdf', 'gif'];
         if (availableFormats.indexOf(format) == -1) {

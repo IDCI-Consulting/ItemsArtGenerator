@@ -73,7 +73,12 @@ It was built with [Meteor](http://meteor.com). See the [Documentation](http://do
 
  * Method: GET
  * Route: /api/1.0/projects/:_id/render
- * Options: mode (base64), format (png, jpeg, jpg, pdf, gif)
+ * Options:
+  * mode (base64)
+  * format (png, jpeg, jpg, gif)
+  * zoom (float) : the zoom factor
+  * quality (integer from 0 to 100)
+  * part (map, title, legend) : the part of the project to be rendered (without this parameter, the full project will be rendered)
  * Example: http://itemsartgenerator/api/1.0/projects/eaac6808cbdb9cc54c0ab450/render?mode=base64&format=png
 
 ###Vote for a project###

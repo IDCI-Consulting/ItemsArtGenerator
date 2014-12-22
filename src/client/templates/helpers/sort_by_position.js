@@ -6,6 +6,8 @@ UI.registerHelper('sortByPosition', function(category) {
     _.each(category.items, function(itemId) {
         _.each(items, function(item) {
             if(itemId === item._id) {
+                item.categories = [];
+                item.categories.push(category._id);
                 itemsSorted.push(item);
             }
         });

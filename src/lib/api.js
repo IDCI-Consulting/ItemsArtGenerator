@@ -107,6 +107,46 @@ Router.map(function() {
         }
     });
 
+    // TODO Quick and dirty, refactor code
+    /**
+     * Render the insight of a project
+     * Method GET
+     */
+    this.route('apiProjectRenderInsight', {
+        where: 'server',
+        path: '/project/:_id/insight',
+        action: function() {
+            action = this;
+            Meteor.checkRequest(action, 'GET');
+            checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
+            // render the project
+            var exec = Npm.require('child_process').exec;
+            var url = Parameters.api_public_endpoint+'/project/'+this.params._id+'/raw';
+            var filePath = process.env.PWD+'/.uploads/'+this.params._id+'.jpg';
+            var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' jpeg 1 40';
+            exec(cmd,
+                function (error, stdout, stderr) {
+                    console.log('stdout: ' + stdout);
+                    console.log('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                    var fs = Npm.require('fs');
+                    fs.readFile(filePath, function(err, data) {
+                        // Fail if the file can't be read
+                        if (err) {
+                            action.response.writeHead(500, {'Content-Type': 'text/html'});
+                            action.response.end('Internal server error');
+                        }
+                        //set the response
+                        action.response.writeHead(200, {'Content-Type': 'image/jpeg', 'Access-Control-Allow-Origin': '*'});
+                        action.response.end(data);
+                    });
+                }
+            );
+        }
+    });
+
     /**
      * Vote for a project
      * Method POST

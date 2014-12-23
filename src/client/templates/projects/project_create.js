@@ -36,12 +36,9 @@ Template.projectCreate.events({
         var boundData = Meteor.bindFormData(project, formData);
 
         if (boundData.tags) {
-            var string = boundData.tags.replace(/\ */g,'');
-            boundData.tags = [];
-            var tags = string.split(',');
-            boundData.tags = tags;
+            boundData.tags = Meteor.createTagsArray(boundData.tags);
         }
-        console.log(boundData);
+
         Projects.update(
             boundData._id,
             {

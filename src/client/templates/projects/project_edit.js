@@ -15,11 +15,9 @@ Template.projectEdit.events({
             };
 
         var boundData = Meteor.bindFormData(project, formData);
+        
         if (boundData.tags) {
-            var string = boundData.tags.replace(/\ */g,'');
-            boundData.tags = [];
-            var tags = string.split(',');
-            boundData.tags = tags;
+            Meteor.createTagsArray(boundData.tags);
         }
 
         Projects.update(this._id, {$set: boundData});

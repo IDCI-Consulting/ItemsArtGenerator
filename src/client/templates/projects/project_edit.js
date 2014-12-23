@@ -11,10 +11,17 @@ Template.projectEdit.events({
 
         var formData = $(e.target).serializeArray();
         var project = {
-                updatedAt: new Date().getTime(),
+                updatedAt: new Date().getTime()
             };
 
         var boundData = Meteor.bindFormData(project, formData);
+        if (boundData.tags) {
+            var string = boundData.tags.replace(/\ */g,'');
+            boundData.tags = [];
+            var tags = string.split(',');
+            boundData.tags = tags;
+        }
+
         Projects.update(this._id, {$set: boundData});
         $('#modalEditor').foundation('reveal', 'close');
     },

@@ -233,7 +233,6 @@ button.tiny, .button.tiny {
 }
 
 #subway-legend {
-    border-top: thick solid rgb(0,116,173);
     max-height: 300px;
     padding: 0 20px;
     text-align: center;

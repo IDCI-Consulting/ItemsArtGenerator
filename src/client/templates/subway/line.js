@@ -47,7 +47,7 @@ Template.line.rendered = function() {
                 .append('li')
                 .attr('id', 'legend-station-' + document._id)
                 .style('color', subwayLine.options.subway.color)
-                .style("font-weight", "bold")
+                .style('font-size', "9px")
                 .text(document.name)
                 /*.append('span')
                 .style('color', 'black')
@@ -183,7 +183,6 @@ Template.line.rendered = function() {
                 .select('#legend-line-' + document._id)
                 .append('ul')
                 .attr('id', 'stations-' + document._id)
-                .style('font-size', "7px")
             ;
 
             displayStationsInRightOrder(document, gLegend);

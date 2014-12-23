@@ -29,6 +29,10 @@ svg {
     width: 100%;
 }
 
+#raw, #raw p, #raw ul {
+    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+}
+
 div.raw {
     display: inline;
     overflow: auto;

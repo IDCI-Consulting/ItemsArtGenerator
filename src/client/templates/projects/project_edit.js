@@ -15,9 +15,9 @@ Template.projectEdit.events({
             };
 
         var boundData = Meteor.bindFormData(project, formData);
-        
+
         if (boundData.tags) {
-            Meteor.createTagsArray(boundData.tags);
+            boundData.tags = Meteor.createTagsArray(boundData.tags);
         }
 
         Projects.update(this._id, {$set: boundData});

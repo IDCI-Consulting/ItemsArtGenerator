@@ -15,9 +15,9 @@ Template.subwayMap.rendered = function() {
         contributors
             .append('text')
             .text(function() {
-                var phrase = "Contributors : ";
+                var phrase = "";
                 if (self.contributors) {
-                    return phrase += self.contributors;
+                    return phrase += "Contributors :"  + self.contributors;
                 }
 
                 return phrase;

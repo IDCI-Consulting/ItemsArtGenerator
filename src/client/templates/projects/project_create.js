@@ -25,13 +25,16 @@ Template.projectCreate.events({
                 createdAt: new Date().getTime(),
                 authors: [Meteor.userId()],
                 type: "subway",
+                state: "new",
                 votes: 0,
                 sales: 0
             };
             Projects.insert(project);
         }
 
+        project.state = "new";
         var boundData = Meteor.bindFormData(project, formData);
+        console.log(boundData);
         Projects.update(
             boundData._id,
             {

@@ -11,7 +11,7 @@
  * @param timeOutMillis the max amount of time to wait. If not specified, 3 sec is used.
  */
 function waitFor(testFx, onReady, timeOutMillis) {
-    var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 10000, //< Default Max Timout is 3s
+    var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 20000, //< Default Max Timout is 3s
         start = new Date().getTime(),
         condition = false,
         interval = setInterval(function() {
@@ -40,14 +40,16 @@ function waitFor(testFx, onReady, timeOutMillis) {
  * @param filePath : the path and complete name of the picture to be rendered
  */
 function renderProject(url, filePath, format, zoom, quality) {
-    var page = require('webpage').create(),
-        pageWidth = 1170*Number(zoom);
-    ;
-    page.zoomFactor = zoom;
+
+    var pageWidth = 1170 * Number(zoom),
+        page = require('webpage').create();
+
+    page.zoomFactor = Number(zoom);
     page.viewportSize = {
         width: pageWidth,
         height: 1
     };
+
     page.open(url, function (status) {
         // Check for page load success
         if (status !== "success") {
@@ -59,16 +61,21 @@ function renderProject(url, filePath, format, zoom, quality) {
                 // Check in the page if a specific element is now visible
                 var result = page.evaluate(function() {
                     if (document.getElementById('done')) {
-                        return document.getElementById('subway-stations').getBoundingClientRect();
+                        return document.getElementById('raw').getBoundingClientRect();
                     }
                     return false;
                 });
 
-                if (result !== false) {
-                    return true;
+                if (result) {
+                    var pageHeight = result.height * Number(zoom);
+                    page.clipRect = {
+                        top: 0,
+                        left: 0,
+                        width: pageWidth,
+                        height: pageHeight
+                    };
                 }
-
-                return false;
+                return (result !== false) ? true : false;
 
             }, function() {
                 console.log("The svg is visible. Rendering the picture...");

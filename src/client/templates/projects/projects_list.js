@@ -1,5 +1,8 @@
 Template.projectsList.helpers({
     projects: function() {
+        if(Meteor.checkIfUserIsAdmin(Meteor.userId())) {
+            return Projects.find({$or: [{state: "new",visibility: "public"}, {state: "published",visibility: "public"},{authors: {$in: [Meteor.userId()]}}]},{sort: { createdAt : -1 }});
+        }
         return Projects.find(
             {
                 $or: [

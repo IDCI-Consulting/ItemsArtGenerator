@@ -39,7 +39,7 @@ Meteor.cloneProject = function(model) {
             description: category.description,
             options: category.options,
             projectId: project._id
-        }
+        };
         ItemCategories.insert(newCategory);
         categoriesMap[category._id] = newCategory._id;
     });
@@ -47,9 +47,9 @@ Meteor.cloneProject = function(model) {
     _.each(items, function(item, key) {
         _.each(item.categories, function(categoryId, categoryKey) {
             item.categories[categoryKey] = categoriesMap[categoryId];
-        })
+        });
         Items.update(itemsMap[item._id], {$set: {categories: item.categories}});
-    })
+    });
 
     _.each(categories, function(category, key) {
         _.each(category.items, function(itemId, position) {

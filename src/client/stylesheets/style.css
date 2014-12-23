@@ -153,13 +153,18 @@ li.item.selected {
 
 /*************************************************/
 #tooltip {
-    position: absolute;
-    width: 200px;
+    border-radius: 10px;
+    background-color: #eee;
     height: auto;
     padding: 10px;
-    background-color: #eee;
-    border-radius: 10px;
+    position: absolute;
+    width: 200px;
 }
+
+.hidden {
+    display: none;
+}
+
 #tooltip p {
     margin: 0;
     font-family: sans-serif;

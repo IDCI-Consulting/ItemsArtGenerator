@@ -9,6 +9,7 @@ Template.editor.rendered = function() {
             finalPosition = ui.item.index() + 1;
             var categoryId = Blaze.getData(element).categories[0];
             var category = ItemCategories.findOne(categoryId);
+            console.log(category);
 
             Meteor.changeItemPosition(category, initialPosition, finalPosition);
             ItemCategories.update(category._id, {$set: {items: category.items}});
@@ -37,7 +38,7 @@ Template.editor.events({
             if (err) {
                 console.log(err);
             }
-        })
+        });
     },
     "click .zoom-in": function(e) {
         e.preventDefault();
@@ -46,6 +47,6 @@ Template.editor.events({
             if (err) {
                 console.log(err);
             }
-        })
+        });
     }
 });

@@ -5,6 +5,14 @@ Template.projectEdit.helpers({
     }
 });
 
+Template.projectEdit.rendered = function() {
+    if (!Modernizr.inputtypes.date) {
+        $('input[type=date]').datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+    }
+};
+
 Template.projectEdit.events({
     'submit form': function(e) {
         e.preventDefault();

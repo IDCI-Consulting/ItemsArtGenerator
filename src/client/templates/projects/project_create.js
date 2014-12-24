@@ -8,6 +8,14 @@ Template.projectCreate.helpers({
     }
 });
 
+Template.projectCreate.rendered = function() {
+    if (!Modernizr.inputtypes.date) {
+        $('input[type=date]').datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+    }
+};
+
 Template.projectCreate.events({
     'submit form': function(e) {
         e.preventDefault();

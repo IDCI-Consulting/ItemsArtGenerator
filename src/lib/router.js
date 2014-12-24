@@ -237,6 +237,11 @@ Router.map(function() {
 
     this.route('itemCategoryCreate', {
         path: '/project/:_id/item-category/new',
+        waitOn: function() {
+            return [
+                Meteor.subscribe('singleProject', this.params._id)
+            ];
+        },
         data: function() {
             return {
                 'projectId': this.params._id

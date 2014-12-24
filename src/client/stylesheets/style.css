@@ -295,3 +295,17 @@ h2.not-found, h2.not-allowed {
     margin-top: 50px;
     color: #000;
 }
+
+#picker {
+    margin:0;
+    padding:0;
+    border:0;
+    width:70px;
+    height:20px;
+    border-right:20px solid green;
+    line-height:20px;
+}
+
+.colpick {
+    z-index: 1100;
+}

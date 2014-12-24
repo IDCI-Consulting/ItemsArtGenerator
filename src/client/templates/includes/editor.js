@@ -9,7 +9,6 @@ Template.editor.rendered = function() {
             finalPosition = ui.item.index() + 1;
             var categoryId = Blaze.getData(element).categories[0];
             var category = ItemCategories.findOne(categoryId);
-            console.log(category);
 
             Meteor.changeItemPosition(category, initialPosition, finalPosition);
             ItemCategories.update(category._id, {$set: {items: category.items}});

@@ -6,6 +6,7 @@ Author: Brahim BOUKOUFALLAH
 html, body{
     height: 100%;
     width: 100%;
+    font-family: Arial, sans-serif;
 }
 
 hr {
@@ -30,7 +31,7 @@ svg {
 }
 
 #raw, #raw p, #raw ul {
-    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 div.raw {
@@ -171,7 +172,7 @@ li.item.selected {
 
 #tooltip p {
     margin: 0;
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 20px;
 }

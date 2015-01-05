@@ -49,7 +49,7 @@ Router.map(function() {
         action: function() {
             Meteor.checkRequest(this, 'GET');
             var query = buildMongoQuery(this.request.query);
-            var filters = buildMongoFilters(this.params);
+            var filters = buildMongoFilters(this.params.query);
             var projects = Projects.find(query, filters).fetch();
             _.each(projects, function(project) {
                 project.visualLink = Parameters.api_public_endpoint+'/api/1.0/projects/'+project._id+'/render';
@@ -308,7 +308,7 @@ Router.map(function() {
         var offset = params.offset ? params.offset : 0;
         var limit = params.limit ? params.limit : null;
 
-        if (limit) {
+        if (limit || offset) {
             return {
                 'sort': sort_order,
                 'skip': parseInt(offset),

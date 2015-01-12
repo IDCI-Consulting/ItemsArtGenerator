@@ -47,7 +47,7 @@ Template.line.rendered = function() {
                 .append('li')
                 .attr('id', 'legend-station-' + document._id)
                 .style('color', subwayLine.options.subway.color)
-                .style('font-size', "9px")
+                .style('font-size', "11px")
                 .text(document.name)
                 /*.append('span')
                 .style('color', 'black')

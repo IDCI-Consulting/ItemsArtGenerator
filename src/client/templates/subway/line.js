@@ -166,7 +166,7 @@ Template.line.rendered = function() {
             gLineName
                 .append('text')
                 .attr('id', 'line-name-' + document._id)
-                .attr('x', 85)
+                .attr('x', 80)
                 .attr("y", 20)
                 .attr('fill', '#fff')
                 .style("text-anchor", "middle")

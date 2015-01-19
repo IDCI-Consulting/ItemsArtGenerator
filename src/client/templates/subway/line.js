@@ -52,7 +52,7 @@ Template.line.rendered = function() {
                 .text(document.name)
                 .attr('id', 'legend-station-' + document._id)
                 .style('color', subwayLine.options.subway.color)
-                .style('font-size', "11px")
+                .style('font-size', "12px")
                 /*
                     .append('span')
                     .style('color', 'black')
@@ -184,6 +184,7 @@ Template.line.rendered = function() {
                 .style('background', document.options.subway.color)
                 .append('p')
                 .text(document.name)
+                .style("font-size","15px")
             ;
             gLegend
                 .select('#legend-line-' + document._id)

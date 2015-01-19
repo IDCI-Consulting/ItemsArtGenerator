@@ -15,7 +15,7 @@ Items.find({}).observe({
     },
     removed: function(oldDocument) {
         // Remove the deleted item for each category
-        if (oldDocument.categories.length !== 1) {
+        if (oldDocument.categories.length !== 0) {
             _.each(oldDocument.categories, function(categoryId) {
                 var category = ItemCategories.findOne(categoryId);
                 Meteor.removeCategoryItem(category, oldDocument._id);

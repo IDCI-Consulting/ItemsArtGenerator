@@ -39,20 +39,26 @@ Template.line.rendered = function() {
      * @param element: the element where we display them
      */
     var displayStationsInRightOrder = function(subwayLine, element) {
-        _.each(subwayLine.items, function(stationId) {
+        _.each(subwayLine.items, function(stationId, position) {
             var document = Items.findOne(stationId);
+            //In order to purge unconsistent data due to previous fixed bug in editor when removed a station
+            if (!document) {
+                Meteor.call("removeUnconsistentItem", subwayLine._id, document, position);
+            }
             element
                 .select('#stations-' + subwayLine._id)
                 .datum(document)
                 .append('li')
+                .text(document.name)
                 .attr('id', 'legend-station-' + document._id)
                 .style('color', subwayLine.options.subway.color)
                 .style('font-size', "11px")
-                .text(document.name)
-                /*.append('span')
-                .style('color', 'black')
-                .style("font-weight", "normal")
-                .text(": " + document.description)*/
+                /*
+                    .append('span')
+                    .style('color', 'black')
+                    .style("font-weight", "normal")
+                    .text(": " + document.description)
+                */
             ;
         });
     };

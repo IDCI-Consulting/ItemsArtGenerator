@@ -63,6 +63,26 @@ Router.map(function() {
     });
 
     /**
+     * Count projects
+     * Method GET
+     */
+    this.route('apiProjectCount', {
+        where: 'server',
+        path: '/api/1.0/projects_count',
+        action: function() {
+            Meteor.checkRequest(this, 'GET');
+            var query = buildMongoQuery(this.request.query);
+            var filters = buildMongoFilters(this.params.query);
+            var count = Projects.find(query, filters).count();
+            var response = { projects_count : count };
+            // set response
+            var headers = {'Content-type': 'application/json'};
+            this.response.writeHead(200, headers);
+            this.response.end(JSON.stringify(response));
+        }
+    });
+
+    /**
      * Render a project as png, jpg, base64 or (pdf)
      * Method GET
      */

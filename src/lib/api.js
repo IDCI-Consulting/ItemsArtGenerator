@@ -118,7 +118,7 @@ Router.map(function() {
                             action.response.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
                             action.response.end('data:image/'+renderInfo.format+';base64,'+base64Image);
                         } else {
-                            action.response.writeHead(200, {'Content-Type': 'image/jpeg', 'Access-Control-Allow-Origin': '*'});
+                            action.response.writeHead(200, {'Content-Type': 'image/'+renderInfo.format, 'Access-Control-Allow-Origin': '*'});
                             action.response.end(data);
                         }
                     });
@@ -393,6 +393,7 @@ Router.map(function() {
         if (availableFormats.indexOf(format) == -1) {
             format = 'jpeg';
         }
+        console.log(format);
         var projectId = params._id;
         var url = Parameters.api_public_endpoint+'/project/'+projectId+'/'+partToRender;
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;

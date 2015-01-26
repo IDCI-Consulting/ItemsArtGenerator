@@ -1,5 +1,24 @@
 Parameters = {
-    'api_public_endpoint': 'http://192.168.0.30:3000'
+    'api_public_endpoint': 'http://localhost:3000',
+    'allowed_parameters': [
+        {
+            'name': 'tags',
+            'elements': [
+                'anniversaire',
+                'mariage',
+                'evg-evj',
+                'pot-de-depart',
+                'television',
+                'musique',
+                'cinema',
+                'sports',
+                'culture',
+                'actualite',
+                'alimentation',
+                'travail'
+            ]
+        }
+    ]
 };
 
 

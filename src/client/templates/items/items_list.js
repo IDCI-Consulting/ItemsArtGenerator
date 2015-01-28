@@ -1,6 +1,6 @@
 Template.itemsList.helpers({
     lines: function() {
-        return ItemCategories.find({projectId: this._id});
+        return ItemCategories.find({projectId: this._id}, {sort: { name: 1 }});
     }
 });
 
@@ -9,8 +9,7 @@ Template.itemsList.events({
         e.preventDefault();
 
         if(confirm("Delete this item ?")) {
-            var currentItemId = this._id;
-            Items.remove(currentItemId);
+            Meteor.call('removeItem', this);
         }
     },
 

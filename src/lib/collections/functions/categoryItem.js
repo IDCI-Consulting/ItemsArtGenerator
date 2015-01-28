@@ -25,19 +25,21 @@ Meteor.addCategoryItem = function(category, itemId) {
 
 Meteor.removeCategoryItem = function(category, itemId) {
     var deletedKey;
-    _.each(category.items, function(value, key) {
-        // delete the item
-        if(itemId === value) {
-            deletedKey = key;
-            delete category.items[key];
-        }
-        // Recompute the position of items
-        if(deletedKey != undefined && (parseInt(deletedKey) + 1) == key) {
-            category.items[deletedKey] = category.items[key];
-            delete category.items[key];
-            deletedKey = parseInt(deletedKey) + 1;
-        }
-    });
+    if (category) {
+        _.each(category.items, function(value, key) {
+            // delete the item
+            if(itemId === value) {
+                deletedKey = key;
+                delete category.items[key];
+            }
+            // Recompute the position of items
+            if(deletedKey != undefined && (parseInt(deletedKey) + 1) == key) {
+                category.items[deletedKey] = category.items[key];
+                delete category.items[key];
+                deletedKey = parseInt(deletedKey) + 1;
+            }
+        });
+    }
 };
 
 

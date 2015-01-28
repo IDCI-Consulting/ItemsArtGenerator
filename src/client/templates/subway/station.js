@@ -167,13 +167,15 @@ Template.station.rendered = function() {
                             ;
                             _.each(subwayStation.categories, function(categoryId, key) {
                                 var category = ItemCategories.findOne(categoryId);
-                                gradient
-                                    .append('stop')
-                                    .attr('id', 'line-gradient-' + category._id)
-                                    .attr('offset', n * key + "%")
-                                    .attr('stop-color', category.options.subway.color)
-                                    .attr('stop-opacity', 1)
-                                ;
+                                if (category) {
+                                    gradient
+                                        .append('stop')
+                                        .attr('id', 'line-gradient-' + category._id)
+                                        .attr('offset', n * key + "%")
+                                        .attr('stop-color', category.options.subway.color)
+                                        .attr('stop-opacity', 1)
+                                    ;
+                                }
                             });
                             return 'url(#gradient-' + subwayStation._id + ')';
                         }

@@ -9,8 +9,10 @@ Meteor.methods({
 
 Items.find({}).observe({
     changed: function(newDocument, oldDocument) {
-        if (newDocument.categories !== oldDocument.categories) {
-            Meteor.updateCategoryItem(newDocument, oldDocument);
+        if (newDocument.categories && oldDocument.categories) {
+            if(newDocument.categories.length !== oldDocument.categories.length) {
+                Meteor.updateCategoryItem(newDocument, oldDocument);
+            }
         }
     },
     removed: function(oldDocument) {
@@ -18,8 +20,10 @@ Items.find({}).observe({
         if (oldDocument.categories.length !== 0) {
             _.each(oldDocument.categories, function(categoryId) {
                 var category = ItemCategories.findOne(categoryId);
-                Meteor.removeCategoryItem(category, oldDocument._id);
-                ItemCategories.update(category._id, {$set: {items: category.items}});
+                if (category) {
+                    Meteor.removeCategoryItem(category, oldDocument._id);
+                    ItemCategories.update(category._id, {$set: {items: category.items}});
+                }
             });
         }
     }

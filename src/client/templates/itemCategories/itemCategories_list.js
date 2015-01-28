@@ -1,6 +1,6 @@
 Template.itemCategoriesList.helpers({
     itemCategories: function() {
-        return ItemCategories.find({projectId: this._id});
+        return ItemCategories.find({projectId: this._id}, {sort: { name: 1 }});
     }
 });
 

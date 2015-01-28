@@ -75,7 +75,7 @@ Template.station.rendered = function() {
         var station = Items.findOne(subwayStation._id);
         var subwayLine = ItemCategories.findOne(line._id);
 
-        if(station) {
+        if(station && subwayLine) {
             var gContainer = gStations
                 .selectAll('#station-' + station._id)
                 .transition()

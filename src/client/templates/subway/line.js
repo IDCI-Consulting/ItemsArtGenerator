@@ -95,43 +95,43 @@ Template.line.rendered = function() {
                     }
                 });
             });
-        }
-        gLines
-            .selectAll('#line-' + line._id)
-            .transition()
-            .duration(500)
-            .attr('d', function() {
-                return lineFunction(stations);
-            })
-            .style('stroke', function(line) {
-                return line.options.subway.color;
-            })
-        ;
-        gLines
-            .selectAll('#line-node-' + line._id)
-            .attr('transform', 'translate(' + [line.options.subway.cx,line.options.subway.cy] + ')')
-        ;
-        gLines
-            .selectAll('#line-color-' + line._id)
-            .attr('fill', line.options.subway.color)
-        ;
-        gLines
-            .selectAll('#line-name-' + line._id)
-            .text(line.name)
-        ;
-        gLegend
-            .selectAll('#legend-line-' + line._id + ' > span')
-            .style('background', line.options.subway.color)
-        ;
-        gLegend
-            .selectAll('#legend-line-' + line._id + ' > span > p')
-            .text(line.name)
-        ;
-        gLegend
-            .select('#stations-' + line._id)
-            .selectAll('li')
-            .style('color', line.options.subway.color)
-        ;
+            gLines
+                .selectAll('#line-' + line._id)
+                .transition()
+                .duration(500)
+                .attr('d', function() {
+                    return lineFunction(stations);
+                })
+                .style('stroke', function(line) {
+                    return line.options.subway.color;
+                })
+            ;
+            gLines
+                .selectAll('#line-node-' + line._id)
+                .attr('transform', 'translate(' + [line.options.subway.cx,line.options.subway.cy] + ')')
+            ;
+            gLines
+                .selectAll('#line-color-' + line._id)
+                .attr('fill', line.options.subway.color)
+            ;
+            gLines
+                .selectAll('#line-name-' + line._id)
+                .text(line.name)
+            ;
+            gLegend
+                .selectAll('#legend-line-' + line._id + ' > span')
+                .style('background', line.options.subway.color)
+            ;
+            gLegend
+                .selectAll('#legend-line-' + line._id + ' > span > p')
+                .text(line.name)
+            ;
+            gLegend
+                .select('#stations-' + line._id)
+                .selectAll('li')
+                .style('color', line.options.subway.color)
+            ;
+      }
     };
 
 

@@ -5,7 +5,7 @@ Template.outputSubway.rendered = function() {
     }, 1500);
 
     // Display the editor on double click
-    $(document).on("dblclick", function() {
+   $(document).on("dblclick", function() {
         $('.off-canvas-wrap').foundation('offcanvas', 'show', 'move-left');
     });
 };

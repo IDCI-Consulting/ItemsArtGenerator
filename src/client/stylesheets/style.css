@@ -243,7 +243,7 @@ button.tiny, .button.tiny {
 }
 
 #subway-legend {
-    max-height: 300px;
+    min-height: 473px;
     padding: 0 20px;
     text-align: center;
     width: 100%;

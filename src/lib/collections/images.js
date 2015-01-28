@@ -12,10 +12,10 @@ var thumbnailStore = new FS.Store.GridFS("thumbnail", {
     transformWrite: function(fileObj, readStream, writeStream) {
         /*
          * Use graphicsmagick to create a 1170x1170 (size of SVG) square thumbnail at 100% quality,
-         * orient according to EXIF data if necessary and then save by piping to the 
+         * orient according to EXIF data if necessary and then save by piping to the
          * provided writeStream
          */
-        gm(readStream, fileObj.name).resize(1170,1500,"^")
+        gm(readStream, fileObj.name).resize(1170,1755,"^")
         .quality(100).autoOrient().stream().pipe(writeStream);
     }
 });

@@ -10,6 +10,22 @@
  */
 
 Meteor.checkRequest = function(action, method, dataArray, headersDataArray) {
+    // throw a 400 if some query parameters are not allowed
+    var query = action.request.query;
+    var allowedParams = Parameters.allowed_parameters;
+    for (var i = 0; i < allowedParams.length; i++) {
+        var paramName = allowedParams[i]['name'];
+        var elements = allowedParams[i]['elements'];
+        if (query.hasOwnProperty(paramName)) {
+            for (var j = 0; j < query[paramName].length; j++) {
+                if (elements.indexOf(query[paramName][j]) === -1) {
+                    action.response.writeHead(400, {'Content-Type': 'text/html'});
+                    action.response.end("The value '"+query[paramName][j]+"' of the parameter '"+paramName+"' is not allowed");
+                }
+            }
+        }
+    }
+
     // throw a 405 if project not found
     if (method && action.request.method != method) {
         action.response.writeHead(405, {'Content-Type': 'text/html'});

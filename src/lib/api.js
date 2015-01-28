@@ -63,6 +63,26 @@ Router.map(function() {
     });
 
     /**
+     * Count projects
+     * Method GET
+     */
+    this.route('apiProjectCount', {
+        where: 'server',
+        path: '/api/1.0/projects_count',
+        action: function() {
+            Meteor.checkRequest(this, 'GET');
+            var query = buildMongoQuery(this.request.query);
+            var filters = buildMongoFilters(this.params.query);
+            var count = Projects.find(query, filters).count();
+            var response = { projects_count : count };
+            // set response
+            var headers = {'Content-type': 'application/json'};
+            this.response.writeHead(200, headers);
+            this.response.end(JSON.stringify(response));
+        }
+    });
+
+    /**
      * Render a project as png, jpg, base64 or (pdf)
      * Method GET
      */
@@ -98,7 +118,7 @@ Router.map(function() {
                             action.response.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
                             action.response.end('data:image/'+renderInfo.format+';base64,'+base64Image);
                         } else {
-                            action.response.writeHead(200, {'Content-Type': 'image/jpeg', 'Access-Control-Allow-Origin': '*'});
+                            action.response.writeHead(200, {'Content-Type': 'image/'+renderInfo.format, 'Access-Control-Allow-Origin': '*'});
                             action.response.end(data);
                         }
                     });
@@ -373,6 +393,7 @@ Router.map(function() {
         if (availableFormats.indexOf(format) == -1) {
             format = 'jpeg';
         }
+        console.log(format);
         var projectId = params._id;
         var url = Parameters.api_public_endpoint+'/project/'+projectId+'/'+partToRender;
         var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;

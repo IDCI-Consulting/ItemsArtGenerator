@@ -34,9 +34,7 @@ Meteor.removeCategoryItem = function(category, itemId) {
             }
             // Recompute the position of items
             if(deletedKey != undefined && (parseInt(deletedKey) + 1) == key) {
-                category.items[deletedKey] = category.items[key];
-                delete category.items[key];
-                deletedKey = parseInt(deletedKey) + 1;
+                Meteor.recomputePosition(category.items);
             }
         });
     }

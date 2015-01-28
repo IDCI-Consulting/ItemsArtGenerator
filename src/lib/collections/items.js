@@ -4,6 +4,23 @@ Meteor.methods({
     changeStationsRadius: function (projectId, radius) {
 
         Items.update({projectId: projectId}, {$set: {"options.subway.r": radius}}, {multi: true});
+    },
+    removeItem: function (item) {
+        // Delete item from Category
+        var category = ItemCategories.findOne(item.categories[0]);
+        Meteor.removeCategoryItem(category, item._id);
+        ItemCategories.update(category._id, {$set: {items: category.items}});
+        var mongoItem = Items.findOne(item._id);
+
+        // Delete category from item
+        var index = mongoItem.categories.indexOf(category._id);
+        mongoItem.categories.splice(index, 1);
+        Items.update(mongoItem._id, {$set: {categories: mongoItem.categories}});
+
+        // Delete item in mongo if there is no category for this item
+        if (mongoItem.categories.length === 0) {
+            Items.remove(mongoItem._id);
+        }
     }
 });
 

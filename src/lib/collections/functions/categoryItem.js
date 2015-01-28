@@ -25,7 +25,6 @@ Meteor.addCategoryItem = function(category, itemId) {
 
 Meteor.removeCategoryItem = function(category, itemId) {
     var deletedKey;
-
     _.each(category.items, function(value, key) {
         // delete the item
         if(itemId === value) {

@@ -9,7 +9,7 @@ Meteor.methods({
 
 Items.find({}).observe({
     changed: function(newDocument, oldDocument) {
-        if (newDocument.categories && oldDocument.categories) {
+        if (newDocument.categories !== oldDocument.categories) {
             Meteor.updateCategoryItem(newDocument, oldDocument);
         }
     },

@@ -12,11 +12,10 @@ ItemCategories.find({}).observe({
                 item.categories.splice(index, 1);
             }
 
+            Items.update(item._id, {$set: {categories: item.categories}});
             if (item.categories.length === 0) {
                 Items.remove(item._id);
             }
-
-            Items.update(item._id, {$set: {categories: item.categories}});
         });
     }
 });

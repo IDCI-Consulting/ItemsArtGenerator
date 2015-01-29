@@ -2,6 +2,7 @@ Parameters = {
     'api_public_endpoint': 'http://localhost:3000',
     'allowed_parameters': [
         {
+            'multiple': true,
             'name': 'tags',
             'elements': [
                 'anniversaire',
@@ -16,6 +17,23 @@ Parameters = {
                 'actualite',
                 'alimentation',
                 'travail'
+            ]
+        },
+        {
+            'multiple': false,
+            'name': 'visibility',
+            'elements': [
+                'private',
+                'public'
+            ]
+        },
+        {
+            'multiple': false,
+            'name': 'state',
+            'elements': [
+                'published',
+                'blocked',
+                'new'
             ]
         }
     ]

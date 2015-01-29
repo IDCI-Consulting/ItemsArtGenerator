@@ -284,33 +284,42 @@ Router.map(function() {
 
     /**
      * Build a mongo query from request parameters
-     * 
+     *
      * @param : the query from the request
      * @return : the mongo query
      */
     function buildMongoQuery(query) {
         var builtQuery = {
             // TODO uncomment if needed
-            /*visibility: 'public',
-            publicationState: 'published',*/
+            /*publicationState: 'published',*/
+            visibility: 'public',
             'isModel': { $exists: false }
         };
-        var fields = {
+        var arrayFields = {
             // 'query_parameter': 'matching_project_field'
             'tags': 'tags',
             'authors': 'authors',
-            'types' : 'type'
+            'types': 'type'
         };
+        var fields = ['visibility', 'state'];
 
-        for (var parameter in fields) {
-            if (fields.hasOwnProperty(parameter)) {
+        // array parameter
+        for (var parameter in arrayFields) {
+            if (arrayFields.hasOwnProperty(parameter)) {
                 // hasOwnProperty is used to check if your target really have that property, rather than have it inherited from its prototype
-                var field = fields[parameter];
+                var field = arrayFields[parameter];
                 var parametersForField = query[parameter];
-                // if the query has a parameter we can find in fields
+                // if the query has a parameter we can find in arrayFields
                 if (query[parameter]) {
                     builtQuery[field] = { '$in': parametersForField };
                 }
+            }
+        }
+
+        // simple parameter
+        for (var property in query) {
+            if (query.hasOwnProperty(property) && !arrayFields.hasOwnProperty(property) && fields.indexOf(property) !== -1) {
+              builtQuery[property] = query[property];
             }
         }
 
@@ -319,7 +328,7 @@ Router.map(function() {
 
     /**
      * Build mongo filters from request parameters
-     * 
+     *
      * @params : the query parameters
      * @return : the mongo query filter
      */
@@ -343,7 +352,7 @@ Router.map(function() {
 
     /**
      * Get sort from request parameters
-     * 
+     *
      * @params : the query parameters
      * @return : the mongo sort object for the query filters
      */
@@ -367,7 +376,7 @@ Router.map(function() {
 
     /**
      * Get infos used to render an image from a project with the query parameters
-     * 
+     *
      * @params : the query parameters
      * @return : the info
      */
@@ -380,7 +389,7 @@ Router.map(function() {
         };
 
         var partToRender = params.query.part;
-        
+
         var availableParts = ['title', 'legend', 'map'];
         if (availableParts.indexOf(partToRender) == -1) {
             partToRender = 'raw';

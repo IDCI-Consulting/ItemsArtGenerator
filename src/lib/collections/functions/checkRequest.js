@@ -1,6 +1,6 @@
 /**
  * Check if the request is as expected
- * 
+ *
  * @param action: the action being processed, which contains the request
  * @param method : the request method to be checked
  * @param dataArray : an array of data whose elements must be in the request data (for post and put method for example)
@@ -10,20 +10,41 @@
  */
 
 Meteor.checkRequest = function(action, method, dataArray, headersDataArray) {
+
+    var getUsefulParams = function(query) {
+        var allowedParams = Parameters.allowed_parameters;
+        for (var i = 0; i < allowedParams.length; i++) {
+            if (!query.hasOwnProperty(allowedParams[i]['name'])) {
+                allowedParams.splice(i, 1);
+            }
+        }
+
+        return allowedParams;
+    }
+
     // throw a 400 if some query parameters are not allowed
     var query = action.request.query;
-    var allowedParams = Parameters.allowed_parameters;
-    for (var i = 0; i < allowedParams.length; i++) {
-        var paramName = allowedParams[i]['name'];
-        var elements = allowedParams[i]['elements'];
+    var usefulParams = getUsefulParams(query);
+    for (var i = 0; i < usefulParams.length; i++) {
+        var paramName = usefulParams[i]['name'];
+        var elements = usefulParams[i]['elements'];
+        var multipleBool = usefulParams[i]['multiple'];
         if (query.hasOwnProperty(paramName)) {
-            for (var j = 0; j < query[paramName].length; j++) {
-                if (elements.indexOf(query[paramName][j]) === -1) {
+            if (multipleBool) {
+                for (var j = 0; j < query[paramName].length; j++) {
+                    if (elements.indexOf(query[paramName][j]) === -1) {
+                        action.response.writeHead(400, {'Content-Type': 'text/html'});
+                        action.response.end("The value '"+query[paramName][j]+"' of the parameter '"+paramName+"' is not allowed");
+                    }
+                }
+            } else {
+                if (elements.indexOf(query[paramName]) === -1) {
                     action.response.writeHead(400, {'Content-Type': 'text/html'});
-                    action.response.end("The value '"+query[paramName][j]+"' of the parameter '"+paramName+"' is not allowed");
+                    action.response.end("The value '"+query[paramName]+"' of the parameter '"+paramName+"' is not allowed");
                 }
             }
         }
+
     }
 
     // throw a 405 if project not found

@@ -45,13 +45,16 @@
                     <input type="text" name="tags" value="{{tags}}" placeholder="Tags" />
                 </div>
             </div>
-
+        {{/if}}
+        {{#if isNotBlocked}}
             <div class="row">
                 <div class="large-12 columns">
                     <label for="State">State</label>
                     <select name="state">
                         <option value="new">New</option>
-                        <option value="blocked">Blocked</option>
+                        {{#if isAdmin}}
+                            <option value="blocked">Blocked</option>
+                        {{/if}}
                         <option value="published">Published</option>
                     </select>
                 </div>

@@ -2,6 +2,14 @@ Template.projectEdit.helpers({
     isAdmin: function() {
         var user = Meteor.users.findOne(Meteor.userId());
         return user.profile.isAdmin;
+    },
+    isNotBlocked: function() {
+        var user = Meteor.users.findOne(Meteor.userId());
+        if (this.state === 'blocked' && !user.profile.isAdmin) {
+              return false;
+        }
+
+        return true;
     }
 });
 
@@ -11,6 +19,9 @@ Template.projectEdit.rendered = function() {
             dateFormat: 'dd-mm-yy'
         });
     }
+
+    Meteor.setSelectedValue($('select[name="visibility"]'), this.data.visibility);
+    Meteor.setSelectedValue($('select[name="state"]'), this.data.state);
 };
 
 Template.projectEdit.events({

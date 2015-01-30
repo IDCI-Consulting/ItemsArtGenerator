@@ -50,7 +50,7 @@ Meteor.removeCategoryItem = function(category, itemId) {
 Meteor.updateCategoryItem = function(newItem, oldItem) {
     var category = {};
     // Check if category is removed
-    if(newItem.categories.length <= oldItem.categories.length) {
+    if(newItem.categories.length < oldItem.categories.length) {
         _.each(oldItem.categories, function(categoryIdFromOld, keyFromOld) {
             if(newItem.categories.length === 0 || newItem.categories.indexOf(categoryIdFromOld) === -1) {
                 // Remove the item in collection if category is unchecked
@@ -64,13 +64,15 @@ Meteor.updateCategoryItem = function(newItem, oldItem) {
     }
 
     // Check if category is added
-    if(newItem.categories.length >= oldItem.categories.length) {
+    if(newItem.categories.length > oldItem.categories.length) {
         _.each(newItem.categories, function(categoryIdFromNew, keyFromNew) {
             if(oldItem.categories.length === 0 || oldItem.categories.indexOf(categoryIdFromNew) === -1) {
                 // Add the item in category's collection if category's checkbox checked
                 category = ItemCategories.findOne(categoryIdFromNew);
-                Meteor.addCategoryItem(category, newItem._id);
-                ItemCategories.update(category._id, {$set: {items: category.items}});
+                if (category != undefined) {
+                    Meteor.addCategoryItem(category, newItem._id);
+                    ItemCategories.update(category._id, {$set: {items: category.items}});
+                }
             }
         });
     }

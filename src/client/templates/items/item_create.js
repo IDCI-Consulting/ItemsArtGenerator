@@ -1,6 +1,6 @@
 Template.itemCreate.helpers({
     categories: function() {
-        return ItemCategories.find({projectId: this.projectId});
+        return ItemCategories.find({projectId: this.projectId}, {sort: { name: 1 }});
     },
     isAdmin: function() {
         var user = Meteor.users.findOne(Meteor.userId());

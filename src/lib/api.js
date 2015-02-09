@@ -291,7 +291,7 @@ Router.map(function() {
     function buildMongoQuery(query) {
         var builtQuery = {
             // TODO uncomment if needed
-            /*publicationState: 'published',*/
+            state: 'published',
             visibility: 'public',
             'isModel': { $exists: false }
         };

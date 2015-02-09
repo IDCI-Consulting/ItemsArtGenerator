@@ -24,13 +24,17 @@
             <p class="error"></p>
         </div>
 
-        {{#if isAdmin}}
-            <div class="row">
+        <div class="row">
+            {{#if isAdmin}}
                 <div class="large-12 columns">
                     {{displayFormOptions this 'item'}}
                 </div>
-            </div>
-        {{/if}}
+            {{else}}
+                <div class="large-12 columns" style="display: none;">
+                    {{displayFormOptions this 'item'}}
+                </div>
+            {{/if}}
+        </div>
 
         <div class="row">
             <div class="large-12 columns">

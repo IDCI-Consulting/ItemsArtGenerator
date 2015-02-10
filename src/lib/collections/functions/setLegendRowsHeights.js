@@ -7,15 +7,20 @@ Meteor.setLegendRowsHeights = function(lineHeight) {
         max = 0,
         cpt = 0,
         loop = 0
-        ;
-    _.each(lines, function(elt) {
-        var stopsLength = $(elt).find('ul > li').length;
+    ;
+    _.each(lines, function(elt, index) {
         cpt++;
-        max = max < stopsLength ? stopsLength : max;
+        var stopsLength = $(elt).find('ul > li').length;
+        var pHeight = $(elt).find('span > p').height();
+        var currentHeight = pHeight + (lineHeight * stopsLength) + 25;
+        max = max < currentHeight ? currentHeight : max;
+        console.log("index = "+index);
+        console.log("stop = "+stopsLength);
+        console.log("pheight = "+pHeight);
         if (cpt === 7) {
-            jQuery("#subway-legend > ul.inline-list > li > ul")
+            jQuery("#subway-legend > ul.inline-list > li")
                 .slice(loop*7, loop*7+7)
-                .css('height', lineHeight*max+'px')
+                .css('height', max+'px')
             ;
             loop++;
             max = cpt = 0;

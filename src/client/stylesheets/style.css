@@ -254,7 +254,7 @@ button.tiny, .button.tiny {
 }
 
 #subway-legend > ul > li {
-    min-width: 140px;
+    width: 140px;
     margin: 10px;
 }
 
@@ -272,6 +272,14 @@ button.tiny, .button.tiny {
     margin: 0;
     padding: 0 10px;
     line-height: 14px;
+}
+
+#subway-legend > ul > li > ul {
+    margin-left: 5px;
+}
+
+#raw > #subway-legend > ul > li > ul > li {
+    font-size: 14px !important;
 }
 
 #subway-legend > ul > li > ul > li {

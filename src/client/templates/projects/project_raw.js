@@ -8,3 +8,7 @@ Template.projectRaw.helpers({
         return 'rgb(255,250,230)';
     }
 });
+
+Template.projectRaw.rendered = function()  {
+    Meteor.setLegendRowsHeights(19);
+};

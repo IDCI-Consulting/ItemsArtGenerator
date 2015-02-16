@@ -1,6 +1,9 @@
 Template.itemCategoriesList.helpers({
     itemCategories: function() {
-        return ItemCategories.find({projectId: this._id}, {sort: { name: 1 }});
+      var categories = ItemCategories.find({projectId: this._id}, {sort: { name: 1 }}).fetch();
+      return categories.sort(function(firstCategory, secondCategory) {
+        return Meteor.naturalSort(firstCategory.name, secondCategory.name);
+      });
     }
 });
 

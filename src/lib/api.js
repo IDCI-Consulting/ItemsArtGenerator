@@ -97,9 +97,6 @@ Router.map(function() {
             var exec = Npm.require('child_process').exec;
             var fs = Npm.require('fs');
             var renderInfo = getRenderInfo(this.params);
-            console.log(renderInfo.cmd);
-            console.log(renderInfo.filePath);
-            console.log(this.params.query.force);
             if (this.params.query.force !== 'true' && fs.existsSync(renderInfo.filePath)) {
                 sendImageResponse(fs, renderInfo, action);
             } else {
@@ -217,7 +214,6 @@ Router.map(function() {
         where: 'server',
         path: '/api/1.0/users/',
         action: function() {
-            console.log(this.request.body);
             var requiredParameters = ['mail'];
             Meteor.checkRequest(this, 'POST', requiredParameters);
             var email = this.request.body.mail;
@@ -414,14 +410,16 @@ Router.map(function() {
         if (availableFormats.indexOf(format) == -1) {
             format = 'jpeg';
         }
-        console.log(format);
         var projectId = params._id;
         var url = Parameters.api_public_endpoint+'/project/'+projectId+'/'+partToRender;
-        var imageHash = projectId+Meteor.hashCode(JSON.stringify(params.query));
+        var query = JSON.parse(JSON.stringify(params.query));
+        delete query.force; // we don't want the force attribute to appear in the hash
+        var imageHash = projectId+Meteor.hashCode(JSON.stringify(query));
         var filePath = process.env.PWD+'/.uploads/'+imageHash+'.'+format;
         var zoom = params.query.zoom ? params.query.zoom : 1;
         var quality = params.query.quality ? params.query.quality : 100;
         var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' '+format+' '+zoom+' '+quality;
+        console.log(cmd);
         if (params.query.mode) {
             cmd += params.query.mode;
         }

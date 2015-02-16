@@ -1,6 +1,12 @@
 ItemCategories = new Mongo.Collection('itemCategories');
 
 ItemCategories.find({}).observe({
+    changed: function(newDocument, oldDocument) {
+      var project = Projects.findOne(newDocument.projectId);
+      if (project.state === "published") {
+        Meteor.unpublishedActions(project._id);
+      }
+    },
     removed: function(oldDocument) {
         var items = Items.find({categories: {$in: [oldDocument._id]}}).fetch();
 

@@ -20,6 +20,7 @@ Meteor.methods({
         // Delete item in mongo if there is no category for this item
         if (mongoItem.categories.length === 0) {
             Items.remove(mongoItem._id);
+
         }
     }
 });
@@ -30,6 +31,10 @@ Items.find({}).observe({
             if(newDocument.categories.length !== oldDocument.categories.length) {
                 Meteor.updateCategoryItem(newDocument, oldDocument);
             }
+        }
+        var project = Projects.findOne(newDocument.projectId);
+        if (project.state === "published") {
+          Meteor.unpublishedActions(project._id);
         }
     },
     removed: function(oldDocument) {

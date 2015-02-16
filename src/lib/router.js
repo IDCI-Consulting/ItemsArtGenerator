@@ -32,7 +32,8 @@ ProjectsListController = RouteController.extend({
             Meteor.subscribe('items'),
             Meteor.subscribe('images')
         ];
-    }
+    },
+    fastRender: true
 });
 
 Router.map(function() {
@@ -120,7 +121,8 @@ Router.map(function() {
         },
         yieldTemplates: {
           'header': {to: 'header'}
-        }
+        },
+        fastRender: true
     });
 
     this.route('projectRaw', {
@@ -142,7 +144,8 @@ Router.map(function() {
                     return project;
                 }
             }
-        }
+        },
+        fastRender: true
     });
 
     this.route('projectTitleRaw', {
@@ -164,7 +167,8 @@ Router.map(function() {
                     return project;
                 }
             }
-        }
+        },
+        fastRender: true
     });
 
     this.route('projectMapRaw', {
@@ -186,7 +190,8 @@ Router.map(function() {
                     return project;
                 }
             }
-        }
+        },
+        fastRender: true
     });
 
     this.route('projectLegendRaw', {
@@ -208,7 +213,8 @@ Router.map(function() {
                     return project;
                 }
             }
-        }
+        },
+        fastRender: true
     });
 
     this.route('projectCreate', {

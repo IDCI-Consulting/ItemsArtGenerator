@@ -20,4 +20,5 @@ mrt:jquery-ui
 mrt:modernizr-meteor
 jquery
 tommyjs:colpick
+meteorhacks:fast-render
 

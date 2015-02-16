@@ -5,19 +5,11 @@ Template.projectsList.helpers({
         }
         return Projects.find(
             {
-                $or: [
-                    {
-                        state: "published",
-                        visibility: "public"
-                    },
-                    {
-                        authors: {
-                            $in: [
-                                Meteor.userId()
-                            ]
-                        }
-                    }
+              authors: {
+                $in: [
+                    Meteor.userId()
                 ]
+              }
             },
             {
                 sort: { createdAt : -1 }

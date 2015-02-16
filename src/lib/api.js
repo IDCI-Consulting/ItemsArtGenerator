@@ -95,39 +95,28 @@ Router.map(function() {
             checkCollectionEntryExists(this, { 'collection': 'Projects', 'id' : this.params._id });
             // render the project
             var exec = Npm.require('child_process').exec;
+            var fs = Npm.require('fs');
             var renderInfo = getRenderInfo(this.params);
             console.log(renderInfo.cmd);
-            exec(renderInfo.cmd,
-                function (error, stdout, stderr) {
-                    console.log('stdout: ' + stdout);
-                    console.log('stderr: ' + stderr);
-                    if (error !== null) {
-                        console.log('exec error: ' + error);
+            console.log(renderInfo.filePath);
+            console.log(this.params.query.force);
+            if (this.params.query.force !== 'true' && fs.existsSync(renderInfo.filePath)) {
+                sendImageResponse(fs, renderInfo, action);
+            } else {
+                exec(renderInfo.cmd,
+                    function (error, stdout, stderr) {
+                        console.log('stdout: ' + stdout);
+                        console.log('stderr: ' + stderr);
+                        if (error !== null) {
+                            console.log('exec error: ' + error);
+                        }
+                        sendImageResponse(fs, renderInfo, action);
                     }
-                    var fs = Npm.require('fs');
-                    fs.readFile(renderInfo.filePath, function(err, data) {
-                        // Fail if the file can't be read
-                        if (err) {
-                            action.response.writeHead(500, {'Content-Type': 'text/html'});
-                            action.response.end('Internal server error');
-                        }
-                        //set the response
-                        if (action.params.mode == 'base64') {
-                            fs.writeFile(renderInfo.filePath, data, function(err) {});
-                            var base64Image = new Buffer(data, 'binary').toString('base64');
-                            action.response.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
-                            action.response.end('data:image/'+renderInfo.format+';base64,'+base64Image);
-                        } else {
-                            action.response.writeHead(200, {'Content-Type': 'image/'+renderInfo.format, 'Access-Control-Allow-Origin': '*'});
-                            action.response.end(data);
-                        }
-                    });
-                }
-            );
+                );
+            }
         }
     });
 
-    // TODO Quick and dirty, refactor code
     /**
      * Render the insight of a project
      * Method GET
@@ -143,8 +132,11 @@ Router.map(function() {
             var exec = Npm.require('child_process').exec;
             var url = Parameters.api_public_endpoint+'/project/'+this.params._id+'/raw';
             var filePath = process.env.PWD+'/.uploads/'+this.params._id+'.jpg';
-            var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' jpeg 1 40';
-            exec(cmd,
+            var renderInfo = {};
+            renderInfo.cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' jpeg 1 40';
+            renderInfo.format = 'jpeg';
+            renderInfo.filePath = process.env.PWD+'/.uploads/'+this.params._id+'.jpeg';
+            exec(renderInfo.cmd,
                 function (error, stdout, stderr) {
                     console.log('stdout: ' + stdout);
                     console.log('stderr: ' + stderr);
@@ -152,16 +144,7 @@ Router.map(function() {
                         console.log('exec error: ' + error);
                     }
                     var fs = Npm.require('fs');
-                    fs.readFile(filePath, function(err, data) {
-                        // Fail if the file can't be read
-                        if (err) {
-                            action.response.writeHead(500, {'Content-Type': 'text/html'});
-                            action.response.end('Internal server error');
-                        }
-                        //set the response
-                        action.response.writeHead(200, {'Content-Type': 'image/jpeg', 'Access-Control-Allow-Origin': '*'});
-                        action.response.end(data);
-                    });
+                    sendImageResponse(fs, renderInfo, action);
                 }
             );
         }
@@ -259,6 +242,35 @@ Router.map(function() {
     /*********************/
     /***METHODS FOR API***/
     /*********************/
+
+    /**
+     * Send an image as a response
+     *
+     * @param fs
+     * @param renderInfo
+     * @param action
+     */
+    function sendImageResponse(fs, renderInfo, action) {
+        fs.readFile(renderInfo.filePath, function(err, data) {
+            // Fail if the file can't be read
+            if (err) {
+                action.response.writeHead(500, {'Content-Type': 'text/html'});
+                action.response.end('Internal server error');
+            }
+            //set the response
+            if (action.params.mode == 'base64') {
+                fs.writeFile(renderInfo.filePath, data, function(err) {});
+                var base64Image = new Buffer(data, 'binary').toString('base64');
+                action.response.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
+                action.response.end('data:image/'+renderInfo.format+';base64,'+base64Image);
+            } else {
+                action.response.writeHead(200, {'Content-Type': 'image/'+renderInfo.format, 'Access-Control-Allow-Origin': '*'});
+                action.response.end(data);
+            }
+        });
+    }
+
+
 
     /**
      * Check if a collection entry exists
@@ -405,7 +417,8 @@ Router.map(function() {
         console.log(format);
         var projectId = params._id;
         var url = Parameters.api_public_endpoint+'/project/'+projectId+'/'+partToRender;
-        var filePath = process.env.PWD+'/.uploads/'+projectId+'.'+format;
+        var imageHash = projectId+Meteor.hashCode(JSON.stringify(params.query));
+        var filePath = process.env.PWD+'/.uploads/'+imageHash+'.'+format;
         var zoom = params.query.zoom ? params.query.zoom : 1;
         var quality = params.query.quality ? params.query.quality : 100;
         var cmd = 'phantomjs '+process.env.PWD+'/public/scripts/phantomjs-screenshot.js '+url+' '+filePath+' '+format+' '+zoom+' '+quality;

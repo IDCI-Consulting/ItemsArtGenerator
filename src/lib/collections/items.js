@@ -33,11 +33,16 @@ Items.find({}).observe({
             }
         }
         var project = Projects.findOne(newDocument.projectId);
-        if (project.state === "published") {
+        if (project && project.state === "published") {
           Meteor.unpublishedActions(project._id);
         }
     },
     removed: function(oldDocument) {
+
+      	var project = Projects.findOne(oldDocument.projectId);
+      	if (project && project.state === "published") {
+      	  Meteor.unpublishedActions(project._id);
+      	}
         // Remove the deleted item for each category
         if (oldDocument.categories.length !== 0) {
             _.each(oldDocument.categories, function(categoryId) {

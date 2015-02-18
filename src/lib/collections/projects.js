@@ -1,13 +1,5 @@
 Projects = new Mongo.Collection('projects');
 
-Projects.find({}).observe({
-  changed: function(newDocument, oldDocument) {
-    if (newDocument.state === "published") {
-      Meteor.unpublishedActions(newDocument._id);
-    }
-  }
-});
-
 Projects.allow({
     insert: function(userId, doc) {
         if (Meteor.checkIfUserIsAdmin(userId)) {

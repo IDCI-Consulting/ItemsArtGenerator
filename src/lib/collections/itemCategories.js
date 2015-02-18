@@ -3,13 +3,17 @@ ItemCategories = new Mongo.Collection('itemCategories');
 ItemCategories.find({}).observe({
     changed: function(newDocument, oldDocument) {
       var project = Projects.findOne(newDocument.projectId);
-      if (project.state === "published") {
+      if (project && project.state === "published") {
         Meteor.unpublishedActions(project._id);
       }
     },
     removed: function(oldDocument) {
         var items = Items.find({categories: {$in: [oldDocument._id]}}).fetch();
 
+      	var project = Projects.findOne(oldDocument.projectId);
+      	if (project && project.state === "published") {
+      	  Meteor.unpublishedActions(project._id);
+      	}
         // Remove the deleted category for each item
         _.each(items, function(item) {
             var index = item.categories.indexOf(oldDocument._id);
@@ -23,7 +27,7 @@ ItemCategories.find({}).observe({
             }
             var item = Items.findOne(item._id);
             if (item) {
-              Items.update(item._id, {$set: {categories: item.categories}});
+                Items.update(item._id, {$set: {categories: item.categories}});
             }
         });
     }
